@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll": true,
+    "source.fixAll.eslint": true
+  },
+  "tailwindCSS.experimental.classRegex": [
+    "css`([^`]*)", // css`...`
+    "css=\"([^\"]*)", // <div css="..." />
+    "css='([^']*)", // <div css="..." />
+    "css={\"([^\"}]*)" // <div css={"..."} />
+  ]
+}
