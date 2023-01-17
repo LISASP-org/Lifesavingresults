@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 
 type Props = {
   css?: string;
-  children: ReactElement | ReactElement[] | string;
+  children?: ReactElement | ReactElement[] | boolean | string;
 };
 
 export const Row = (props: Props) => {

@@ -3,6 +3,7 @@
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
     "dbaeumer.vscode-eslint",
-    "ZixuanChen.vitest-explorer"
+    "ZixuanChen.vitest-explorer",
+    "kingwl.vscode-vitest-runner"
   ]
 }

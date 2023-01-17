@@ -6,9 +6,9 @@
     "source.fixAll.eslint": true
   },
   "tailwindCSS.experimental.classRegex": [
-    "css`([^`]*)", // tw`...`
-    "css=\"([^\"]*)", // <div tw="..." />
-    "css='([^']*)", // <div tw="..." />
-    "css={\"([^\"}]*)" // <div tw={"..."} />
+    "css`([^`]*)", // css`...`
+    "css=\"([^\"]*)", // <div css="..." />
+    "css='([^']*)", // <div css="..." />
+    "css={\"([^\"}]*)" // <div css={"..."} />
   ]
 }
