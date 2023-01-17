@@ -21,4 +21,8 @@ const App = () => {
   );
 };
 
+export const add = (i: number, j: number) => {
+  return i + j;
+};
+
 export default App;
