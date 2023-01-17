@@ -12,11 +12,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+          dir: "apps/lifesaving-results"
 
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
           cmd: install # will run `yarn install` command
+          dir: "apps/lifesaving-results"
 
       - name: Build production bundle
         uses: borales/actions-yarn@v4
