@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   keycloak:
-    image: jboss/keycloak
+    image: jboss/keycloak:16.1.1
     container_name: keycloak
     restart: unless-stopped
     ports:
@@ -13,6 +13,7 @@ services:
       - PROXY_ADDRESS_FORWARDING=true
       - KEYCLOAK_LOGLEVEL=INFO
       - KEYCLOAK_STATISTICS=all
+      - KEYCLOAK_IMPORT=/opt/jboss/keycloak/imports/realm-export.json -Dkeycloak.profile.feature.upload_scripts=enabled
       - DB_VENDOR=POSTGRES
       - DB_ADDR=keycloak-postgres
       - DB_USER=postgres
@@ -23,11 +24,15 @@ services:
       - internal
     depends_on:
       - keycloak-postgres
+    volumes:
+      - ./.keycloak/imports:/opt/jboss/keycloak/imports/
 
   keycloak-postgres:
     image: postgres
     container_name: keycloak-postgres
     restart: unless-stopped
+    ports:
+      - 48081:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DATABASE=postgres
