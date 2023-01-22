@@ -1,0 +1,14 @@
+package org.lisasp.results.imports.jauswertung.model;
+
+import lombok.Data;
+import lombok.Value;
+
+@Data
+public class Swimmer {
+    private String startnumber;
+    private String firstName;
+    private String lastName;
+    private String organization;
+    private String sex;
+    private int yearOfBirth;
+}
