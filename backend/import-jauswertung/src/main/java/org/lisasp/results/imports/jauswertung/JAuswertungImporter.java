@@ -28,7 +28,7 @@ public class JAuswertungImporter {
     public Competition importCompetition(org.lisasp.results.imports.jauswertung.model.Competition competition) {
         Event[] events = importEvents(competition.getEvents());
 
-        return new Competition("", 0, competition.getName(), "", null, null, events);
+        return new Competition(competition.getName(), "", null, null, events);
     }
 
     private Event[] importEvents(org.lisasp.results.imports.jauswertung.model.Event[] importedEvents) {
