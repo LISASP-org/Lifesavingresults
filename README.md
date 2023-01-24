@@ -13,6 +13,8 @@ Go to directory `backend` in the root of this project and do the following
 - Log in with the admin username "keycloak" and password "keycloak" (as defined in file `.env`).
 - Make sure the realm "lifesaving" exists, has a client "lifesaving-results-webapp" and the users were created.
 
+- Realm users "felix" and "dennis" should automatically be created. By default the password is equal to the username, so password for "felix" is "felix" and password for "dennis" is "dennis".
+
 ## Export Realm
 
 When you change settings in the realm, the client or add/update users you should export these settings, such that those settings are stored in the repository and can be applied by any other developer.
