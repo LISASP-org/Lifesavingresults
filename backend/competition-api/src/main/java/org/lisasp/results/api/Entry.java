@@ -6,8 +6,6 @@ import lombok.Value;
 @Value
 @Builder
 public class Entry {
-    private String id;
-    private int version;
     private String number;
     private String name;
     private String club;

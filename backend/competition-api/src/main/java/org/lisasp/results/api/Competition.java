@@ -11,8 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Competition {
 
-    private String id;
-    private int version;
     private String name;
     private String acronym;
     private LocalDate from;

@@ -80,7 +80,6 @@ class JAuswertungImporterTest {
         assertEquals(1, events.length);
         Event event = events[0];
 
-        assertNull(event.getId());
         assertEquals(EventTypes.INDIVIDUAL, event.getEventType());
         assertEquals(new Round((byte) 0, true), event.getRound());
         assertEquals("AK 12", event.getAgegroup());
