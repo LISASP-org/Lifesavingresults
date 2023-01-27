@@ -8,7 +8,7 @@ export const competitionByIdRoute = new Route({
   parseParams: (raw) => ({ competitionId: Number(raw.competitionId) }),
   stringifyParams: (params) => ({ competitionId: params.competitionId + '' }),
   component: () => {
-    const { competitionId } = useParams();
+    const { competitionId } = useParams({ from: competitionByIdRoute.id });
     return (
       <>
         <Row>
