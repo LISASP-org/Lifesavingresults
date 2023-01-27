@@ -1,19 +1,35 @@
 package org.lisasp.results.model;
 
-import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import lombok.Data;
-import org.hibernate.annotations.Type;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.lisasp.basics.spring.jpa.BaseEntity;
-import org.lisasp.results.api.Penalty;
-import org.lisasp.results.api.Start;
-import org.lisasp.results.api.Swimmer;
+import org.lisasp.results.base.api.value.Penalty;
+import org.lisasp.results.base.api.value.Start;
+import org.lisasp.results.base.api.value.Swimmer;
+import org.lisasp.results.model.converter.PenaltyArrayConverter;
+import org.lisasp.results.model.converter.StartConverter;
+import org.lisasp.results.model.converter.SwimmerArrayConverter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"event"})
+@NoArgsConstructor
 public class EntryEntity extends BaseEntity {
+
+    private final static Penalty[] emptyPenalties = new Penalty[0];
+    private final static Swimmer[] emptySwimmers = new Swimmer[0];
+
+    public EntryEntity(EventEntity event) {
+        this.event = event;
+    }
+
     @ManyToOne
     private EventEntity event;
     private String number;
@@ -22,13 +38,26 @@ public class EntryEntity extends BaseEntity {
     private String nationality;
     private int timeInMillis;
     private int placeInHeat;
-    @Type(JsonType.class)
-    @Column(columnDefinition = "text")
+    @Convert(converter = PenaltyArrayConverter.class)
+    @Column(columnDefinition = "text", length = 1000)
     private Penalty[] penalties;
-    @Type(JsonType.class)
-    @Column(columnDefinition = "text")
+    @Convert(converter = SwimmerArrayConverter.class)
+    @Column(columnDefinition = "text", length = 1000)
     private Swimmer[] swimmer;
-    @Type(JsonType.class)
-    @Column(columnDefinition = "text")
+    @Convert(converter = StartConverter.class)
+    @Column(columnDefinition = "text", length = 100)
     private Start start;
+
+    public boolean matches(String number) {
+        return this.number.equals(number);
+    }
+
+    public void fixNull() {
+        if (penalties == null) {
+            penalties = emptyPenalties;
+        }
+        if (swimmer == null) {
+            swimmer = emptySwimmers;
+        }
+    }
 }

@@ -9,12 +9,16 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>competition-api</artifactId>
+    <artifactId>imports-core</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.lisasp.results</groupId>
-            <artifactId>base-api</artifactId>
+            <artifactId>competition-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lisasp.results</groupId>
+            <artifactId>imports-jauswertung</artifactId>
         </dependency>
     </dependencies>
 </project>
