@@ -1,16 +1,23 @@
+import type { MakeLinkPropsOptions, RegisteredRoutesInfo } from '@tanstack/react-router';
+import { Link as RouterLink } from '@tanstack/react-router';
 import classNames from 'classnames';
-import type { ReactElement } from 'react';
 
-type Props = {
-  href: string;
-  css?: string;
-  children: ReactElement | ReactElement[] | string;
-};
-
-export const Link = (props: Props) => {
+export const Link = <
+  TDefaultFrom extends RegisteredRoutesInfo['routePaths'] = '/',
+  TDefaultTo extends string = '.'
+>(
+  props: MakeLinkPropsOptions<TDefaultFrom, TDefaultTo>
+) => {
   return (
-    <a href={props.href} className={classNames(['underline', props.css])}>
+    // @ts-ignore
+    <RouterLink
+      {...props}
+      className={classNames([
+        'underline outline-none hover:text-inherit',
+        props.className,
+      ])}
+    >
       {props.children}
-    </a>
+    </RouterLink>
   );
 };

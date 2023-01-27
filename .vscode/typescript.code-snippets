@@ -4,15 +4,15 @@
     "prefix": "component",
     "body": [
       "import classNames from 'classnames';",
-      "import type { ReactElement } from 'react';",
+      "import type { ReactNode } from 'react';",
       "",
       "type Props = {",
-      "  css?: string;",
-      "  children: ReactElement | ReactElement[] | string;",
+      "  className?: string;",
+      "  children: ReactNode;",
       "};",
       "",
       "export const ${1:$TM_FILENAME_BASE} = (props: Props) => {",
-      "  return <div className={classNames(['', props.css])}>{props.children}</div>;",
+      "  return <div className={classNames(['', props.className])}>{props.children}</div>;",
       "};"
     ]
   }
