@@ -2,6 +2,7 @@
   "name" : "Bezirksmeisterschaften Musterhausen",
   "events" : [ {
     "agegroup" : "AK 12",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -171,8 +172,7 @@
       "penalties" : [ {
         "name" : "P4#4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "3",
@@ -480,10 +480,10 @@
         "heat" : "2",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 12",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*25m Rückenlage ohne Armtätigkeit",
     "round" : 0,
@@ -575,8 +575,7 @@
       "penalties" : [ {
         "name" : "",
         "type" : "Points",
-        "points" : 50,
-        "realPenalty" : true
+        "points" : 50
       } ],
       "swimmer" : [ {
         "startnumber" : "12",
@@ -619,8 +618,7 @@
       "penalties" : [ {
         "name" : "P10",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "2",
@@ -702,8 +700,7 @@
       "penalties" : [ {
         "name" : "W2#2",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "4",
@@ -972,10 +969,10 @@
         "heat" : "2",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 12",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*25m Gurtretterstaffel",
     "round" : 0,
@@ -1449,10 +1446,10 @@
         "heat" : "2",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 12",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*25m Rettungsstaffel",
     "round" : 0,
@@ -1926,10 +1923,10 @@
         "heat" : "2",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 12",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -2099,8 +2096,7 @@
       "penalties" : [ {
         "name" : "W4#4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "14",
@@ -2260,8 +2256,7 @@
       "penalties" : [ {
         "name" : "W1#3",
         "type" : "Points",
-        "points" : 50,
-        "realPenalty" : true
+        "points" : 50
       } ],
       "swimmer" : [ {
         "startnumber" : "18",
@@ -2413,10 +2408,10 @@
         "heat" : "3",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 12",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*25m Rückenlage ohne Armtätigkeit",
     "round" : 0,
@@ -2547,8 +2542,7 @@
       "penalties" : [ {
         "name" : "S3",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "24",
@@ -2630,8 +2624,7 @@
       "penalties" : [ {
         "name" : "G10#3",
         "type" : "Points",
-        "points" : 50,
-        "realPenalty" : true
+        "points" : 50
       } ],
       "swimmer" : [ {
         "startnumber" : "15",
@@ -2900,10 +2893,10 @@
         "heat" : "3",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 12",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*25m Gurtretterstaffel",
     "round" : 0,
@@ -3151,8 +3144,7 @@
       "penalties" : [ {
         "name" : "S4#4",
         "type" : "Points",
-        "points" : 50,
-        "realPenalty" : true
+        "points" : 50
       } ],
       "swimmer" : [ {
         "startnumber" : "16",
@@ -3382,10 +3374,10 @@
         "heat" : "3",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 12",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*25m Rettungsstaffel",
     "round" : 0,
@@ -3672,8 +3664,7 @@
       "penalties" : [ {
         "name" : "H2#3",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "17",
@@ -3864,10 +3855,10 @@
         "heat" : "3",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 13/14",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -4341,10 +4332,10 @@
         "heat" : "5",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 13/14",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*25m Puppenstaffel",
     "round" : 0,
@@ -4818,10 +4809,10 @@
         "heat" : "5",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 13/14",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Gurtretterstaffel",
     "round" : 0,
@@ -5295,10 +5286,10 @@
         "heat" : "5",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 13/14",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Rettungsstaffel",
     "round" : 0,
@@ -5312,8 +5303,7 @@
       "penalties" : [ {
         "name" : "R4",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "33",
@@ -5590,8 +5580,7 @@
       "penalties" : [ {
         "name" : "P3#4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "28",
@@ -5782,10 +5771,10 @@
         "heat" : "5",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 13/14",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -6033,8 +6022,7 @@
       "penalties" : [ {
         "name" : "H1#2",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "38",
@@ -6264,10 +6252,10 @@
         "heat" : "8",
         "lane" : 5
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 13/14",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*25m Puppenstaffel",
     "round" : 0,
@@ -6281,8 +6269,7 @@
       "penalties" : [ {
         "name" : "",
         "type" : "DidNotStart",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "44",
@@ -6746,10 +6733,10 @@
         "heat" : "8",
         "lane" : 5
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 13/14",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Gurtretterstaffel",
     "round" : 0,
@@ -7114,8 +7101,7 @@
       "penalties" : [ {
         "name" : "W5#3",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "41",
@@ -7228,10 +7214,10 @@
         "heat" : "8",
         "lane" : 5
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 13/14",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Rettungsstaffel",
     "round" : 0,
@@ -7518,8 +7504,7 @@
       "penalties" : [ {
         "name" : "G3#3",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "39",
@@ -7601,8 +7586,7 @@
       "penalties" : [ {
         "name" : "P2#2",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "41",
@@ -7684,8 +7668,7 @@
       "penalties" : [ {
         "name" : "R4#1",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "43",
@@ -7720,10 +7703,10 @@
         "heat" : "8",
         "lane" : 5
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 15/16",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -7815,13 +7798,11 @@
       "penalties" : [ {
         "name" : "G4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       }, {
         "name" : "",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "57",
@@ -8207,10 +8188,10 @@
         "heat" : "9",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 15/16",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*25m Puppenstaffel",
     "round" : 0,
@@ -8302,8 +8283,7 @@
       "penalties" : [ {
         "name" : "",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "57",
@@ -8502,8 +8482,7 @@
       "penalties" : [ {
         "name" : "R1#3",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "50",
@@ -8663,8 +8642,7 @@
       "penalties" : [ {
         "name" : "P4#3",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "54",
@@ -8699,10 +8677,10 @@
         "heat" : "9",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 15/16",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Gurtretterstaffel",
     "round" : 0,
@@ -8794,8 +8772,7 @@
       "penalties" : [ {
         "name" : "",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "57",
@@ -9181,10 +9158,10 @@
         "heat" : "9",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 15/16",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Rettungsstaffel",
     "round" : 0,
@@ -9237,8 +9214,7 @@
       "penalties" : [ {
         "name" : "H2#2",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "56",
@@ -9281,13 +9257,11 @@
       "penalties" : [ {
         "name" : "W3#4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       }, {
         "name" : "",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "57",
@@ -9673,10 +9647,10 @@
         "heat" : "9",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 15/16",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -10150,10 +10124,10 @@
         "heat" : "11",
         "lane" : 5
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 15/16",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*25m Puppenstaffel",
     "round" : 0,
@@ -10284,8 +10258,7 @@
       "penalties" : [ {
         "name" : "G10#4",
         "type" : "Points",
-        "points" : 50,
-        "realPenalty" : true
+        "points" : 50
       } ],
       "swimmer" : [ {
         "startnumber" : "69",
@@ -10632,10 +10605,10 @@
         "heat" : "11",
         "lane" : 5
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 15/16",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Gurtretterstaffel",
     "round" : 0,
@@ -10883,8 +10856,7 @@
       "penalties" : [ {
         "name" : "P3#2",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "61",
@@ -11114,10 +11086,10 @@
         "heat" : "11",
         "lane" : 5
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 15/16",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Rettungsstaffel",
     "round" : 0,
@@ -11209,8 +11181,7 @@
       "penalties" : [ {
         "name" : "R1#4",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "68",
@@ -11331,8 +11302,7 @@
       "penalties" : [ {
         "name" : "P6",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "71",
@@ -11375,8 +11345,7 @@
       "penalties" : [ {
         "name" : "P3#2",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "61",
@@ -11606,10 +11575,10 @@
         "heat" : "11",
         "lane" : 5
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 17/18",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -11662,8 +11631,7 @@
       "penalties" : [ {
         "name" : "G8#3",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "78",
@@ -12088,10 +12056,10 @@
         "heat" : "13",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 17/18",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*25m Puppenstaffel",
     "round" : 0,
@@ -12378,8 +12346,7 @@
       "penalties" : [ {
         "name" : "G7#1",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "73",
@@ -12461,8 +12428,7 @@
       "penalties" : [ {
         "name" : "H2#4",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "74",
@@ -12505,8 +12471,7 @@
       "penalties" : [ {
         "name" : "P2#1",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "75",
@@ -12580,10 +12545,10 @@
         "heat" : "13",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 17/18",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Gurtretterstaffel",
     "round" : 0,
@@ -12636,8 +12601,7 @@
       "penalties" : [ {
         "name" : "W2#2",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "78",
@@ -12992,8 +12956,7 @@
       "penalties" : [ {
         "name" : "G10#2",
         "type" : "Points",
-        "points" : 50,
-        "realPenalty" : true
+        "points" : 50
       } ],
       "swimmer" : [ {
         "startnumber" : "75",
@@ -13067,10 +13030,10 @@
         "heat" : "13",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 17/18",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Rettungsstaffel",
     "round" : 0,
@@ -13084,8 +13047,7 @@
       "penalties" : [ {
         "name" : "W4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "77",
@@ -13549,10 +13511,10 @@
         "heat" : "13",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 17/18",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -13566,8 +13528,7 @@
       "penalties" : [ {
         "name" : "W5#4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "88",
@@ -13727,8 +13688,7 @@
       "penalties" : [ {
         "name" : "P10",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "92",
@@ -13888,8 +13848,7 @@
       "penalties" : [ {
         "name" : "P1",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "85",
@@ -13971,8 +13930,7 @@
       "penalties" : [ {
         "name" : "G3#1",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "86",
@@ -14046,10 +14004,10 @@
         "heat" : "15",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 17/18",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*25m Puppenstaffel",
     "round" : 0,
@@ -14523,10 +14481,10 @@
         "heat" : "15",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 17/18",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Gurtretterstaffel",
     "round" : 0,
@@ -14735,8 +14693,7 @@
       "penalties" : [ {
         "name" : "G2",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "93",
@@ -14896,8 +14853,7 @@
       "penalties" : [ {
         "name" : "W4#2",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "96",
@@ -15010,10 +14966,10 @@
         "heat" : "15",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK 17/18",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Rettungsstaffel",
     "round" : 0,
@@ -15339,8 +15295,7 @@
       "penalties" : [ {
         "name" : "G8#3",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "85",
@@ -15492,10 +15447,10 @@
         "heat" : "15",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK Offen",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -15587,8 +15542,7 @@
       "penalties" : [ {
         "name" : "G8#4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "101",
@@ -15631,8 +15585,7 @@
       "penalties" : [ {
         "name" : "W3#3",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "102",
@@ -15675,8 +15628,7 @@
       "penalties" : [ {
         "name" : "P1",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "103",
@@ -15984,10 +15936,10 @@
         "heat" : "18",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK Offen",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*25m Puppenstaffel",
     "round" : 0,
@@ -16461,10 +16413,10 @@
         "heat" : "18",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK Offen",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Gurtretterstaffel",
     "round" : 0,
@@ -16829,8 +16781,7 @@
       "penalties" : [ {
         "name" : "S1",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "108",
@@ -16943,10 +16894,10 @@
         "heat" : "18",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK Offen",
+    "competitorType" : "Team",
     "sex" : "w",
     "discipline" : "4*50m Rettungsstaffel",
     "round" : 0,
@@ -17272,8 +17223,7 @@
       "penalties" : [ {
         "name" : "R1#1",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "107",
@@ -17425,10 +17375,10 @@
         "heat" : "18",
         "lane" : 2
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK Offen",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Hindernisstaffel",
     "round" : 0,
@@ -17442,8 +17392,7 @@
       "penalties" : [ {
         "name" : "P3",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "110",
@@ -17907,10 +17856,10 @@
         "heat" : "19",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK Offen",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*25m Puppenstaffel",
     "round" : 0,
@@ -18002,8 +17951,7 @@
       "penalties" : [ {
         "name" : "G7#4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "112",
@@ -18280,8 +18228,7 @@
       "penalties" : [ {
         "name" : "P1#4",
         "type" : "Points",
-        "points" : 200,
-        "realPenalty" : true
+        "points" : 200
       } ],
       "swimmer" : [ {
         "startnumber" : "119",
@@ -18324,8 +18271,7 @@
       "penalties" : [ {
         "name" : "P12",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "109",
@@ -18399,10 +18345,10 @@
         "heat" : "19",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK Offen",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Gurtretterstaffel",
     "round" : 0,
@@ -18876,10 +18822,10 @@
         "heat" : "19",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   }, {
     "agegroup" : "AK Offen",
+    "competitorType" : "Team",
     "sex" : "m",
     "discipline" : "4*50m Rettungsstaffel",
     "round" : 0,
@@ -18971,8 +18917,7 @@
       "penalties" : [ {
         "name" : "G5#3",
         "type" : "Disqualified",
-        "points" : 0,
-        "realPenalty" : true
+        "points" : 0
       } ],
       "swimmer" : [ {
         "startnumber" : "112",
@@ -19358,7 +19303,6 @@
         "heat" : "19",
         "lane" : 1
       }
-    } ],
-    "team" : true
+    } ]
   } ]
 }

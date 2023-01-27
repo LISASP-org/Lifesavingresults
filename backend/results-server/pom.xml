@@ -18,7 +18,19 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.results</groupId>
-            <artifactId>competitions</artifactId>
+            <artifactId>competition-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lisasp.results</groupId>
+            <artifactId>competition-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lisasp.results</groupId>
+            <artifactId>imports-jauswertung</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lisasp.results</groupId>
+            <artifactId>imports-core</artifactId>
         </dependency>
 
         <dependency>
