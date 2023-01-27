@@ -8,13 +8,22 @@ export const Navigation = (props: Props) => {
     <div className="bg-dlrgRed shadow">
       <Row>
         <div className="flex flex-row justify-between items-center">
-          <img width={120} src="/DLRGWortmarke.svg" />
+          <Link to="/">
+            <img width={120} height={19} src="/DLRGWortmarke.svg" />
+          </Link>
           <ul className="flex flex-row gap-2 text-white">
             <li>
-              <Link href="#">Upload</Link>
+              <Link to="/upload">Upload</Link>
             </li>
             <li>
-              <Link href="#">List</Link>
+              <Link to="/list" search={{ num: 4 }}>
+                List
+              </Link>
+            </li>
+            <li>
+              <Link to="/competition/$competitionId" params={{ competitionId: 2 }}>
+                Competition
+              </Link>
             </li>
           </ul>
         </div>

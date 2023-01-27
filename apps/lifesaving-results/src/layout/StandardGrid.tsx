@@ -1,9 +1,15 @@
-import type { ReactElement } from 'react';
+import classNames from 'classnames';
+import type { ReactNode } from 'react';
 
 type Props = {
-  children: ReactElement | ReactElement[] | string;
+  className?: string;
+  children: ReactNode;
 };
 
 export const StandardGrid = (props: Props) => {
-  return <div className="grid grid-cols-12 gap-2">{props.children}</div>;
+  return (
+    <div className={classNames(['grid grid-cols-12 gap-2', props.className])}>
+      {props.children}
+    </div>
+  );
 };
