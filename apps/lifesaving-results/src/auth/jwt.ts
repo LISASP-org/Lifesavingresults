@@ -75,8 +75,6 @@ const fetchNewToken = async () => {
       }
     );
     const responseData = await res.data;
-    console.log({ responseData });
-
     const token = responseData['access_token'];
     localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, token);
     return token;
