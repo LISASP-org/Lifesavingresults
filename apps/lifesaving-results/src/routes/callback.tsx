@@ -1,14 +1,9 @@
+import { Spinner } from '@blueprintjs/core';
 import { Route, useNavigate, useSearch } from '@tanstack/react-router';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import {
-  LOCALSTORAGE_REFRESH_TOKEN_KEY,
-  LOCALSTORAGE_TOKEN_KEY,
-  OAUTH_CLIENT_ID,
-  OAUTH_REDIRECT_URI,
-  OAUTH_TOKEN_ENDPOINT,
-} from '../App';
+import { fetchTokenWithCode } from '../auth/jwt';
+import { FeedbackLayout } from '../layout/FeedbackLayout';
 import { rootRoute } from './_routes';
 
 export const callbackRoute = new Route({
@@ -27,31 +22,12 @@ export const callbackRoute = new Route({
     useEffect(() => {
       if (code) {
         const func = async () => {
-          const res = await axios.post(
-            OAUTH_TOKEN_ENDPOINT,
-            new URLSearchParams({
-              grant_type: 'authorization_code',
-              client_id: OAUTH_CLIENT_ID,
-              redirect_uri: OAUTH_REDIRECT_URI,
-              code,
-            }),
-            {
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }
-          );
-          const responseData = await res.data;
-          localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, responseData['access_token']);
-          localStorage.setItem(
-            LOCALSTORAGE_REFRESH_TOKEN_KEY,
-            responseData['refresh_token']
-          );
+          await fetchTokenWithCode(code);
           setTokensReceived(true);
         };
         func().catch((e) => {
           console.error(e);
-          setError(false);
+          setError(true);
         });
       }
     }, [code]);
@@ -60,6 +36,13 @@ export const callbackRoute = new Route({
       if (tokensReceived) navigate({ to: '/', replace: true });
     }, [tokensReceived]);
 
-    return <span>Logging you in, please stand by ...</span>;
+    return (
+      <FeedbackLayout>
+        <div className="flex flex-row align-middle gap-2 pt-10 text-lg text-white font-bold">
+          <Spinner size={20} />
+          <span>Logging you in, please stand by ...</span>
+        </div>
+      </FeedbackLayout>
+    );
   },
 });

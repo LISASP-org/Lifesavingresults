@@ -1,5 +1,5 @@
 import { Icon } from '@blueprintjs/core';
-import { getLogin } from '../auth/login';
+import { getLoginUrl, getLogoutUrl } from '../auth/login';
 import { Link } from '../components/Link';
 import { useUser } from '../hooks/auth/useUser';
 import { Row } from './Row';
@@ -8,7 +8,6 @@ type Props = {};
 
 export const Navigation = (props: Props) => {
   const { loggedIn, name, preferred_username } = useUser();
-  const { loginUrl } = getLogin();
 
   return (
     <div className="bg-dlrgRed shadow">
@@ -19,16 +18,22 @@ export const Navigation = (props: Props) => {
           </Link>
           <ul className="flex flex-row gap-2 text-white">
             <li>
-              <Link to="/competition/$competitionId" params={{ competitionId: 2 }}>
-                Competition
-              </Link>
-            </li>
-            <li>
               {loggedIn ? (
-                <span>Hi, {name ?? preferred_username}</span>
+                <div className="flex flex-row gap-2">
+                  <span>Hi, {name ?? preferred_username}</span>
+                  <a
+                    href={getLogoutUrl()}
+                    className="underline outline-none hover:text-inherit"
+                  >
+                    Logout <Icon icon="log-out" />
+                  </a>
+                </div>
               ) : (
-                <a href={loginUrl} className="underline outline-none hover:text-inherit">
-                  Login <Icon icon="user" />
+                <a
+                  href={getLoginUrl()}
+                  className="underline outline-none hover:text-inherit"
+                >
+                  Login <Icon icon="log-in" />
                 </a>
               )}
             </li>

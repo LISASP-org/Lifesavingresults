@@ -35,9 +35,27 @@ export const getToken = (): { decoded: JWT; token: string } | undefined => {
   return { decoded: decodedToken as JWT, token };
 };
 
-const fetchNewToken = async () => {
-  console.log('fetchNewToken');
+export const fetchTokenWithCode = async (code: string) => {
+  const res = await axios.post(
+    OAUTH_TOKEN_ENDPOINT,
+    new URLSearchParams({
+      grant_type: 'authorization_code',
+      client_id: OAUTH_CLIENT_ID,
+      redirect_uri: OAUTH_REDIRECT_URI,
+      code,
+    }),
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }
+  );
+  const responseData = await res.data;
+  localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, responseData['access_token']);
+  localStorage.setItem(LOCALSTORAGE_REFRESH_TOKEN_KEY, responseData['refresh_token']);
+};
 
+const fetchNewToken = async () => {
   const refresh_token = localStorage.getItem(LOCALSTORAGE_REFRESH_TOKEN_KEY);
   if (!refresh_token) return undefined;
 
@@ -63,8 +81,8 @@ const fetchNewToken = async () => {
     localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, token);
     return token;
   } catch (e) {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    localStorage.removeItem(LOCALSTORAGE_TOKEN_KEY);
+    localStorage.removeItem(LOCALSTORAGE_REFRESH_TOKEN_KEY);
     return undefined;
   }
 };
@@ -75,8 +93,7 @@ export const getValidToken = async (): Promise<string> => {
   const buffer = 10; // seconds
 
   const tokenValid = !!token && token.decoded.exp > now + buffer;
-  console.log({ tokenValid });
+
   if (tokenValid) return token?.token;
-  console.log('go ahead and fetchNewToken');
-  return await fetchNewToken();
+  else return await fetchNewToken();
 };

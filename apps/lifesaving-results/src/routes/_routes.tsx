@@ -4,6 +4,7 @@ import { MainLayout } from '../layout/MainLayout';
 import { callbackRoute } from './callback';
 import { competitionByIdRoute } from './competition/$id';
 import { impressumRoute } from './impressum';
+import { logout_callbackRoute } from './logout_callback';
 
 export const mainLayoutRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -21,6 +22,7 @@ export const rootRoute = new RootRoute({
 
 const routeTree = rootRoute.addChildren([
   callbackRoute,
+  logout_callbackRoute,
   mainLayoutRoute.addChildren([indexRoute, impressumRoute, competitionByIdRoute]),
 ]);
 
