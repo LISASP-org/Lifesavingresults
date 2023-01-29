@@ -1,6 +1,7 @@
 package org.lisasp.results.model;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.lisasp.competition.api.exception.CompetitionNotFoundException;
 import org.lisasp.competition.api.exception.NotFoundException;
 import org.lisasp.results.base.api.type.EventType;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 public class CompetitionUpdater {
@@ -22,16 +24,23 @@ public class CompetitionUpdater {
     private CompetitionEntity competition;
     private List<EventUpdater> eventUpdaters;
 
-    private DatabaseUpdate<EntryEntity> entryDatabaseUpdate;
-    private DatabaseUpdate<EventEntity> eventDatabaseUpdate;
+    private Changes<EntryEntity> entryChanges;
+    private Changes<EventEntity> eventChanges;
 
     CompetitionUpdater initialize(String id) throws NotFoundException {
-        entryDatabaseUpdate = new DatabaseUpdate<>(entryRepository, null);
-        eventDatabaseUpdate = new DatabaseUpdate<>(eventRepository, entryDatabaseUpdate);
+        entryChanges = new Changes<>(entryRepository, null);
+        eventChanges = new Changes<>(eventRepository, entryChanges);
 
         competition = repository.findById(id).orElseThrow(() -> new CompetitionNotFoundException(id));
-        eventUpdaters = competition.getEvents().stream().map(e -> new EventUpdater(eventDatabaseUpdate, entryDatabaseUpdate).initialize(e)).collect(Collectors.toList());
+        eventUpdaters = getEventStream().map(e -> new EventUpdater(eventChanges, entryChanges).initialize(e)).collect(Collectors.toList());
         return this;
+    }
+
+    private Stream<EventEntity> getEventStream() {
+        if (competition.getEvents() == null) {
+            return Stream.of();
+        }
+        return competition.getEvents().stream();
     }
 
     public void updateCompetition(Consumer<CompetitionEntity> updater) {
@@ -44,7 +53,7 @@ public class CompetitionUpdater {
         repository.save(competition);
         eventUpdaters.forEach(u -> u.save());
 
-        eventDatabaseUpdate.invokeUpdate();
+        eventChanges.invokeUpdate();
     }
 
     private void ensureUploadId(CompetitionEntity entity, String fixedUploadId) {
@@ -56,11 +65,29 @@ public class CompetitionUpdater {
     }
 
     public void updateEvent(EventType eventType, String agegroup, Gender gender, String discipline, Round round, InputValueType inputValueType, Consumer<EventUpdater> updater) {
-        EventUpdater eventUpdater =  eventUpdaters.stream().filter(e -> e.matches(eventType, agegroup, gender, discipline, round, inputValueType)).findFirst().orElseGet(() -> {
-            EventUpdater newEventUpdater = new EventUpdater(eventDatabaseUpdate, entryDatabaseUpdate).initialize(new EventEntity(competition));
-            this.eventUpdaters.add(newEventUpdater);
-            return newEventUpdater;
-        });
+        EventUpdater eventUpdater = eventUpdaters
+                .stream()
+                .filter(e -> e.matches(eventType, agegroup, gender, discipline, round, inputValueType))
+                .findFirst()
+                .orElseGet(() -> {
+                    return setupNewEventUpdater(eventType, agegroup, gender, discipline, round, inputValueType);
+                });
         updater.accept(eventUpdater);
+    }
+
+    @NotNull
+    private EventUpdater setupNewEventUpdater(EventType eventType, String agegroup, Gender gender, String discipline, Round round, InputValueType inputValueType) {
+        EventUpdater newEventUpdater = new EventUpdater(eventChanges, entryChanges)
+                .initialize(new EventEntity(competition));
+        newEventUpdater.updateEvent(eventEntity -> {
+            eventEntity.setEventType(eventType);
+            eventEntity.setAgegroup(agegroup);
+            eventEntity.setGender(gender);
+            eventEntity.setDiscipline(discipline);
+            eventEntity.setRound(round);
+            eventEntity.setInputValueType(inputValueType);
+        });
+        this.eventUpdaters.add(newEventUpdater);
+        return newEventUpdater;
     }
 }

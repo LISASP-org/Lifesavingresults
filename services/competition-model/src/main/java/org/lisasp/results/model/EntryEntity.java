@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.lisasp.basics.spring.jpa.BaseEntity;
+import org.lisasp.results.spring.jpa.BaseEntity;
 import org.lisasp.results.base.api.value.Penalty;
 import org.lisasp.results.base.api.value.Start;
 import org.lisasp.results.base.api.value.Swimmer;

@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
 public class EventUpdater {
 
-    private final DatabaseUpdate<EventEntity> eventDatabaseUpdate;
-    private final DatabaseUpdate<EntryEntity> entryDatabaseUpdate;
+    private final Changes<EventEntity> eventChanges;
+    private final Changes<EntryEntity> entryChanges;
     private EventEntity event;
 
     private List<EntryUpdater> entries;
@@ -30,21 +31,22 @@ public class EventUpdater {
 
         String before = event.toString();
         updater.accept(event);
-        String after = event.toString();
-        if (!after.equals(before)) {
+        if (mustBeSaved(before)) {
             modified = true;
-            // repository.save(event);
         }
+    }
+
+    private boolean mustBeSaved(String before) {
+        return event.isNew() || !event.toString().equals(before);
     }
 
     void save() {
         entries.forEach(e -> e.save());
 
         if (!used) {
-            // repository.delete(event);
-            eventDatabaseUpdate.delete(event);
+            eventChanges.delete(event);
         } else if (modified) {
-            eventDatabaseUpdate.save(event);
+            eventChanges.save(event);
         }
     }
 
@@ -53,9 +55,16 @@ public class EventUpdater {
         if (event.getEntries() == null) {
             entries = new ArrayList<>();
         } else {
-            entries = event.getEntries().stream().map(e -> new EntryUpdater(entryDatabaseUpdate, e)).collect(Collectors.toList());
+            entries = getEntityStream(event).map(e -> new EntryUpdater(entryChanges, e)).collect(Collectors.toList());
         }
         return this;
+    }
+
+    private static Stream<EntryEntity> getEntityStream(EventEntity event) {
+        if (event.getEntries() == null) {
+            return Stream.of();
+        }
+        return event.getEntries().stream();
     }
 
     boolean matches(EventType eventType, String agegroup, Gender gender, String discipline, Round round, InputValueType inputValueType) {
@@ -63,8 +72,9 @@ public class EventUpdater {
     }
 
     public void updateEntry(String number, Consumer<EntryUpdater> updater) {
-        EntryUpdater entryUpdater =  entries.stream().filter(e -> e.matches(number)).findFirst().orElseGet(() -> {
-            EntryUpdater newEntryUpdater = new EntryUpdater(entryDatabaseUpdate, new EntryEntity(event));
+        EntryUpdater entryUpdater = entries.stream().filter(e -> e.matches(number)).findFirst().orElseGet(() -> {
+            EntryUpdater newEntryUpdater = new EntryUpdater(entryChanges, new EntryEntity(event));
+            newEntryUpdater.updateEntry(entryEntity -> entryEntity.setNumber(number));
             entries.add(newEntryUpdater);
             return newEntryUpdater;
         });

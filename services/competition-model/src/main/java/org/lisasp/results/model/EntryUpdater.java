@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 @Slf4j
 @RequiredArgsConstructor
 public class EntryUpdater {
-    private final DatabaseUpdate<EntryEntity> entryDatabaseUpdate;
+    private final Changes<EntryEntity> entryChanges;
     private final EntryEntity entry;
 
     private boolean used = false;
@@ -20,17 +20,20 @@ public class EntryUpdater {
         String before = entry.toString();
         updater.accept(entry);
         entry.fixNull();
-        String after = entry.toString();
-        if (!after.equals(before)) {
+        if (mustBeSaved(before)) {
             modified = true;
         }
     }
 
+    private boolean mustBeSaved(String before) {
+        return entry.isNew() || !entry.toString().equals(before);
+    }
+
     void save() {
         if (!used) {
-            entryDatabaseUpdate.delete(entry);
+            entryChanges.delete(entry);
         } else if (modified) {
-            entryDatabaseUpdate.save(entry);
+            entryChanges.save(entry);
         }
     }
 

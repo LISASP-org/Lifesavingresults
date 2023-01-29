@@ -6,7 +6,7 @@ import org.lisasp.competition.api.dto.EventDto;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface EntityToDtoMapper {
+interface EntityToDtoMapper {
     CompetitionDto entityToDto(CompetitionEntity entity);
     EventDto entityToDto(EventEntity entity);
     EntryDto entityToDto(EntryEntity entity);
