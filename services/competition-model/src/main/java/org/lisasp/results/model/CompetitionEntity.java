@@ -1,16 +1,13 @@
 package org.lisasp.results.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.lisasp.basics.spring.jpa.BaseEntity;
-import org.lisasp.results.model.EventEntity;
+import org.lisasp.results.spring.jpa.BaseEntity;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Entity
 @Getter

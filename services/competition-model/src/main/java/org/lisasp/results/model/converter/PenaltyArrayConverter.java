@@ -17,19 +17,19 @@ public class PenaltyArrayConverter implements AttributeConverter<Penalty[], Stri
         try {
             return mapper.writeValueAsString(penalties);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ConverterException(penalties, e);
         }
     }
 
     @Override
-    public Penalty[] convertToEntityAttribute(String s) {
-        if (s == null) {
+    public Penalty[] convertToEntityAttribute(String serialized) {
+        if (serialized == null) {
             return new Penalty[0];
         }
         try {
-            return mapper.readValue(s, Penalty[].class);
+            return mapper.readValue(serialized, Penalty[].class);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new ConverterException(serialized, e);
         }
     }
 }

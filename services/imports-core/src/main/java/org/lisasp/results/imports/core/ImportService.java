@@ -3,9 +3,14 @@ package org.lisasp.results.imports.core;
 import lombok.RequiredArgsConstructor;
 import org.lisasp.competition.api.exception.NotFoundException;
 import org.lisasp.results.imports.api.Competition;
+import org.lisasp.results.imports.api.Entry;
+import org.lisasp.results.imports.api.Event;
 import org.lisasp.results.imports.jauswertung.FileFormatException;
 import org.lisasp.results.imports.jauswertung.JAuswertungImporter;
+import org.lisasp.results.model.CompetitionEntity;
 import org.lisasp.results.model.CompetitionService;
+import org.lisasp.results.model.EntryEntity;
+import org.lisasp.results.model.EventEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,35 +37,34 @@ public class ImportService {
         storage.put(id, competition);
 
         competitionService.update(id, competitionUpdater -> {
-            competitionUpdater.updateCompetition(competitionEntity -> {
-                competitionEntity.setName(competition.getName());
-                competitionEntity.setAcronym(competition.getAcronym());
-                competitionEntity.setFrom(competition.getFrom());
-                competitionEntity.setTill(competition.getTill());
-            });
+            competitionUpdater.updateCompetition(competitionEntity -> updateCompetition(competition, competitionEntity));
             Arrays.stream(competition.getEvents()).forEach(event -> competitionUpdater.updateEvent(event.getEventType(), event.getAgegroup(), event.getGender(), event.getDiscipline(), event.getRound(), event.getInputValueType(), eventUpdater -> {
-                eventUpdater.updateEvent(eventEntity -> {
-                    eventEntity.setEventType(event.getEventType());
-                    eventEntity.setAgegroup(event.getAgegroup());
-                    eventEntity.setGender(event.getGender());
-                    eventEntity.setDiscipline(event.getDiscipline());
-                    eventEntity.setRound(event.getRound());
-                    eventEntity.setInputValueType(event.getInputValueType());
-                });
+                eventUpdater.updateEvent(eventEntity -> updateEvent(event, eventEntity));
                 Arrays.stream(event.getEntries()).forEach(entry -> eventUpdater.updateEntry(entry.getNumber(), e -> {
-                    e.updateEntry(entryEntity -> {
-                        entryEntity.setNumber(entry.getNumber());
-                        entryEntity.setName(entry.getName());
-                        entryEntity.setClub(entry.getClub());
-                        entryEntity.setNationality(entry.getNationality());
-                        entryEntity.setPenalties(entry.getPenalties());
-                        entryEntity.setPlaceInHeat(entry.getPlaceInHeat());
-                        entryEntity.setStart(entry.getStart());
-                        entryEntity.setSwimmer(entry.getSwimmer());
-                        entryEntity.setTimeInMillis(entry.getTimeInMillis());
-                    });
+                    e.updateEntry(entryEntity -> updateEntry(entry, entryEntity));
                 }));
             }));
         });
+    }
+
+    private static void updateEntry(Entry entry, EntryEntity entryEntity) {
+        entryEntity.setName(entry.getName());
+        entryEntity.setClub(entry.getClub());
+        entryEntity.setNationality(entry.getNationality());
+        entryEntity.setPenalties(entry.getPenalties());
+        entryEntity.setPlaceInHeat(entry.getPlaceInHeat());
+        entryEntity.setStart(entry.getStart());
+        entryEntity.setSwimmer(entry.getSwimmer());
+        entryEntity.setTimeInMillis(entry.getTimeInMillis());
+    }
+
+    private static void updateEvent(Event event, EventEntity eventEntity) {
+    }
+
+    private static void updateCompetition(Competition competition, CompetitionEntity competitionEntity) {
+        competitionEntity.setName(competition.getName());
+        competitionEntity.setAcronym(competition.getAcronym());
+        competitionEntity.setFrom(competition.getFrom());
+        competitionEntity.setTill(competition.getTill());
     }
 }

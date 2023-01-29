@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.lisasp.basics.spring.jpa.BaseEntity;
+import org.lisasp.results.spring.jpa.BaseEntity;
 import org.lisasp.results.base.api.type.EventType;
 import org.lisasp.results.base.api.type.Gender;
 import org.lisasp.results.base.api.type.InputValueType;
