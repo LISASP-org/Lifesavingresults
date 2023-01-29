@@ -20,6 +20,7 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
+        <module>spring-jpa</module>
         <module>base-api</module>
         <module>competition-api</module>
         <module>competition-model</module>
@@ -50,6 +51,8 @@
 
         <mariadb.version>3.1.1</mariadb.version>
         <h2.version>2.1.214</h2.version>
+
+        <spring-boot.skip>true</spring-boot.skip>
     </properties>
 
     <scm>
@@ -59,6 +62,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.lisasp.results</groupId>
+                <artifactId>spring-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.lisasp.results</groupId>
                 <artifactId>base-api</artifactId>
@@ -98,27 +106,6 @@
                 <groupId>org.lisasp.results</groupId>
                 <artifactId>results-server</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.lisasp.basics</groupId>
-                <artifactId>basics-jre</artifactId>
-                <version>${basics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.basics</groupId>
-                <artifactId>basics-notification</artifactId>
-                <version>${basics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.basics</groupId>
-                <artifactId>basics-spring-jms</artifactId>
-                <version>${basics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.basics</groupId>
-                <artifactId>basics-spring-jpa</artifactId>
-                <version>${basics.version}</version>
             </dependency>
 
             <dependency>
@@ -466,7 +453,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>${spring-boot.skip}</skip>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
@@ -491,12 +484,6 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
-
-        <repository>
-            <id>github</id>
-            <name>Java-Basics GitHub Packages</name>
-            <url>https://maven.pkg.github.com/LISASP-org/java-basics</url>
         </repository>
     </repositories>
 </project>
