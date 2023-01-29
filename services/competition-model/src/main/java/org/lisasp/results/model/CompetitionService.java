@@ -52,10 +52,7 @@ public class CompetitionService {
         return entity.getId();
     }
 
-    private CompetitionEntity getOrCreateCompetitionForId(String id) {
-        return competitionRepository.findById(id).orElseGet(() -> new CompetitionEntity());
-    }
-
+    @Transactional
     public void update(String id, Consumer<CompetitionUpdater> updater) throws NotFoundException {
 
         CompetitionUpdater competitionUpdater = new CompetitionUpdater(competitionRepository, eventRepository, entryRepository).initialize(id);

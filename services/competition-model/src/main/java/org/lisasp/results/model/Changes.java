@@ -9,13 +9,13 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public class DatabaseUpdate<T> {
+public class Changes<T> {
 
     private final List<T> toDelete = new ArrayList<>();
     private final List<T> toSave = new ArrayList<>();
 
     private final CrudRepository<T, String> repository;
-    private final DatabaseUpdate<?> inner;
+    private final Changes<?> inner;
 
     public void delete(T t) {
         toDelete.add(t);
