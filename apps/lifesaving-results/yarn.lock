@@ -2,14 +2,7 @@
 # yarn lockfile v1
 
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
-  version "7.20.7"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.7.tgz#fcb41a5a70550e04a7b708037c7c32f7f356d8fd"
-  integrity sha512-UF0tvkUtxwAgZ5W/KrkHf0Rn0fdnLDU9ScxBrEVNUprE/MzirjK4MJUX1/BVDv00Sv8cljtukVK1aky++X1SjQ==
-  dependencies:
-    regenerator-runtime "^0.13.11"
-
-"@babel/runtime@^7.16.7":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.16.7", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.20.13"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.13.tgz#7055ab8a7cff2b8f6058bf6ae45ff84ad2aded4b"
   integrity sha512-gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA==
@@ -325,36 +318,36 @@
     "@tanstack/query-core" "4.22.0"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-router@^0.0.1-beta.61":
-  version "0.0.1-beta.61"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-0.0.1-beta.61.tgz#c0aaede8c7e582eba9f3c424ecc5cf60546e02dc"
-  integrity sha512-qErSji4onPGXHXORlF2nhpyxg6bhvdfUGp0XDLGRhAudO+1x8kWbhqrOjKk5+kASVJCFomozhp6KJQv7FQh73w==
+"@tanstack/react-router@^0.0.1-beta.67":
+  version "0.0.1-beta.67"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-0.0.1-beta.67.tgz#d9fd2bda4f3152b529946f1cbf263d84a1372f3e"
+  integrity sha512-Vf3Nlhv7RJufNJ9vWhLyEYYU+FabwRtn9Jp0ZVIozwflclDXohdEcB5yQxdL5MrAaudt7yFc47ezdxDpVLl83Q==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@tanstack/react-store" "0.0.1-beta.61"
-    "@tanstack/router" "0.0.1-beta.61"
+    "@tanstack/react-store" "0.0.1-beta.62"
+    "@tanstack/router" "0.0.1-beta.67"
 
-"@tanstack/react-store@0.0.1-beta.61":
-  version "0.0.1-beta.61"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-store/-/react-store-0.0.1-beta.61.tgz#2973029d6db449ac6dd13e3e2ed4a60d4af32cb0"
-  integrity sha512-oJqiv/0qCfpgyxGMtQmMwJN/UWRwQBeq/Kobqu0Aytuy9zaKEcBJo9EXFFdrobjM1cXV8QUiJ3iAd58EQpzHRA==
+"@tanstack/react-store@0.0.1-beta.62":
+  version "0.0.1-beta.62"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-store/-/react-store-0.0.1-beta.62.tgz#7bbe912e3c45ea8dad84e9fb368f3da6fc6d84c4"
+  integrity sha512-8sv1E1/yo3/7WfEadibQM4lkWKx6CYX6JnW7Lj5gOMgIXACYQax1wjxwYiKyfRM147CJi/yKBW0X9ZoV+0GUyw==
   dependencies:
-    "@tanstack/store" "0.0.1-beta.57"
+    "@tanstack/store" "0.0.1-beta.62"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/router@0.0.1-beta.61":
-  version "0.0.1-beta.61"
-  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.61.tgz#369654817ed26fc7633baf2f1ecd77c23ad3373b"
-  integrity sha512-my0s/Eg8LoSWCVqgMtDK2rgTYDPMbd+f5nFUIG6HnKzZUw7RRe6nVzzb11pNWmyTJeqMN7lhlv16oQ9+1HmZgg==
+"@tanstack/router@0.0.1-beta.67":
+  version "0.0.1-beta.67"
+  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.67.tgz#3c67735ad9271f45620934d5d947af3d823c6bd3"
+  integrity sha512-UL9iO+QTopveavMiPhPFQDTY2i1dXqeWF+lZE7KakAtI07jJCcbZqqe0NWQCI08iRwonZ+bTPGdBgIp2xOackg==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@tanstack/store" "0.0.1-beta.57"
+    "@tanstack/store" "0.0.1-beta.62"
     tiny-invariant "^1.3.1"
 
-"@tanstack/store@0.0.1-beta.57":
-  version "0.0.1-beta.57"
-  resolved "https://registry.yarnpkg.com/@tanstack/store/-/store-0.0.1-beta.57.tgz#5478d47f83d431013d4f6cb40677118eff1885f9"
-  integrity sha512-7DMaFEVPlCxyAL0TJDul1yoixWNY7WEJUKQFF5n9HLPoIHhj+eS5hyT/nhkEL6Ef/4/Il45mGn6mAUKpH5n0WQ==
+"@tanstack/store@0.0.1-beta.62":
+  version "0.0.1-beta.62"
+  resolved "https://registry.yarnpkg.com/@tanstack/store/-/store-0.0.1-beta.62.tgz#426c637a01065c3fbc558ac755e4b518f09bca38"
+  integrity sha512-0XNKx+H7Wj/mt4hqWIDQcWtGiVInWqwSQY1JkQwf5vzhG10hpRsnvnufcVQc5MDPXPt/4PDHlJAVUp2gj7OCKA==
 
 "@types/chai-subset@^1.3.3":
   version "1.3.3"
