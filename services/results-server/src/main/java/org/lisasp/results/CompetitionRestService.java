@@ -12,6 +12,8 @@ import org.lisasp.results.model.CompetitionService;
 import org.lisasp.competition.api.exception.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @Slf4j
 @RestController
 @RequestMapping("api")
@@ -21,22 +23,26 @@ public class CompetitionRestService {
     private final CompetitionService service;
 
     @PostMapping("/competition")
+    @Operation(operationId = "createCompetition")
     public CompetitionCreated create(@RequestBody CreateCompetition createCompetition) {
         log.info("Import from JAuswertung for {}", createCompetition.name());
         return service.execute(createCompetition);
     }
 
     @GetMapping("/competition/{id}")
+    @Operation(operationId = "getCompetitionById")
     public CompetitionDto get(@PathVariable String id) throws NotFoundException {
         return service.findCompetition(id);
     }
 
     @GetMapping("/competition")
+    @Operation(operationId = "findAllCompetitions")
     public CompetitionDto[] findAll() {
         return service.findCompetitions();
     }
 
     @GetMapping("/competition/{id}/time")
+    @Operation(operationId = "findAllTimesByCompetitionId")
     public TimeDto[] findAll(@PathVariable String id) {
         return switch (id) {
             case "1" -> new TimeDto[]{

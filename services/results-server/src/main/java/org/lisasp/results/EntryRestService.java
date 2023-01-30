@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class EntryRestService {
 
 
     @GetMapping("/event/{eventId}/entry")
+    @Operation(operationId = "findAllEntriesByEventId")
     public EntryDto[] findAll(@PathVariable String eventId) {
         return service.findEntries(eventId);
     }
