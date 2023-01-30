@@ -20,6 +20,8 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-redeclare": "error",
+    "no-redeclare": "off",
     "no-unused-vars": "off"
   }
 }
