@@ -1,6 +1,9 @@
-package org.lisasp.results.model;
+package org.lisasp.results.test.imports.core;
 
 import lombok.RequiredArgsConstructor;
+import org.lisasp.results.model.CompetitionRepository;
+import org.lisasp.results.model.EntryRepository;
+import org.lisasp.results.model.EventRepository;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor

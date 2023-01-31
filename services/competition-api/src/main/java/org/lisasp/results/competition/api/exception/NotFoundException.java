@@ -1,4 +1,4 @@
-package org.lisasp.competition.api.exception;
+package org.lisasp.results.competition.api.exception;
 
 public class NotFoundException extends Exception {
     public NotFoundException(String type, String id) {

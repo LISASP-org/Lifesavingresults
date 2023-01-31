@@ -1,8 +1,8 @@
 package org.lisasp.results.model;
 
-import org.lisasp.competition.api.dto.CompetitionDto;
-import org.lisasp.competition.api.dto.EntryDto;
-import org.lisasp.competition.api.dto.EventDto;
+import org.lisasp.results.competition.api.CompetitionDto;
+import org.lisasp.results.competition.api.EntryDto;
+import org.lisasp.results.competition.api.EventDto;
 import org.mapstruct.Mapper;
 
 @Mapper

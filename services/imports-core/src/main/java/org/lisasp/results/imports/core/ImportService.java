@@ -1,11 +1,11 @@
 package org.lisasp.results.imports.core;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.competition.api.exception.NotFoundException;
+import org.lisasp.results.competition.api.exception.NotFoundException;
 import org.lisasp.results.imports.api.Competition;
 import org.lisasp.results.imports.api.Entry;
 import org.lisasp.results.imports.api.Event;
-import org.lisasp.results.imports.jauswertung.FileFormatException;
+import org.lisasp.results.imports.api.exception.FileFormatException;
 import org.lisasp.results.imports.jauswertung.JAuswertungImporter;
 import org.lisasp.results.model.CompetitionEntity;
 import org.lisasp.results.model.CompetitionService;
@@ -25,24 +25,25 @@ public class ImportService {
     private final JAuswertungImporter jAuswertungImporter = new JAuswertungImporter();
 
     @Transactional
-    public void importFromJAuswertung(String uploadId, org.lisasp.results.imports.jauswertung.model.Competition competitionToImport) throws NotFoundException, FileFormatException {
+    public void importFromJAuswertung(String uploadId, String competitionJson) throws NotFoundException, FileFormatException {
         String id = competitionService.getCompetitionIdByUploadId(uploadId);
 
-        Competition importedCompetition = jAuswertungImporter.importCompetition(competitionToImport);
+        Competition importedCompetition = jAuswertungImporter.importJson(competitionJson);
 
         store(id, importedCompetition);
     }
 
     private void store(String id, Competition competition) throws FileFormatException, NotFoundException {
-        storage.put(id, competition);
+        StorageResult result = storage.put(id, competition);
+        if (result.equals(StorageResult.Unchanged)) {
+            return;
+        }
 
         competitionService.update(id, competitionUpdater -> {
             competitionUpdater.updateCompetition(competitionEntity -> updateCompetition(competition, competitionEntity));
             Arrays.stream(competition.getEvents()).forEach(event -> competitionUpdater.updateEvent(event.getEventType(), event.getAgegroup(), event.getGender(), event.getDiscipline(), event.getRound(), event.getInputValueType(), eventUpdater -> {
                 eventUpdater.updateEvent(eventEntity -> updateEvent(event, eventEntity));
-                Arrays.stream(event.getEntries()).forEach(entry -> eventUpdater.updateEntry(entry.getNumber(), e -> {
-                    e.updateEntry(entryEntity -> updateEntry(entry, entryEntity));
-                }));
+                Arrays.stream(event.getEntries()).forEach(entry -> eventUpdater.updateEntry(entry.getNumber(), e -> e.updateEntry(entryEntity -> updateEntry(entry, entryEntity))));
             }));
         });
     }

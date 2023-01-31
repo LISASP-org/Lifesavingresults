@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.lisasp.results.imports.api.Competition;
-import org.lisasp.results.imports.jauswertung.FileFormatException;
+import org.lisasp.results.imports.api.exception.FileFormatException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -17,34 +17,54 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class ImportStorage {
+class ImportStorage {
 
     private final ImportServiceConfiguration config;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    void put(String id, Competition competition) throws FileFormatException {
+    StorageResult put(String id, Competition competition) throws FileFormatException {
         try {
-            ensureDirectory();
-            Files.write(filenameFor(id), mapper.writeValueAsString(competition).getBytes(StandardCharsets.UTF_8), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+            String serialized = mapper.writeValueAsString(competition);
+            if (isUnmodified(id, serialized)) {
+                return StorageResult.Unchanged;
+            }
+            return saveToDisk(id, serialized);
         } catch (IOException e) {
             throw new FileFormatException(e);
         }
+    }
+
+    private boolean isUnmodified(String id, String serialized) {
+        try {
+            String oldContent = contentsOfFileFor(id);
+            return serialized.equals(oldContent);
+        } catch (IOException ex) {
+            // If we cannot read the old file, the new content should be saved.
+            return false;
+        }
+    }
+
+    @NotNull
+    private StorageResult saveToDisk(String id, String serialized) throws IOException {
+        ensureDirectory();
+        Files.write(filenameFor(id), serialized.getBytes(StandardCharsets.UTF_8), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+        return StorageResult.Saved;
     }
 
     private void ensureDirectory() throws IOException {
         Files.createDirectories(Path.of(config.getStorageDirectory()));
     }
 
-    Optional<Competition> get(String id) throws FileFormatException {
+    private Optional<Competition> get(String id) throws FileFormatException {
         try {
-            return Optional.of(deserialize(fileFor(id)));
+            return Optional.of(deserialize(contentsOfFileFor(id)));
         } catch (IOException ex) {
             return Optional.empty();
         }
     }
 
-    private String fileFor(String id) throws IOException {
+    private String contentsOfFileFor(String id) throws IOException {
         return Files.readString(filenameFor(id), StandardCharsets.UTF_8);
     }
 

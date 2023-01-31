@@ -1,4 +1,4 @@
-package org.lisasp.competition.api.dto;
+package org.lisasp.results.competition.api;
 
 import lombok.Builder;
 import lombok.Data;

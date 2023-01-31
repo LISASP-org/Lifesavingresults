@@ -1,4 +1,4 @@
-package org.lisasp.results;
+package org.lisasp.results.rest;
 
 import org.springframework.boot.convert.ApplicationConversionService;
 import org.springframework.context.annotation.Configuration;

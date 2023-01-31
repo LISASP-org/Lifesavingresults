@@ -1,7 +1,10 @@
-package org.lisasp.results;
+package org.lisasp.results.rest;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.lisasp.competition.api.dto.EventDto;
+import org.lisasp.results.competition.api.EventDto;
+import org.lisasp.results.competition.api.exception.NotFoundException;
 import org.lisasp.results.model.EventService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +19,12 @@ public class EventRestService {
     private final EventService service;
 
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "404", description = "Competition not found"),
+            @ApiResponse(responseCode = "200", useReturnTypeSchema = true)
+    })
     @GetMapping("/competition/{competitionId}/event")
-    public EventDto[] findAll(@PathVariable String competitionId) {
+    public EventDto[] findEventsByCompetitionId(@PathVariable String competitionId) throws NotFoundException {
         return service.findEvents(competitionId);
     }
 }

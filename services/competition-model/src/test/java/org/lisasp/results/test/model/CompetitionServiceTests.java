@@ -1,14 +1,17 @@
-package org.lisasp.results.model;
+package org.lisasp.results.test.model;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.lisasp.competition.api.dto.*;
-import org.lisasp.competition.api.exception.NotFoundException;
 import org.lisasp.results.base.api.type.EventType;
 import org.lisasp.results.base.api.type.Gender;
 import org.lisasp.results.base.api.type.InputValueType;
 import org.lisasp.results.base.api.value.Round;
+import org.lisasp.results.competition.api.*;
+import org.lisasp.results.competition.api.exception.NotFoundException;
+import org.lisasp.results.model.CompetitionService;
+import org.lisasp.results.model.EntryService;
+import org.lisasp.results.model.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,7 +21,7 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class CompetitionServiceTests {
+class CompetitionServiceTests {
 
 
     @Autowired
@@ -34,7 +37,7 @@ public class CompetitionServiceTests {
     private EntryService entryService;
 
     @AfterEach
-    void prepare() {
+    void cleanup() {
         cleaner.clean();
     }
 
@@ -103,8 +106,9 @@ public class CompetitionServiceTests {
         @Test
         void addEventTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
+            String competitionId = competitionCreated.id();
 
-            service.update(competitionCreated.id(), updater -> {
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -112,7 +116,7 @@ public class CompetitionServiceTests {
                 });
             });
 
-            CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
+            CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
             assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
@@ -122,14 +126,15 @@ public class CompetitionServiceTests {
             assertEquals("D1", event.getDiscipline());
             assertEquals(new Round((byte) 0, true), event.getRound());
             assertEquals(InputValueType.Time, event.getInputValueType());
-            assertEquals(0, entryService.findEntries(event.getId()).length);
+            assertEquals(0, entryService.findEntries(competitionId, event.getId()).length);
         }
 
         @Test
         void addTwoEventsTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
+            String competitionId = competitionCreated.id();
 
-            service.update(competitionCreated.id(), updater -> {
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -141,7 +146,8 @@ public class CompetitionServiceTests {
                 });
             });
 
-            CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
+            CompetitionDto competitionDto = service.findCompetition(competitionId);
+            assertEquals(competitionId, competitionDto.getId());
             assertEquals("zyx", competitionDto.getName());
 
             EventDto[] events = Arrays.stream(eventService.findEvents(competitionDto.getId())).sorted(Comparator.comparing(EventDto::getAgegroup)).toArray(EventDto[]::new);
@@ -153,7 +159,7 @@ public class CompetitionServiceTests {
             assertEquals("D1", event1.getDiscipline());
             assertEquals(new Round((byte) 0, true), event1.getRound());
             assertEquals(InputValueType.Time, event1.getInputValueType());
-            assertEquals(0, entryService.findEntries(event1.getId()).length);
+            assertEquals(0, entryService.findEntries(competitionId, event1.getId()).length);
 
             EventDto event2 = events[1];
             assertEquals("AG 2", event2.getAgegroup());
@@ -161,7 +167,7 @@ public class CompetitionServiceTests {
             assertEquals("D2", event2.getDiscipline());
             assertEquals(new Round((byte) 1, false), event2.getRound());
             assertEquals(InputValueType.Rank, event2.getInputValueType());
-            assertEquals(0, entryService.findEntries(event2.getId()).length);
+            assertEquals(0, entryService.findEntries(competitionId, event2.getId()).length);
         }
 
         @Test
@@ -187,7 +193,8 @@ public class CompetitionServiceTests {
         @Test
         void removeOneOfTwoEventsTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
-            service.update(competitionCreated.id(), updater -> {
+            String competitionId = competitionCreated.id();
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -199,7 +206,7 @@ public class CompetitionServiceTests {
                 });
             });
 
-            service.update(competitionCreated.id(), updater -> {
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -207,7 +214,7 @@ public class CompetitionServiceTests {
                 });
             });
 
-            CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
+            CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
             assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
@@ -217,14 +224,15 @@ public class CompetitionServiceTests {
             assertEquals("D1", event.getDiscipline());
             assertEquals(new Round((byte) 0, true), event.getRound());
             assertEquals(InputValueType.Time, event.getInputValueType());
-            assertEquals(0, entryService.findEntries(event.getId()).length);
+            assertEquals(0, entryService.findEntries(competitionId, event.getId()).length);
         }
 
         @Test
         void addEntryTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
+            String competitionId = competitionCreated.id();
 
-            service.update(competitionCreated.id(), updater -> {
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -240,14 +248,14 @@ public class CompetitionServiceTests {
                 });
             });
 
-            CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
+            CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
             assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
             EventDto event = eventService.findEvents(competitionDto.getId())[0];
 
-            assertEquals(1, entryService.findEntries(event.getId()).length);
-            EntryDto entry = entryService.findEntries(event.getId())[0];
+            assertEquals(1, entryService.findEntries(competitionId, event.getId()).length);
+            EntryDto entry = entryService.findEntries(competitionId, event.getId())[0];
             assertEquals("123", entry.getNumber());
             assertEquals(123450, entry.getTimeInMillis());
             assertEquals("A", entry.getName());
@@ -258,7 +266,8 @@ public class CompetitionServiceTests {
         @Test
         void removeEntryTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
-            service.update(competitionCreated.id(), updater -> {
+            String competitionId = competitionCreated.id();
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -274,7 +283,7 @@ public class CompetitionServiceTests {
                 });
             });
 
-            service.update(competitionCreated.id(), updater -> {
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -282,20 +291,21 @@ public class CompetitionServiceTests {
                 });
             });
 
-            CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
+            CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
             assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
             EventDto event = eventService.findEvents(competitionDto.getId())[0];
 
-            assertEquals(0, entryService.findEntries(event.getId()).length);
+            assertEquals(0, entryService.findEntries(competitionId, event.getId()).length);
         }
 
         @Test
         void addTwoEntriesTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
+            String competitionId = competitionCreated.id();
 
-            service.update(competitionCreated.id(), updater -> {
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -317,13 +327,13 @@ public class CompetitionServiceTests {
                 });
             });
 
-            CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
+            CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
             assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
             EventDto event = eventService.findEvents(competitionDto.getId())[0];
 
-            EntryDto[] entries = Arrays.stream(entryService.findEntries(event.getId())).sorted(Comparator.comparing(EntryDto::getNumber)).toArray(EntryDto[]::new);
+            EntryDto[] entries = Arrays.stream(entryService.findEntries(competitionId, event.getId())).sorted(Comparator.comparing(EntryDto::getNumber)).toArray(EntryDto[]::new);
             assertEquals(2, entries.length);
 
             EntryDto entry1 = entries[0];
@@ -344,7 +354,8 @@ public class CompetitionServiceTests {
         @Test
         void removeOneOfTwoEntriesTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
-            service.update(competitionCreated.id(), updater -> {
+            String competitionId = competitionCreated.id();
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -368,7 +379,7 @@ public class CompetitionServiceTests {
                 });
             });
 
-            service.update(competitionCreated.id(), updater -> {
+            service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
@@ -384,13 +395,13 @@ public class CompetitionServiceTests {
                 });
             });
 
-            CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
+            CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
             assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
             EventDto event = eventService.findEvents(competitionDto.getId())[0];
 
-            EntryDto[] entries = Arrays.stream(entryService.findEntries(event.getId())).sorted(Comparator.comparing(EntryDto::getNumber)).toArray(EntryDto[]::new);
+            EntryDto[] entries = Arrays.stream(entryService.findEntries(competitionId, event.getId())).sorted(Comparator.comparing(EntryDto::getNumber)).toArray(EntryDto[]::new);
             assertEquals(1, entries.length);
 
             EntryDto entry1 = entries[0];

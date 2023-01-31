@@ -1,11 +1,11 @@
 package org.lisasp.results.model;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.competition.api.dto.CompetitionCreated;
-import org.lisasp.competition.api.dto.CompetitionDto;
-import org.lisasp.competition.api.dto.CreateCompetition;
-import org.lisasp.competition.api.exception.CompetitionNotFoundException;
-import org.lisasp.competition.api.exception.NotFoundException;
+import org.lisasp.results.competition.api.CompetitionCreated;
+import org.lisasp.results.competition.api.CompetitionDto;
+import org.lisasp.results.competition.api.CreateCompetition;
+import org.lisasp.results.competition.api.exception.CompetitionNotFoundException;
+import org.lisasp.results.competition.api.exception.NotFoundException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

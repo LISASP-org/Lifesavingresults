@@ -1,7 +1,8 @@
 package org.lisasp.results.model;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.competition.api.dto.EventDto;
+import org.lisasp.results.competition.api.EventDto;
+import org.lisasp.results.competition.api.exception.NotFoundException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +11,14 @@ import org.springframework.stereotype.Component;
 public class EventService {
 
     private final EventRepository repository;
+    private final CompetitionRepository competitionRepository;
 
     private final EntityToDtoMapper mapper = Mappers.getMapper(EntityToDtoMapper.class);
 
-    public EventDto[] findEvents(String competitionId) {
+    public EventDto[] findEvents(String competitionId) throws NotFoundException {
+        if (!competitionRepository.existsById(competitionId)) {
+            throw new NotFoundException("Competition", competitionId);
+        }
         return repository.findAllByCompetitionId(competitionId).stream().map(e -> mapper.entityToDto(e)).toArray(EventDto[]::new);
     }
 }

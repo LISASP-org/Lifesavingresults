@@ -1,4 +1,4 @@
-package org.lisasp.competition.api.dto;
+package org.lisasp.results.competition.api;
 
 public record CompetitionCreated(String id) {
 }
