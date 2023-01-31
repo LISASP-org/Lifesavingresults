@@ -9,6 +9,7 @@ import org.lisasp.results.base.api.value.*;
 import org.lisasp.results.imports.api.Entry;
 import org.lisasp.results.imports.api.Event;
 import org.lisasp.results.imports.api.Competition;
+import org.lisasp.results.imports.api.exception.FileFormatException;
 import org.lisasp.results.imports.jauswertung.model.CompetitorType;
 import org.lisasp.results.imports.jauswertung.model.ValueTypes;
 
@@ -24,8 +25,7 @@ public class JAuswertungImporter {
         return importCompetition(deserialize(json));
     }
 
-    @NotNull
-    public Competition importCompetition(org.lisasp.results.imports.jauswertung.model.Competition competition) {
+    private Competition importCompetition(org.lisasp.results.imports.jauswertung.model.Competition competition) {
         Event[] events = importEvents(competition.getEvents());
 
         return new Competition(competition.getName(), "", null, null, events);
@@ -112,10 +112,7 @@ public class JAuswertungImporter {
     }
 
     private InputValueType toEntryValueType(ValueTypes valueType) {
-        if (valueType.equals(ValueTypes.TimeInMillis)) {
-            return InputValueType.Time;
-        }
-        return InputValueType.Rank;
+        return valueType.equals(ValueTypes.TimeInMillis) ? InputValueType.Time : InputValueType.Rank;
     }
 
     private static final Set<String> male = new HashSet<>(Arrays.asList("m", "männlich", "male"));

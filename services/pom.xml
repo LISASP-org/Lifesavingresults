@@ -24,9 +24,10 @@
         <module>base-api</module>
         <module>competition-api</module>
         <module>competition-model</module>
-        <module>imports-api</module>
+        <module>competition-service</module>
+        <module>competition-imports-api</module>
         <module>imports-jauswertung</module>
-        <module>imports-core</module>
+        <module>competition-imports-core</module>
         <module>time-service</module>
         <module>results-server</module>
         <module>results-distribution</module>
@@ -46,10 +47,10 @@
         <jetbrains.annotations.version>24.0.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <mockito.version>5.0.0</mockito.version>
+        <mockito.version>5.1.1</mockito.version>
         <testcontainers.version>1.17.6</testcontainers.version>
 
-        <mariadb.version>3.1.1</mariadb.version>
+        <mariadb.version>3.1.2</mariadb.version>
         <h2.version>2.1.214</h2.version>
 
         <spring-boot.skip>true</spring-boot.skip>
@@ -84,7 +85,12 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.results</groupId>
-                <artifactId>imports-api</artifactId>
+                <artifactId>competition-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.results</groupId>
+                <artifactId>competition-imports-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -94,7 +100,7 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.results</groupId>
-                <artifactId>imports-core</artifactId>
+                <artifactId>competition-imports-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -273,7 +279,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.10.4</version>
+                    <version>1.11.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
