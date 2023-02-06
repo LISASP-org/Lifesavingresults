@@ -318,14 +318,14 @@
     "@tanstack/query-core" "4.22.0"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-router@^0.0.1-beta.69":
-  version "0.0.1-beta.69"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-0.0.1-beta.69.tgz#52109a5d61c8351d63d212655a9d10461f7de3b3"
-  integrity sha512-G1bMFXay3uKxQH43V+NfyCb9VfsBu4mEH8I0jdo3B69m1khJJEG4akM9YUaZ1vckJ/eL5vuvqgxZVGUTLwENKA==
+"@tanstack/react-router@^0.0.1-beta.75":
+  version "0.0.1-beta.75"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-0.0.1-beta.75.tgz#f6a16d1bf7f7c8b2ffa86bffb422c5f7eca7078d"
+  integrity sha512-h5kYabSd/RwIw0chTvewBGQiUNR4Nr1aqVYk6QR5whf6OPDgJMSPDen9ZzylpZ9DOlNCVLyyZ8FZ//DlpuzgKg==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@tanstack/react-store" "0.0.1-beta.62"
-    "@tanstack/router" "0.0.1-beta.69"
+    "@tanstack/router" "0.0.1-beta.75"
 
 "@tanstack/react-store@0.0.1-beta.62":
   version "0.0.1-beta.62"
@@ -335,14 +335,15 @@
     "@tanstack/store" "0.0.1-beta.62"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/router@0.0.1-beta.69":
-  version "0.0.1-beta.69"
-  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.69.tgz#755731238b8ac77428816feb17587263b4e20a4d"
-  integrity sha512-64GChAbWZsly7BbneO9N2GCKfvHDC9yTYm+p8VOI+gP2qa6uTKBKooLRXECkOwFqWpEwrEOxG8a4XsSyt+07gg==
+"@tanstack/router@0.0.1-beta.75":
+  version "0.0.1-beta.75"
+  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.75.tgz#62354783e4f58d00dfe0dc6909a6bb478a256283"
+  integrity sha512-6EBaxutjUnGYIxWJOALbxPWmBlbAgC2q0tnik40DyrIVYkHwyWIyq0qldq9kXbJaaZjNkNBbtHfoCot2m9Wazg==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@tanstack/store" "0.0.1-beta.62"
     tiny-invariant "^1.3.1"
+    tiny-warning "^1.0.3"
 
 "@tanstack/store@0.0.1-beta.62":
   version "0.0.1-beta.62"
@@ -2769,6 +2770,11 @@ tiny-invariant@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.1.tgz#8560808c916ef02ecfd55e66090df23a4b7aa642"
   integrity sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==
+
+tiny-warning@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
+  integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
 
 tinybench@^2.3.1:
   version "2.3.1"
