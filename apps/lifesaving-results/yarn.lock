@@ -318,14 +318,14 @@
     "@tanstack/query-core" "4.22.0"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-router@^0.0.1-beta.75":
-  version "0.0.1-beta.75"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-0.0.1-beta.75.tgz#f6a16d1bf7f7c8b2ffa86bffb422c5f7eca7078d"
-  integrity sha512-h5kYabSd/RwIw0chTvewBGQiUNR4Nr1aqVYk6QR5whf6OPDgJMSPDen9ZzylpZ9DOlNCVLyyZ8FZ//DlpuzgKg==
+"@tanstack/react-router@^0.0.1-beta.77":
+  version "0.0.1-beta.77"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-0.0.1-beta.77.tgz#4b86eba1cf7bc2a1a66b9f49ed4e1a6189e994ea"
+  integrity sha512-Lmxjy4wgHnzMgIfjhRwSq+rgUkI37Otr6FDbKzilkJwTCq8lxlXJ4g8F9f8MR9fk3vrc5eIwRj9Z7DNK20XCvw==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@tanstack/react-store" "0.0.1-beta.62"
-    "@tanstack/router" "0.0.1-beta.75"
+    "@tanstack/router" "0.0.1-beta.77"
 
 "@tanstack/react-store@0.0.1-beta.62":
   version "0.0.1-beta.62"
@@ -335,10 +335,10 @@
     "@tanstack/store" "0.0.1-beta.62"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/router@0.0.1-beta.75":
-  version "0.0.1-beta.75"
-  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.75.tgz#62354783e4f58d00dfe0dc6909a6bb478a256283"
-  integrity sha512-6EBaxutjUnGYIxWJOALbxPWmBlbAgC2q0tnik40DyrIVYkHwyWIyq0qldq9kXbJaaZjNkNBbtHfoCot2m9Wazg==
+"@tanstack/router@0.0.1-beta.77":
+  version "0.0.1-beta.77"
+  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.77.tgz#6d0eb361fddd63a407abdd267d59e985da043fff"
+  integrity sha512-o3XGeJf5nWCeyESS3/Dco+Rfl+kQ7Yi/n/wOTJi7V4kVezxeUJmQE7orN1NN9khnphUmVGNpF0YBG3b+STIk9w==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@tanstack/store" "0.0.1-beta.62"
