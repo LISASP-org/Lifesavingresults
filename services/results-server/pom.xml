@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>org.lisasp.results</groupId>
-            <artifactId>competition-service</artifactId>
+            <artifactId>competition-model</artifactId>
         </dependency>
         <dependency>
             <groupId>org.lisasp.results</groupId>
@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>org.lisasp.results</groupId>
-            <artifactId>competition-imports-core</artifactId>
+            <artifactId>imports-core</artifactId>
         </dependency>
 
         <dependency>
