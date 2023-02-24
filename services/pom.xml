@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.3</version>
         <relativePath/>
     </parent>
 
@@ -20,7 +20,6 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
-        <module>spring-jpa</module>
         <module>base-api</module>
         <module>competition-api</module>
         <module>competition-model</module>
@@ -36,20 +35,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
 
-        <basics.version>1.0.0-SNAPSHOT</basics.version>
+        <basics.version>1.0.0</basics.version>
         <opencsv.version>5.7.1</opencsv.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <springdoc.version>2.0.2</springdoc.version>
 
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.26</lombok.version>
         <slf4j.version>2.0.6</slf4j.version>
         <jetbrains.annotations.version>24.0.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <mockito.version>5.0.0</mockito.version>
+        <mockito.version>5.1.1</mockito.version>
         <testcontainers.version>1.17.6</testcontainers.version>
 
-        <mariadb.version>3.1.1</mariadb.version>
+        <mariadb.version>3.1.2</mariadb.version>
         <h2.version>2.1.214</h2.version>
 
         <spring-boot.skip>true</spring-boot.skip>
@@ -63,10 +62,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.lisasp.results</groupId>
-                <artifactId>spring-jpa</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.lisasp</groupId>
+                <artifactId>basics-spring-jpa</artifactId>
+                <version>${basics.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.lisasp.results</groupId>
                 <artifactId>base-api</artifactId>
@@ -248,7 +248,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -273,7 +273,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.10.4</version>
+                    <version>1.11.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -298,12 +298,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.14.2</version>
+                    <version>2.15.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -446,7 +446,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <configuration>
-                    <rulesUri>file:./version-rules.xml</rulesUri>
+                    <rulesUri>https://raw.githubusercontent.com/LISASP-org/java-basics/main/version-rules.xml</rulesUri>
                 </configuration>
             </plugin>
             <plugin>

@@ -13,14 +13,15 @@ import org.lisasp.results.model.CompetitionService;
 import org.lisasp.results.model.EntryService;
 import org.lisasp.results.model.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.transaction.TestTransaction;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
 class CompetitionServiceTests {
 
 
@@ -44,11 +45,12 @@ class CompetitionServiceTests {
     @Test
     void createAndQueryCompetition() throws Exception {
         CompetitionCreated created = service.execute(new CreateCompetition("Alphabet", "abc", null, null));
-
         assertNotNull(created);
         assertNotNull(created.id());
+        commit();
 
         CompetitionDto competitionDto = service.findCompetition(created.id());
+        commit();
 
         assertNotNull(competitionDto);
         assertEquals("Alphabet", competitionDto.getName());
@@ -69,8 +71,11 @@ class CompetitionServiceTests {
 
     @Test
     void findCompetitionsTwo() {
+        assertEquals(0, service.findCompetitions().length);
+
         service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
         service.execute(new CreateCompetition("Alphabet 2", "abc 2", null, null));
+        commit();
 
         CompetitionDto[] competitions = service.findCompetitions();
 
@@ -84,6 +89,7 @@ class CompetitionServiceTests {
     void findCompetitionByUploadIdTest() throws NotFoundException {
         CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
         CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
+        commit();
 
         String actual = service.getCompetitionIdByUploadId(competitionDto.getUploadId());
 
@@ -96,8 +102,10 @@ class CompetitionServiceTests {
         @Test
         void updateCompetition() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
+            commit();
 
             service.update(competitionCreated.id(), updater -> updater.updateCompetition(competition -> competition.setName("zyx")));
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
             assertEquals("zyx", competitionDto.getName());
@@ -107,6 +115,7 @@ class CompetitionServiceTests {
         void addEventTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
             String competitionId = competitionCreated.id();
+            commit();
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
@@ -115,6 +124,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
@@ -133,6 +143,7 @@ class CompetitionServiceTests {
         void addTwoEventsTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
             String competitionId = competitionCreated.id();
+            commit();
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
@@ -145,6 +156,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals(competitionId, competitionDto.getId());
@@ -180,10 +192,12 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             service.update(competitionCreated.id(), updater -> {
                 updater.updateCompetition(competition -> competition.setName("abc"));
             });
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
             assertEquals("abc", competitionDto.getName());
@@ -205,6 +219,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
@@ -213,6 +228,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
@@ -231,6 +247,7 @@ class CompetitionServiceTests {
         void addEntryTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
             String competitionId = competitionCreated.id();
+            commit();
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
@@ -247,6 +264,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
@@ -282,6 +300,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
@@ -290,6 +309,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
@@ -304,6 +324,7 @@ class CompetitionServiceTests {
         void addTwoEntriesTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
             String competitionId = competitionCreated.id();
+            commit();
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
@@ -326,6 +347,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
@@ -355,6 +377,7 @@ class CompetitionServiceTests {
         void removeOneOfTwoEntriesTest() throws NotFoundException {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
             String competitionId = competitionCreated.id();
+            commit();
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
                 updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
@@ -378,6 +401,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
@@ -394,6 +418,7 @@ class CompetitionServiceTests {
                     });
                 });
             });
+            commit();
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
@@ -411,5 +436,11 @@ class CompetitionServiceTests {
             assertEquals("Y", entry1.getClub());
             assertEquals("GER", entry1.getNationality());
         }
+    }
+
+    private void commit() {
+        TestTransaction.flagForCommit();
+        TestTransaction.end();
+        TestTransaction.start();
     }
 }

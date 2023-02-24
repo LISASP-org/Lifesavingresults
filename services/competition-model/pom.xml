@@ -13,8 +13,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.lisasp.results</groupId>
-            <artifactId>spring-jpa</artifactId>
+            <groupId>org.lisasp</groupId>
+            <artifactId>basics-spring-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.lisasp.results</groupId>

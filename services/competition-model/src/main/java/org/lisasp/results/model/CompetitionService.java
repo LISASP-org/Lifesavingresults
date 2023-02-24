@@ -54,7 +54,6 @@ public class CompetitionService {
 
     @Transactional
     public void update(String id, Consumer<CompetitionUpdater> updater) throws NotFoundException {
-
         CompetitionUpdater competitionUpdater = new CompetitionUpdater(competitionRepository, eventRepository, entryRepository).initialize(id);
         updater.accept(competitionUpdater);
         competitionUpdater.save();
