@@ -10,9 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventService {
 
-    private final EventRepository repository;
     private final CompetitionRepository competitionRepository;
-
+    private final EventRepository repository;
     private final EntityToDtoMapper mapper = Mappers.getMapper(EntityToDtoMapper.class);
 
     public EventDto[] findEvents(String competitionId) throws NotFoundException {

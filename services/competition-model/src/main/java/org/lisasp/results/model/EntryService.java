@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class EntryService {
 
-    private final EntryRepository repository;
     private final EventRepository eventRepository;
+    private final EntryRepository repository;
 
     private final EntityToDtoMapper mapper = Mappers.getMapper(EntityToDtoMapper.class);
 

@@ -1,6 +1,7 @@
 package org.lisasp.results.test.model;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.lisasp.results.base.api.type.EventType;
@@ -9,9 +10,7 @@ import org.lisasp.results.base.api.type.InputValueType;
 import org.lisasp.results.base.api.value.Round;
 import org.lisasp.results.competition.api.*;
 import org.lisasp.results.competition.api.exception.NotFoundException;
-import org.lisasp.results.model.CompetitionService;
-import org.lisasp.results.model.EntryService;
-import org.lisasp.results.model.EventService;
+import org.lisasp.results.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.transaction.TestTransaction;
@@ -21,21 +20,28 @@ import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
+@DataJpaTest(showSql = false)
 class CompetitionServiceTests {
 
-
     @Autowired
+    private EntryRepository entryRepository;
+    @Autowired
+    private EventRepository eventRepository;
+    @Autowired
+    private CompetitionRepository competitionRepository;
+
     private DatabaseCleaner cleaner;
-
-    @Autowired
     private CompetitionService service;
-
-    @Autowired
     private EventService eventService;
-
-    @Autowired
     private EntryService entryService;
+
+    @BeforeEach
+    void prepare() {
+        cleaner = new DatabaseCleaner(competitionRepository, eventRepository,entryRepository);
+        service = new CompetitionService(competitionRepository, eventRepository,entryRepository);
+        eventService = new EventService(competitionRepository, eventRepository);
+        entryService = new EntryService(eventRepository,entryRepository);
+    }
 
     @AfterEach
     void cleanup() {
