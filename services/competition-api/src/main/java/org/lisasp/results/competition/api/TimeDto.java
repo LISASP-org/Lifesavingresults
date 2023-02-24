@@ -9,7 +9,7 @@ import org.lisasp.results.base.api.type.Gender;
 @AllArgsConstructor
 public class TimeDto {
     private final String id;
-    private final int version;
+    private final long version;
     private final EventType eventType;
     private final String name;
     private final String club;
@@ -17,6 +17,6 @@ public class TimeDto {
     private final String agegroup;
     private final Gender gender;
     private final String discipline;
-    private final int timeInMillis;
+    private final int value;
     private final String penalties;
 }
