@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.context.transaction.TestTransaction;
 
 @RequiredArgsConstructor
+@Component
 class DatabaseCleaner {
 
     private final CompetitionRepository competitionRepository;
