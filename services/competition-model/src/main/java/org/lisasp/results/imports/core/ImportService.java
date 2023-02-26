@@ -11,20 +11,16 @@ import org.lisasp.results.model.CompetitionEntity;
 import org.lisasp.results.model.CompetitionService;
 import org.lisasp.results.model.EntryEntity;
 import org.lisasp.results.model.EventEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
 @RequiredArgsConstructor
-@Component
 public class ImportService {
     private final CompetitionService competitionService;
     private final ImportStorage storage;
 
     private final JAuswertungImporter jAuswertungImporter = new JAuswertungImporter();
 
-    @Transactional
     public void importFromJAuswertung(String uploadId, String competitionJson) throws NotFoundException, FileFormatException {
         String id = competitionService.getCompetitionIdByUploadId(uploadId);
 

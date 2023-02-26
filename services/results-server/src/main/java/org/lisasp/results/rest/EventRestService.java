@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.lisasp.results.competition.api.EventDto;
 import org.lisasp.results.competition.api.exception.NotFoundException;
 import org.lisasp.results.model.EventService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class EventRestService {
             @ApiResponse(responseCode = "200", useReturnTypeSchema = true)
     })
     @GetMapping("/competition/{competitionId}/event")
+    @Transactional
     public EventDto[] findEventsByCompetitionId(@PathVariable String competitionId) throws NotFoundException {
         return service.findEvents(competitionId);
     }

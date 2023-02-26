@@ -8,6 +8,7 @@ import org.lisasp.results.competition.api.exception.NotFoundException;
 import org.lisasp.results.imports.core.ImportService;
 import org.lisasp.results.imports.api.exception.FileFormatException;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -25,6 +26,7 @@ public class ImportRestService {
     })
     @PutMapping("/import/{uploadId}/jauswertung")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     public void importFromJAuswertung(@PathVariable String uploadId, @RequestBody String competition) throws NotFoundException, FileFormatException {
         service.importFromJAuswertung(uploadId, competition);
     }

@@ -1,5 +1,6 @@
 package org.lisasp.results.competition.api;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -7,6 +8,7 @@ import java.time.LocalDate;
 
 @Value
 @Builder
+@AllArgsConstructor
 public class CompetitionDto {
 
     private String id;

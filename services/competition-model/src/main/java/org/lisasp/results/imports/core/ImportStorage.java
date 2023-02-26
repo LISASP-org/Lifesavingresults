@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.lisasp.results.imports.api.Competition;
 import org.lisasp.results.imports.api.exception.FileFormatException;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,11 +14,10 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Optional;
 
-@Component
 @RequiredArgsConstructor
-class ImportStorage {
+public class ImportStorage {
 
-    private final ImportServiceConfiguration config;
+    private final ImportConfiguration configuration;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -53,7 +51,7 @@ class ImportStorage {
     }
 
     private void ensureDirectory() throws IOException {
-        Files.createDirectories(Path.of(config.getStorageDirectory()));
+        Files.createDirectories(Path.of(configuration.getStorageDirectory()));
     }
 
     private Optional<Competition> get(String id) throws FileFormatException {
@@ -70,7 +68,7 @@ class ImportStorage {
 
     @NotNull
     private Path filenameFor(String id) {
-        return Path.of(config.getStorageDirectory(), id + ".json");
+        return Path.of(configuration.getStorageDirectory(), id + ".json");
     }
 
     private Competition deserialize(String json) throws FileFormatException {

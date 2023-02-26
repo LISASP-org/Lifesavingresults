@@ -7,3 +7,7 @@ spring:
     url: jdbc:h2:mem:competitions;DB_CLOSE_DELAY=-1;
     username: sa
     password: sa
+
+results:
+  imports:
+    directory:
