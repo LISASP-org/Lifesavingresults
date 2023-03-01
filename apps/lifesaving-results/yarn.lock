@@ -3058,3 +3058,8 @@ zod@^3.20.2:
   version "3.20.2"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.20.2.tgz#068606642c8f51b3333981f91c0a8ab37dfc2807"
   integrity sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==
+
+zwilling@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/zwilling/-/zwilling-0.1.4.tgz#f114b9eb9c7396fc887d4f55b8ac5e863dc6c5e2"
+  integrity sha512-gCpGGTLNWY4c48KEVBjFYMl0trfY+XUTjNGwMvikurRy7HFQthfBvOoB9lWRJt1zpLbFvt8Our7v/n3RUTO2iA==

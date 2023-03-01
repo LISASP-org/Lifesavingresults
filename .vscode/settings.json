@@ -10,5 +10,6 @@
     "css=\"([^\"]*)", // <div css="..." />
     "css='([^']*)", // <div css="..." />
     "css={\"([^\"}]*)" // <div css={"..."} />
-  ]
+  ],
+  "java.compile.nullAnalysis.mode": "automatic"
 }
