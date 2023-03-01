@@ -4,3 +4,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Inter var';
+  src: url('/public/fonts/Inter-VariableFont.ttf');
+}

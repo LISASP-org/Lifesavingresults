@@ -23,7 +23,8 @@
     "jose": "^4.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "zod": "^3.20.6"
+    "zod": "^3.20.6",
+    "zwilling": "^0.1.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

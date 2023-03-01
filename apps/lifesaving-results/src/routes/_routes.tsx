@@ -1,20 +1,11 @@
-import { Outlet, ReactRouter, RootRoute, Route } from '@tanstack/react-router';
+import { Outlet, ReactRouter, RootRoute } from '@tanstack/react-router';
 import { indexRoute } from '.';
-import { MainLayout } from '../layout/MainLayout';
 import { callbackRoute } from './callback';
+import { competitionIndexRoute } from './competition';
 import { competitionByIdRoute } from './competition/$id';
 import { impressumRoute } from './impressum';
 import { logout_callbackRoute } from './logout_callback';
-
-export const mainLayoutRoute = new Route({
-  getParentRoute: () => rootRoute,
-  id: 'mainLayout',
-  component: () => (
-    <MainLayout>
-      <Outlet />
-    </MainLayout>
-  ),
-});
+import { profileRoute } from './profile';
 
 export const rootRoute = new RootRoute({
   component: () => <Outlet />,
@@ -23,7 +14,11 @@ export const rootRoute = new RootRoute({
 const routeTree = rootRoute.addChildren([
   callbackRoute,
   logout_callbackRoute,
-  mainLayoutRoute.addChildren([indexRoute, impressumRoute, competitionByIdRoute]),
+  indexRoute,
+  competitionIndexRoute,
+  impressumRoute,
+  competitionByIdRoute,
+  profileRoute,
 ]);
 
 declare module '@tanstack/react-router' {
