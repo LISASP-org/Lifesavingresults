@@ -8,7 +8,7 @@ type Props = {
 
 export const StandardGrid = (props: Props) => {
   return (
-    <div className={classNames(['grid grid-cols-12 gap-2', props.className])}>
+    <div className={classNames(['grid grid-cols-12 gap-3', props.className])}>
       {props.children}
     </div>
   );

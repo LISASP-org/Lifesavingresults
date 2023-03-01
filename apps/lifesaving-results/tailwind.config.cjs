@@ -3,6 +3,12 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter var', 'Helvetica', 'Arial', 'ui-sans-serif', 'system-ui'],
+      },
+      gridTemplateColumns: {
+        form: 'fit-content(200px) 1fr',
+      },
       colors: {
         dlrgRed: {
           DEFAULT: '#E30613',

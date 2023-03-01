@@ -1,30 +1,25 @@
 package org.lisasp.results.model;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.competition.api.dto.CompetitionCreated;
-import org.lisasp.competition.api.dto.CompetitionDto;
-import org.lisasp.competition.api.dto.CreateCompetition;
-import org.lisasp.competition.api.exception.CompetitionNotFoundException;
-import org.lisasp.competition.api.exception.NotFoundException;
-import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.lisasp.results.competition.api.CompetitionCreated;
+import org.lisasp.results.competition.api.CompetitionDto;
+import org.lisasp.results.competition.api.CreateCompetition;
+import org.lisasp.results.competition.api.exception.CompetitionNotFoundException;
+import org.lisasp.results.competition.api.exception.NotFoundException;
 
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
-@Component
 public class CompetitionService {
-
-    private final EntityToDtoMapper mapper = Mappers.getMapper(EntityToDtoMapper.class);
 
     private final CompetitionRepository competitionRepository;
     private final EventRepository eventRepository;
     private final EntryRepository entryRepository;
 
-    @Transactional
+    private final EntityToDtoMapper mapper = new EntityToDtoMapper();
+
     public CompetitionCreated execute(CreateCompetition createCompetition) {
         CompetitionEntity competition = new CompetitionEntity();
         competition.setUploadId(UUID.randomUUID().toString());
@@ -52,9 +47,7 @@ public class CompetitionService {
         return entity.getId();
     }
 
-    @Transactional
     public void update(String id, Consumer<CompetitionUpdater> updater) throws NotFoundException {
-
         CompetitionUpdater competitionUpdater = new CompetitionUpdater(competitionRepository, eventRepository, entryRepository).initialize(id);
         updater.accept(competitionUpdater);
         competitionUpdater.save();

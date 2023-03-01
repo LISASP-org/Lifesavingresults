@@ -2,8 +2,8 @@ package org.lisasp.results.model;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.lisasp.competition.api.exception.CompetitionNotFoundException;
-import org.lisasp.competition.api.exception.NotFoundException;
+import org.lisasp.results.competition.api.exception.CompetitionNotFoundException;
+import org.lisasp.results.competition.api.exception.NotFoundException;
 import org.lisasp.results.base.api.type.EventType;
 import org.lisasp.results.base.api.type.Gender;
 import org.lisasp.results.base.api.type.InputValueType;
@@ -69,9 +69,7 @@ public class CompetitionUpdater {
                 .stream()
                 .filter(e -> e.matches(eventType, agegroup, gender, discipline, round, inputValueType))
                 .findFirst()
-                .orElseGet(() -> {
-                    return setupNewEventUpdater(eventType, agegroup, gender, discipline, round, inputValueType);
-                });
+                .orElseGet(() -> setupNewEventUpdater(eventType, agegroup, gender, discipline, round, inputValueType));
         updater.accept(eventUpdater);
     }
 

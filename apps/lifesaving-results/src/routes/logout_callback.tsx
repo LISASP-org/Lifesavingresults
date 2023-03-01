@@ -2,10 +2,10 @@ import { Spinner } from '@blueprintjs/core';
 import { Route, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { FeedbackLayout } from '../layout/FeedbackLayout';
-import { mainLayoutRoute } from './_routes';
+import { rootRoute } from './_routes';
 
 export const logout_callbackRoute = new Route({
-  getParentRoute: () => mainLayoutRoute,
+  getParentRoute: () => rootRoute,
   path: '/logout_callback',
   component: () => {
     const navigate = useNavigate();
