@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.lisasp.results.spring.jpa.BaseEntity;
+import org.lisasp.basics.spring.jpa.BaseEntity;
 
 import java.time.LocalDate;
 import java.util.List;

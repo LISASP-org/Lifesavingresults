@@ -1,0 +1,62 @@
+{
+  "name" : "Two Events",
+  "events" : [ {
+    "agegroup" : "AK 12",
+    "sex" : "w",
+    "discipline" : "50m Hindernisschwimmen",
+    "round" : 0,
+    "isFinal" : true,
+    "valueType" : "TimeInMillis",
+    "times" : [ {
+      "startnumber" : "11",
+      "name" : "von Scleinitz, Centa",
+      "organization" : "Neumarkt (ND)",
+      "value" : 78530,
+      "penalties" : [ ],
+      "swimmer" : [ {
+        "startnumber" : "11",
+        "firstName" : "Centa",
+        "lastName" : "von Scleinitz",
+        "organization" : "Neumarkt (ND)",
+        "sex" : "w",
+        "yearOfBirth" : 2013
+      } ],
+      "start" : {
+        "heat" : "1",
+        "lane" : 6
+      }
+    } ],
+    "competitorType" : "Individual"
+  }, {
+    "agegroup" : "AK 13/14",
+    "sex" : "m",
+    "discipline" : "100m Hindernisschwimmen",
+    "round" : 0,
+    "isFinal" : true,
+    "valueType" : "TimeInMillis",
+    "times" : [ {
+      "startnumber" : "44",
+      "name" : "Winand, Constantin",
+      "organization" : "Altlandsberg (SH)",
+      "value" : 63120,
+      "penalties" : [ {
+        "name" : "W7",
+        "type" : "Points",
+        "points" : 200
+      } ],
+      "swimmer" : [ {
+        "startnumber" : "44",
+        "firstName" : "Constantin",
+        "lastName" : "Winand",
+        "organization" : "Altlandsberg (SH)",
+        "sex" : "m",
+        "yearOfBirth" : 2010
+      } ],
+      "start" : {
+        "heat" : "12",
+        "lane" : 5
+      }
+    } ],
+    "competitorType" : "Individual"
+  } ]
+}

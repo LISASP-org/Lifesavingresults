@@ -1,14 +1,21 @@
 package org.lisasp.results.model;
 
-import org.lisasp.competition.api.dto.CompetitionDto;
-import org.lisasp.competition.api.dto.EntryDto;
-import org.lisasp.competition.api.dto.EventDto;
-import org.mapstruct.Mapper;
+import org.lisasp.results.competition.api.CompetitionDto;
+import org.lisasp.results.competition.api.EntryDto;
+import org.lisasp.results.competition.api.EventDto;
 
-@Mapper
-interface EntityToDtoMapper {
-    CompetitionDto entityToDto(CompetitionEntity entity);
-    EventDto entityToDto(EventEntity entity);
-    EntryDto entityToDto(EntryEntity entity);
+// @Mapper
+class EntityToDtoMapper {
+    CompetitionDto entityToDto(CompetitionEntity entity) {
+        return new CompetitionDto(entity.getId(), entity.getVersion(), entity.getUploadId(), entity.getName(), entity.getAcronym(), entity.getFrom(), entity.getTill());
+    }
+
+    EventDto entityToDto(EventEntity entity) {
+        return new EventDto(entity.getId(), entity.getVersion(), entity.getAgegroup(), entity.getEventType(), entity.getGender(), entity.getDiscipline(), entity.getRound(), entity.getInputValueType());
+    }
+
+    EntryDto entityToDto(EntryEntity entity) {
+        return new EntryDto(entity.getId(), entity.getVersion(), entity.getNumber(), entity.getName(), entity.getClub(), entity.getNationality(), entity.getTimeInMillis(), entity.getPlaceInHeat(), entity.getPenalties(), entity.getSwimmer(), entity.getStart());
+    }
 }
 
