@@ -1,7 +1,9 @@
 package org.lisasp.results.rest;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.results.competition.api.CompetitionCreated;
@@ -12,14 +14,17 @@ import org.lisasp.results.model.CompetitionService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import static org.lisasp.results.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
+
 @Slf4j
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
-public class CompetitionRestService {
+public class CompetitionController {
 
     private final CompetitionService service;
 
+    @Operation(security = {@SecurityRequirement(name = BEARER_KEY_SECURITY_SCHEME)})
     @PostMapping("/competition")
     @Transactional
     public CompetitionCreated createCompetition(@RequestBody CreateCompetition createCompetition) {

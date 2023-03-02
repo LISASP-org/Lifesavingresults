@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
-public class ImportRestService {
+public class ImportController {
 
     private final ImportService service;
 
