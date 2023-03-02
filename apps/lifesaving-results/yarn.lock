@@ -4923,7 +4923,7 @@ zod@^3.20.6:
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.20.6.tgz#2f2f08ff81291d47d99e86140fedb4e0db08361a"
   integrity sha512-oyu0m54SGCtzh6EClBVqDDlAYRz4jrVtKwQ7ZnsEmMI9HnzuZFj8QFwAY1M5uniIYACdGvv0PBWPF2kO0aNofA==
 
-zwilling@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/zwilling/-/zwilling-0.1.4.tgz#f114b9eb9c7396fc887d4f55b8ac5e863dc6c5e2"
-  integrity sha512-gCpGGTLNWY4c48KEVBjFYMl0trfY+XUTjNGwMvikurRy7HFQthfBvOoB9lWRJt1zpLbFvt8Our7v/n3RUTO2iA==
+zwilling@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/zwilling/-/zwilling-0.1.9.tgz#1c86b09193321808db6dbbfe8095f187a0216ba9"
+  integrity sha512-15BjwgFcW9fvknGuZODl4JrvBAt4utslTdlbTWPatpjG8HZjmsRU+FZY4vkFOvb66ptRmQQuBO9L965iMlkAcA==
