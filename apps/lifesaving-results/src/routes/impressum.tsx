@@ -1,8 +1,7 @@
 import { Route } from '@tanstack/react-router';
+import { Row, TwoColumns } from '../layout/Grid';
 import { MainLayout } from '../layout/MainLayout';
-import { Row } from '../layout/Row';
-import { TwoColumns } from '../layout/TwoColumns';
-import { rootRoute } from './_routes';
+import { rootRoute } from './_root';
 
 export const impressumRoute = new Route({
   getParentRoute: () => rootRoute,

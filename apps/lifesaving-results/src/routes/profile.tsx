@@ -1,10 +1,9 @@
 import { Route } from '@tanstack/react-router';
 import { Card } from '../components/Card';
 import { useUser } from '../hooks/auth/useUser';
+import { Row, TwoColumns } from '../layout/Grid';
 import { MainLayout } from '../layout/MainLayout';
-import { Row } from '../layout/Row';
-import { TwoColumns } from '../layout/TwoColumns';
-import { rootRoute } from './_routes';
+import { rootRoute } from './_root';
 
 export const profileRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -21,9 +20,9 @@ export const profileRoute = new Route({
             <Card title="Profil">
               <form className="grid grid-cols-form gap-2">
                 <label htmlFor="given_name_input">Vorname</label>
-                <input id="given_name_input" value={user.given_name} />
+                <input id="given_name_input" defaultValue={user.given_name} />
                 <label htmlFor="family_name_input">Nachname</label>
-                <input id="family_name_input" value={user.family_name} />
+                <input id="family_name_input" defaultValue={user.family_name} />
               </form>
             </Card>
             <Card>Dein Profil</Card>

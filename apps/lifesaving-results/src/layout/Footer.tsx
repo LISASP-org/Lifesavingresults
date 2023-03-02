@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Link } from '../components/Link';
-import { Row } from './Row';
+import { Row } from './Grid';
 
 type Props = {
   className?: string;

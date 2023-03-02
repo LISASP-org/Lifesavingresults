@@ -6,7 +6,7 @@ import {
   OAUTH_CLIENT_ID,
   OAUTH_REDIRECT_URI,
   OAUTH_TOKEN_ENDPOINT,
-} from '../App';
+} from '../Constants';
 
 export type JWT = {
   exp: number; // 1674815944,

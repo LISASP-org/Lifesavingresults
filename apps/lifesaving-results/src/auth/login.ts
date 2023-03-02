@@ -4,7 +4,7 @@ import {
   OAUTH_LOGOUT_ENDPOINT,
   OAUTH_LOGOUT_REDIRECT_URI,
   OAUTH_REDIRECT_URI,
-} from '../App';
+} from '../Constants';
 
 export const getLoginUrl = () => {
   const queryParams = new URLSearchParams();
