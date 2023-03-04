@@ -6,10 +6,12 @@
     "source.fixAll.eslint": true
   },
   "tailwindCSS.experimental.classRegex": [
-    "css`([^`]*)", // css`...`
-    "css=\"([^\"]*)", // <div css="..." />
-    "css='([^']*)", // <div css="..." />
-    "css={\"([^\"}]*)" // <div css={"..."} />
+    "zw`([^`]*)", // zw`...`
+    "zw\\.[^`]*`([^`]*)", // zw.div`...`
+    "zw=\"([^\"]*)", // <div zw="..." />
+    "zw='([^']*)", // <div zw='...'' />
+    "zw={\"([^\"}]*)" // <div zw={"..."} />
   ],
-  "java.compile.nullAnalysis.mode": "automatic"
+  "java.compile.nullAnalysis.mode": "automatic",
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true
 }

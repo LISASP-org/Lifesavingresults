@@ -1,8 +1,8 @@
 import { Route, useParams } from '@tanstack/react-router';
 import { useGetCompetitionById } from '../../generated/resultsApi';
+import { Row } from '../../layout/Grid';
 import { MainLayout } from '../../layout/MainLayout';
-import { Row } from '../../layout/Row';
-import { rootRoute } from '../_routes';
+import { rootRoute } from '../_root';
 
 export const competitionByIdRoute = new Route({
   getParentRoute: () => rootRoute,

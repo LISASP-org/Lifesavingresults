@@ -1,11 +1,3 @@
-import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import { zw } from '../Zwilling';
 
-type Props = {
-  className?: string;
-  children?: ReactNode;
-};
-
-export const HR = (props: Props) => {
-  return <hr className={classNames(['', props.className])}>{props.children}</hr>;
-};
+export const HR = zw.hr``;
