@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { fetchTokenWithCode } from '../auth/jwt';
 import { FeedbackLayout } from '../layout/FeedbackLayout';
-import { rootRoute } from './_routes';
+import { rootRoute } from './_root';
 
 export const callbackRoute = new Route({
   getParentRoute: () => rootRoute,

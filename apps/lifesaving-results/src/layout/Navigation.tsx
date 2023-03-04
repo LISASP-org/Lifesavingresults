@@ -2,7 +2,7 @@ import { getToken } from '../auth/jwt';
 import { Link } from '../components/Link';
 import { H1 } from '../components/Typography';
 import { useUser } from '../hooks/auth/useUser';
-import { Row } from './Row';
+import { Row } from './Grid';
 
 const getInitials = ({
   given_name,

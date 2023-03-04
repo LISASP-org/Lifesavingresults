@@ -2,7 +2,7 @@ import { Spinner } from '@blueprintjs/core';
 import { Route, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { FeedbackLayout } from '../layout/FeedbackLayout';
-import { rootRoute } from './_routes';
+import { rootRoute } from './_root';
 
 export const logout_callbackRoute = new Route({
   getParentRoute: () => rootRoute,

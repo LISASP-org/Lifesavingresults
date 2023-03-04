@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import { BACKEND_URL } from '../App';
+import { BACKEND_URL } from '../Constants';
 import { getValidToken } from './jwt';
 
 export const apiClient = axios.create({ baseURL: BACKEND_URL });
