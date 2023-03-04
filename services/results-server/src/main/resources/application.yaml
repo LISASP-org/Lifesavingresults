@@ -8,7 +8,7 @@ app:
     client-id: lifesaving-results-webapp
     valid-redirect-urls: http://localhost:5173/*
     web-origins: http://localhost:5173, http://localhost:9001
-    users: admin, user
+    users: admin, user, felix, dennis
   cors:
     allowed-origins: http://localhost:5173
 

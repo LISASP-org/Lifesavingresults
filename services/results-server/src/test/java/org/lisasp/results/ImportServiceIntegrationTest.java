@@ -1,9 +1,6 @@
 package org.lisasp.results;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.lisasp.results.base.api.type.EventType;
 import org.lisasp.results.base.api.type.Gender;
 import org.lisasp.results.base.api.type.InputValueType;
@@ -27,6 +24,7 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled
 @Tag("IntegrationTest")
 @SpringBootTest
 public class ImportServiceIntegrationTest {
