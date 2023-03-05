@@ -1,6 +1,6 @@
 package org.lisasp.results.rest;
 
-import org.lisasp.results.competition.api.exception.NotFoundException;
+import org.lisasp.results.api.exception.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

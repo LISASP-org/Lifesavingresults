@@ -1,11 +1,10 @@
 package org.lisasp.results;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.results.model.CompetitionRepository;
-import org.lisasp.results.model.EntryRepository;
-import org.lisasp.results.model.EventRepository;
+import org.lisasp.results.service.CompetitionRepository;
+import org.lisasp.results.service.EntryRepository;
+import org.lisasp.results.service.EventRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.transaction.TestTransaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

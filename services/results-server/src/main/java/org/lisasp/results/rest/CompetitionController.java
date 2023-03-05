@@ -6,11 +6,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.results.competition.api.CompetitionCreated;
-import org.lisasp.results.competition.api.CompetitionDto;
-import org.lisasp.results.competition.api.CreateCompetition;
-import org.lisasp.results.competition.api.exception.NotFoundException;
-import org.lisasp.results.model.CompetitionService;
+import org.lisasp.results.api.CompetitionCreated;
+import org.lisasp.results.api.CompetitionDto;
+import org.lisasp.results.api.CreateCompetition;
+import org.lisasp.results.api.exception.NotFoundException;
+import org.lisasp.results.service.CompetitionService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 

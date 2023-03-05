@@ -20,9 +20,8 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
-        <module>base-api</module>
-        <module>competition-api</module>
-        <module>competition-model</module>
+        <module>results-api</module>
+        <module>results-service</module>
         <module>time-service</module>
         <module>results-server</module>
         <module>results-distribution</module>
@@ -68,17 +67,12 @@
 
             <dependency>
                 <groupId>org.lisasp.results</groupId>
-                <artifactId>base-api</artifactId>
+                <artifactId>results-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.results</groupId>
-                <artifactId>competition-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.results</groupId>
-                <artifactId>competition-model</artifactId>
+                <artifactId>results-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

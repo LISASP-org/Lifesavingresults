@@ -1,16 +1,16 @@
 package org.lisasp.results;
 
 import org.junit.jupiter.api.*;
-import org.lisasp.results.base.api.type.EventType;
-import org.lisasp.results.base.api.type.Gender;
-import org.lisasp.results.base.api.type.InputValueType;
-import org.lisasp.results.base.api.value.Round;
-import org.lisasp.results.base.api.value.Start;
-import org.lisasp.results.competition.api.*;
-import org.lisasp.results.imports.core.ImportService;
-import org.lisasp.results.model.CompetitionService;
-import org.lisasp.results.model.EntryService;
-import org.lisasp.results.model.EventService;
+import org.lisasp.results.api.*;
+import org.lisasp.results.api.type.EventType;
+import org.lisasp.results.api.type.Gender;
+import org.lisasp.results.api.type.InputValueType;
+import org.lisasp.results.api.value.Round;
+import org.lisasp.results.api.value.Start;
+import org.lisasp.results.service.imports.ImportService;
+import org.lisasp.results.service.CompetitionService;
+import org.lisasp.results.service.EntryService;
+import org.lisasp.results.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
