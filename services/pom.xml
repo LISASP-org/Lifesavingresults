@@ -20,9 +20,8 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
-        <module>base-api</module>
-        <module>competition-api</module>
-        <module>competition-model</module>
+        <module>results-api</module>
+        <module>results-service</module>
         <module>time-service</module>
         <module>results-server</module>
         <module>results-distribution</module>
@@ -36,6 +35,8 @@
         <opencsv.version>5.7.1</opencsv.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <springdoc.version>2.0.2</springdoc.version>
+
+        <keycloak.version>21.0.0</keycloak.version>
 
         <lombok.version>1.18.26</lombok.version>
         <slf4j.version>2.0.6</slf4j.version>
@@ -66,35 +67,14 @@
 
             <dependency>
                 <groupId>org.lisasp.results</groupId>
-                <artifactId>base-api</artifactId>
+                <artifactId>results-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.results</groupId>
-                <artifactId>competition-api</artifactId>
+                <artifactId>results-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.lisasp.results</groupId>
-                <artifactId>competition-model</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-<!--            <dependency>
-                <groupId>org.lisasp.results</groupId>
-                <artifactId>imports-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.results</groupId>
-                <artifactId>imports-jauswertung</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.results</groupId>
-                <artifactId>imports-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            -->
             <dependency>
                 <groupId>org.lisasp.results</groupId>
                 <artifactId>time-service</artifactId>
@@ -120,6 +100,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-admin-client</artifactId>
+                <version>${keycloak.version}</version>
             </dependency>
 
             <dependency>

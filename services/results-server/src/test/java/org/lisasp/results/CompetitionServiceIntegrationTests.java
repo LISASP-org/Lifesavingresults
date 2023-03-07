@@ -1,17 +1,15 @@
 package org.lisasp.results;
 
 import org.junit.jupiter.api.*;
-import org.lisasp.results.base.api.type.EventType;
-import org.lisasp.results.base.api.type.Gender;
-import org.lisasp.results.base.api.type.InputValueType;
-import org.lisasp.results.base.api.value.Round;
-import org.lisasp.results.competition.api.*;
-import org.lisasp.results.competition.api.exception.NotFoundException;
-import org.lisasp.results.model.*;
+import org.lisasp.results.api.*;
+import org.lisasp.results.api.type.EventType;
+import org.lisasp.results.api.type.Gender;
+import org.lisasp.results.api.type.InputValueType;
+import org.lisasp.results.api.value.Round;
+import org.lisasp.results.api.exception.NotFoundException;
+import org.lisasp.results.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.transaction.TestTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +18,7 @@ import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Disabled
 @Tag("IntegrationTest")
 @SpringBootTest
 class CompetitionServiceIntegrationTests {

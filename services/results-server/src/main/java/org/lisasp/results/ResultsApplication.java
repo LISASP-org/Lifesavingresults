@@ -1,16 +1,14 @@
 package org.lisasp.results;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.results.imports.core.ImportService;
-import org.lisasp.results.imports.core.ImportStorage;
-import org.lisasp.results.model.*;
+import org.lisasp.results.service.imports.ImportService;
+import org.lisasp.results.service.imports.ImportStorage;
+import org.lisasp.results.service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @RequiredArgsConstructor
-@Configuration
 @SpringBootApplication
 public class ResultsApplication {
 

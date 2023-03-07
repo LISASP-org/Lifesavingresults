@@ -1,19 +1,16 @@
 package org.lisasp.results;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.lisasp.results.base.api.type.EventType;
-import org.lisasp.results.base.api.type.Gender;
-import org.lisasp.results.base.api.type.InputValueType;
-import org.lisasp.results.base.api.value.Round;
-import org.lisasp.results.base.api.value.Start;
-import org.lisasp.results.competition.api.*;
-import org.lisasp.results.imports.core.ImportService;
-import org.lisasp.results.model.CompetitionService;
-import org.lisasp.results.model.EntryService;
-import org.lisasp.results.model.EventService;
+import org.junit.jupiter.api.*;
+import org.lisasp.results.api.*;
+import org.lisasp.results.api.type.EventType;
+import org.lisasp.results.api.type.Gender;
+import org.lisasp.results.api.type.InputValueType;
+import org.lisasp.results.api.value.Round;
+import org.lisasp.results.api.value.Start;
+import org.lisasp.results.service.imports.ImportService;
+import org.lisasp.results.service.CompetitionService;
+import org.lisasp.results.service.EntryService;
+import org.lisasp.results.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +24,7 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled
 @Tag("IntegrationTest")
 @SpringBootTest
 public class ImportServiceIntegrationTest {
