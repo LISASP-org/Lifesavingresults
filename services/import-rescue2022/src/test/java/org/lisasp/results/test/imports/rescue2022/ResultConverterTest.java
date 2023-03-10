@@ -49,10 +49,14 @@ class ResultConverterTest {
 
     static List<Path> findFiles() throws IOException {
         List<Path> filenames = new ArrayList<>();
-        filenames.addAll(Files.list(Path.of("data", "downloads", "Rescue 2022", "Master")).filter(onlyNormalResultFiles()).toList());
-        filenames.addAll(Files.list(Path.of("data", "downloads", "Rescue 2022", "Youth")).filter(onlyNormalResultFiles()).toList());
-        filenames.addAll(Files.list(Path.of("data", "downloads", "Rescue 2022", "Open")).filter(onlyNormalResultFiles()).toList());
-        filenames.addAll(Files.list(Path.of("data", "downloads", "RescueCup 2022", "RescueCup")).filter(onlyNormalResultFiles()).toList());
+        if (Files.exists(Path.of("data", "downloads", "Rescue 2022"))) {
+            filenames.addAll(Files.list(Path.of("data", "downloads", "Rescue 2022", "Master")).filter(onlyNormalResultFiles()).toList());
+            filenames.addAll(Files.list(Path.of("data", "downloads", "Rescue 2022", "Youth")).filter(onlyNormalResultFiles()).toList());
+            filenames.addAll(Files.list(Path.of("data", "downloads", "Rescue 2022", "Open")).filter(onlyNormalResultFiles()).toList());
+        }
+        if (Files.exists(Path.of("data", "downloads", "RescueCup 2022"))) {
+            filenames.addAll(Files.list(Path.of("data", "downloads", "RescueCup 2022", "RescueCup")).filter(onlyNormalResultFiles()).toList());
+        }
         return filenames;
     }
 
