@@ -1,0 +1,134 @@
+{
+  "jsonfilename": "001.JSON",
+  "counter": "1",
+  "tipologia": "2",
+  "visSoc": "3",
+  "visNaz": "4",
+  "visCat": "5",
+  "visPunti": "6",
+  "Scorpora": "7",
+  "pdf": "001.pdf",
+  "Export": {
+    "ExportFormat": "EXPORT DATA FORMAT",
+    "ExpType": "IND",
+    "ExpName": "",
+    "ExpDescr": ""
+  },
+  "Sport": {
+    "Cod": "AB",
+    "CodDisciplina": "008",
+    "Ita": "Ita",
+    "Eng": "Eng",
+    "Fra": "Fra"
+  },
+  "Competition": {
+    "Cod": "9",
+    "Type": "V",
+    "Ita": "Ita 9",
+    "Eng": "Eng 9",
+    "Fra": "Fra 9",
+    "Int": "9",
+    "NStaff": "9"
+  },
+  "Document": {
+    "Cod": "C10",
+    "Ita": "Ita 10",
+    "Eng": "Eng 10",
+    "Fra": "Fra 10"
+  },
+  "Category": {
+    "Cod": "ASF",
+    "Ita": "Women",
+    "Eng": "Women",
+    "Fra": ""
+  },
+  "Round": {
+    "Cod": "005",
+    "Ita": "Finale",
+    "Eng": "Final",
+    "Fra": "Finale"
+  },
+  "Heat": {
+    "Cod": "001",
+    "Ita": "Finale B",
+    "Eng": "Final B",
+    "Fra": "Finale B",
+    "UffDate": "01/01/2023",
+    "UffTime": "12:34",
+    "Revised": ""
+  },
+  "DataProcessing": {
+    "Cod": "Cod12",
+    "Name": "Cod 12"
+  },
+  "Rilev": {
+    "Num": "99",
+    "NameIta": "ARRIVO",
+    "NameEng": "FINISH",
+    "NameFra": "FINISH"
+  },
+  "Event": {
+    "Date": "01/01/2023",
+    "Part": "13",
+    "Comunicate": "14",
+    "Audience": "",
+    "Place": "Riccione, 1 January - 3 October 2023",
+    "Time": "01:23",
+    "Ord": "567"
+  },
+  "ExtraDetails": {
+    "Ita": [ { "Field": "T.R." }, { "Field": "50 m" }, { "Field": "ARRIVO" } ],
+    "Eng": [ { "Field": "R.T." }, { "Field": "50 m" }, { "Field": "FINISH" } ],
+    "Fra": [ { "Field": "R.T." }, { "Field": "50 m" }, { "Field": "FINISH" } ]
+  },
+  "data": [
+    {
+      "b": "1",
+      "c": "2",
+      "PlaCls": "3",
+      "PlaClsIta": "4",
+      "PlaClsRil": "5",
+      "PlaLane": "6",
+      "PlaCod": "7",
+      "PlaNat": "GER",
+      "PlaTeamCod": "8",
+      "TeamDescrIta": "Germany",
+      "Team2DescrIta": "",
+      "PlaSurname": "Mustermann",
+      "PlaName": "Max",
+      "PlaBirth": "2003",
+      "MemIscr": "",
+      "MemFC": "",
+      "MemNote": "",
+      "PlaCat": "",
+      "DiffIntRec1": "",
+      "DiffIntRec2": "",
+      "DiffIntRec3": "",
+      "DiffIntRec4": "",
+      "DiffIntRec5": "",
+      "MemPrest": "1:12.34",
+      "MemQual": "",
+      "MemPoint": "",
+      "MemRBattCls": "",
+      "MemRBatt": "A",
+      "MemRComment": "",
+      "Gap": "",
+      "Last50": "34.56",
+      "Last100": "",
+      "Last200": "",
+      "Last400": "",
+      "MemFields": [
+        { "V": "" },
+        { "V": "34.56", "T": "", "P": "4" },
+        { "V": "1:11.40", "T": "41.14", "P": "1" },
+        { "V": "", "T": "", "P": "" },
+        { "V": "", "T": "", "P": "" },
+        { "V": "", "T": "", "P": "" },
+        { "V": "", "T": "", "P": "" },
+        { "V": "", "T": "", "P": "" },
+        { "V": "", "T": "", "P": "" }
+      ]
+    }
+  ],
+  "StatoBatt": "111"
+}

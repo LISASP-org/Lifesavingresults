@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
         <relativePath/>
     </parent>
 
@@ -25,6 +25,8 @@
         <module>time-service</module>
         <module>results-server</module>
         <module>results-distribution</module>
+
+        <module>import-rescue2022</module>
     </modules>
 
     <properties>
@@ -36,11 +38,11 @@
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <springdoc.version>2.0.2</springdoc.version>
 
-        <keycloak.version>21.0.0</keycloak.version>
+        <keycloak.version>21.0.1</keycloak.version>
 
         <lombok.version>1.18.26</lombok.version>
         <slf4j.version>2.0.6</slf4j.version>
-        <jetbrains.annotations.version>24.0.0</jetbrains.annotations.version>
+        <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
         <mockito.version>5.1.1</mockito.version>
