@@ -26,14 +26,9 @@ public class OverviewDownloader {
 
     private static final Set<String> excludedFiles = Stream.of("orario.JSON", "categorie.JSON").collect(Collectors.toSet());
 
-    private final ObjectMapper objectMapper = createObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     private final Downloader downloader;
-
-    private static ObjectMapper createObjectMapper() {
-        return JsonMapper.builder().configure(JsonParser.Feature.ALLOW_TRAILING_COMMA, true)
-                .build();
-    }
 
     public List<String> getFilenames(String name) throws IOException {
         byte[] content = downloader.download(name, "Contatori.json");
