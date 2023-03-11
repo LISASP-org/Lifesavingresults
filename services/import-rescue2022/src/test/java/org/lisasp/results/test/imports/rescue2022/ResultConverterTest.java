@@ -40,7 +40,7 @@ class ResultConverterTest {
 
     @ParameterizedTest
     @MethodSource(value = "findFiles")
-    void downloadedFiles(Path filename) throws IOException {
+    void checkFormatOfDownloadedFilesIfAny(Path filename) throws IOException {
         ResultConverter converter = new ResultConverter();
         ResultFile actual = converter.load(filename);
 
@@ -56,6 +56,10 @@ class ResultConverterTest {
         }
         if (Files.exists(Path.of("data", "downloads", "RescueCup 2022"))) {
             filenames.addAll(Files.list(Path.of("data", "downloads", "RescueCup 2022", "RescueCup")).filter(onlyNormalResultFiles()).toList());
+        }
+        if (filenames.isEmpty()) {
+            // If no downloaded files are present, use this file as a dummy.
+            filenames.add(Path.of("src", "test", "resources", "results", "001.JSON"));
         }
         return filenames;
     }
