@@ -1,4 +1,4 @@
-package org.lisasp.results.imports.rescue2022.overview.model;
+package org.lisasp.results.imports.rescue2022.model.overview;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

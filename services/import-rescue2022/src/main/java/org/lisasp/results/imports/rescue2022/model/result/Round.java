@@ -1,10 +1,10 @@
-package org.lisasp.results.imports.rescue2022.result.model;
+package org.lisasp.results.imports.rescue2022.model.result;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class Category {
+public class Round {
     @JsonProperty(value="Cod")
     private String code;
     @JsonProperty(value="Ita")

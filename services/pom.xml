@@ -66,6 +66,11 @@
                 <artifactId>basics-spring-jpa</artifactId>
                 <version>${basics.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.lisasp</groupId>
+                <artifactId>basics-jre</artifactId>
+                <version>${basics.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.lisasp.results</groupId>

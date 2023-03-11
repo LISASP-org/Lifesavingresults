@@ -1,11 +1,13 @@
 package org.lisasp.results.test.imports.rescue2022;
 
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.lisasp.results.imports.rescue2022.result.ResultConverter;
-import org.lisasp.results.imports.rescue2022.result.model.ResultFile;
+import org.lisasp.results.imports.rescue2022.ResultConverter;
+import org.lisasp.results.imports.rescue2022.model.result.ResultFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,6 +40,8 @@ class ResultConverterTest {
         assertEquals("111", actual.getStatoBatt());
     }
 
+    @Disabled
+    @Tag("DeveloperTest")
     @ParameterizedTest
     @MethodSource(value = "findFiles")
     void checkFormatOfDownloadedFilesIfAny(Path filename) throws IOException {

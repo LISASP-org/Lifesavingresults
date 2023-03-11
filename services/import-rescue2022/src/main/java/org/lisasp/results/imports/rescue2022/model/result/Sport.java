@@ -1,12 +1,14 @@
-package org.lisasp.results.imports.rescue2022.result.model;
+package org.lisasp.results.imports.rescue2022.model.result;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class Round {
+public class Sport {
     @JsonProperty(value="Cod")
     private String code;
+    @JsonProperty(value="CodDisciplina")
+    private String codeOfDiscipline;
     @JsonProperty(value="Ita")
     private String italian;
     @JsonProperty(value="Eng")
