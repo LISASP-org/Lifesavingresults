@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class Round {
     @JsonProperty(value="Cod")
-    private String code;
+    private int code;
     @JsonProperty(value="Ita")
     private String italian;
     @JsonProperty(value="Eng")

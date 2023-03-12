@@ -15,7 +15,7 @@ public class Player {
     @JsonProperty("PlaName")
     private String PlaName;
     @JsonProperty("PlaBirth")
-    private String PlaBirth;
+    private short PlaBirth;
     @JsonProperty("PlaPrest")
     private String PlaPrest;
     @JsonProperty("PlaInt1")

@@ -1,7 +1,9 @@
 package org.lisasp.results.imports.rescue2022;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
+import org.lisasp.results.api.imports.Event;
 import org.lisasp.results.imports.rescue2022.model.result.ResultFile;
 
 import java.io.IOException;
@@ -11,11 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+@RequiredArgsConstructor
 public class ResultConverter {
 
     private static final ReplacePattern[] NO_COLON_BEFORE = createReplacePatterns(Stream.of("},", "}]"));
 
     private final ObjectMapper mapper = new ObjectMapper();
+
+    private final String defaultAgegroup;
 
     public ResultFile load(Path filename) throws IOException {
         String content = Files.readString(filename);
@@ -32,6 +37,27 @@ public class ResultConverter {
             patterns.add(new ReplacePattern(String.format(",\n%s\n", t), String.format("\n%s\n", t)));
         });
         return patterns.toArray(ReplacePattern[]::new);
+    }
+
+    public Event convert(Path file) throws IOException {
+        ResultFile resultFile = load(file);
+        // Swim-Offs are not included in the summary
+        if (!isSummary(resultFile) && !isSwimOff(resultFile)) {
+            return null;
+        }
+        return extractEvent(resultFile);
+    }
+
+    private boolean isSummary(ResultFile resultFile) {
+        return resultFile.getDocument().getCode().equals("SUM");
+    }
+
+    private boolean isSwimOff(ResultFile resultFile) {
+        return resultFile.getJsonFilename().contains("CLAS") && resultFile.getRound().getCode() == 4;
+    }
+
+    private Event extractEvent(ResultFile resultFile) {
+        return new EventCreator(defaultAgegroup).parse(resultFile);
     }
 
     @Value

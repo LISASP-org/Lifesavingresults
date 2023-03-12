@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.lisasp.basics.spring.jpa.BaseEntity;
+import org.lisasp.results.api.value.SplitTime;
 import org.lisasp.results.api.value.Penalty;
 import org.lisasp.results.api.value.Start;
 import org.lisasp.results.api.value.Swimmer;
+import org.lisasp.results.service.converter.IntermediateTimeArrayConverter;
 import org.lisasp.results.service.converter.PenaltyArrayConverter;
 import org.lisasp.results.service.converter.StartConverter;
 import org.lisasp.results.service.converter.SwimmerArrayConverter;
@@ -44,6 +46,9 @@ public class EntryEntity extends BaseEntity {
     @Convert(converter = SwimmerArrayConverter.class)
     @Column(columnDefinition = "text", length = 1000)
     private Swimmer[] swimmer;
+    @Convert(converter = IntermediateTimeArrayConverter.class)
+    @Column(columnDefinition = "text", length = 1000)
+    private SplitTime[] splitTimes;
     @Convert(converter = StartConverter.class)
     @Column(columnDefinition = "text", length = 100)
     private Start start;

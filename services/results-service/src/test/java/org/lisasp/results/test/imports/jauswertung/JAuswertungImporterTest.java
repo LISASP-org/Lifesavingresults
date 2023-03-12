@@ -2,10 +2,7 @@ package org.lisasp.results.test.imports.jauswertung;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lisasp.results.api.type.EventType;
-import org.lisasp.results.api.type.Gender;
-import org.lisasp.results.api.type.InputValueType;
-import org.lisasp.results.api.type.PenaltyType;
+import org.lisasp.results.api.type.*;
 import org.lisasp.results.api.value.Penalty;
 import org.lisasp.results.api.value.Round;
 import org.lisasp.results.api.value.Start;
@@ -87,7 +84,7 @@ class JAuswertungImporterTest {
         Event event = events[0];
 
         assertEquals(EventType.Individual, event.getEventType());
-        assertEquals(new Round((byte) 0, true), event.getRound());
+        assertEquals(new Round((byte) 0, RoundType.Final), event.getRound());
         assertEquals("AK 12", event.getAgegroup());
         assertEquals(Gender.Female, event.getGender());
         assertEquals(InputValueType.Time, event.getInputValueType());

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.lisasp.results.api.type.*;
-import org.lisasp.results.api.value.Penalty;
-import org.lisasp.results.api.value.Round;
-import org.lisasp.results.api.value.Start;
-import org.lisasp.results.api.value.Swimmer;
+import org.lisasp.results.api.value.*;
 import org.lisasp.results.api.imports.Entry;
 import org.lisasp.results.api.imports.Event;
 import org.lisasp.results.api.imports.Competition;
@@ -42,7 +39,7 @@ public class JAuswertungImporter {
         return Event.builder()
                 .eventType(toEventType(importetEvent.getCompetitorType()))
                 .discipline(importetEvent.getDiscipline())
-                .round(new Round(importetEvent.getRound(), importetEvent.isFinal()))
+                .round(new Round(importetEvent.getRound(), importetEvent.isFinal() ? RoundType.Final : RoundType.Heat))
                 .agegroup(importetEvent.getAgegroup())
                 .gender(toGender(importetEvent.getSex()))
                 .inputValueType(inputValueType)
@@ -60,6 +57,7 @@ public class JAuswertungImporter {
                         .placeInHeat(toPlace(inputValueType, importedEntry))
                         .timeInMillis(toTime(inputValueType, importedEntry))
                         .swimmer(toSwimmers(importedEntry.getSwimmer()))
+                        .splitTimes(new SplitTime[0])
                         .start(toStart(importedEntry))
                         .penalties(toPenalties(importedEntry.getPenalties()))
                         .build()).toArray(Entry[]::new);

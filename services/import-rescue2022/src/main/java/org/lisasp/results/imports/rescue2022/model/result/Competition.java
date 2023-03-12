@@ -18,7 +18,7 @@ public class Competition {
     @JsonProperty(value="Int")
     private String number;
     @JsonProperty(value="NStaff")
-    private String nStaff;
+    private int nStaff;
     @JsonProperty(value="NumGiudici")
     private String numGiudici;
 }

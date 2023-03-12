@@ -24,7 +24,6 @@ public class ResultsDownloaderTest {
     @BeforeEach
     void prepare() {
         downloader = new ResourceDownloader();
-        // files = mock(FileFacade.class);
         files = new ActualFile();
     }
 

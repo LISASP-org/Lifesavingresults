@@ -1,6 +1,7 @@
 package org.lisasp.results.imports.rescue2022;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.URI;
@@ -10,6 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 @RequiredArgsConstructor
 public class HttpDownloader implements Downloader {
 
@@ -34,7 +36,7 @@ public class HttpDownloader implements Downloader {
             if (response.statusCode() >= 200 && response.statusCode() < 300) {
                 return new String(response.body(), "windows-1252").getBytes(StandardCharsets.UTF_8);
             }
-            System.out.println("Statuscode: " + response.statusCode());
+            log.info("Statuscode: {}", response.statusCode());
             return null;
         } catch (URISyntaxException | IOException | InterruptedException e) {
             e.printStackTrace();

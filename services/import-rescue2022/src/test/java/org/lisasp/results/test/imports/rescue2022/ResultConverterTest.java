@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class ResultConverterTest {
     @Test
     void simpleFile() throws IOException {
-        ResultConverter converter = new ResultConverter();
+        ResultConverter converter = new ResultConverter("testAgegroup");
 
         ResultFile actual = converter.load(Path.of("src", "test", "resources", "results", "001.JSON"));
 
@@ -45,7 +45,7 @@ class ResultConverterTest {
     @ParameterizedTest
     @MethodSource(value = "findFiles")
     void checkFormatOfDownloadedFilesIfAny(Path filename) throws IOException {
-        ResultConverter converter = new ResultConverter();
+        ResultConverter converter = new ResultConverter("testAgegroup");
         ResultFile actual = converter.load(filename);
 
         assertNotNull(actual);

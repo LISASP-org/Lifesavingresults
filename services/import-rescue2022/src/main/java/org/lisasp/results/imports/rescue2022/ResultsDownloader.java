@@ -46,7 +46,7 @@ public class ResultsDownloader {
             files.createDirectories(directory);
             Path localFilename = directory.resolve(f);
             if (files.exists(localFilename)) {
-                log.info("Skipping file '{}'.", f);
+                // log.info("Skipping file '{}'.", f);
             } else {
                 log.info("Downloading file '{}'...", f);
                 byte[] content = downloader.download(type, f);

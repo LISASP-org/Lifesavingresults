@@ -52,6 +52,7 @@ public class ImportService {
         entryEntity.setPlaceInHeat(entry.getPlaceInHeat());
         entryEntity.setStart(entry.getStart());
         entryEntity.setSwimmer(entry.getSwimmer());
+        entryEntity.setSplitTimes(entry.getSplitTimes());
         entryEntity.setTimeInMillis(entry.getTimeInMillis());
     }
 
