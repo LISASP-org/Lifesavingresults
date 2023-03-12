@@ -5,6 +5,7 @@ import org.lisasp.results.api.*;
 import org.lisasp.results.api.type.EventType;
 import org.lisasp.results.api.type.Gender;
 import org.lisasp.results.api.type.InputValueType;
+import org.lisasp.results.api.type.RoundType;
 import org.lisasp.results.api.value.Round;
 import org.lisasp.results.api.exception.NotFoundException;
 import org.lisasp.results.service.*;
@@ -125,7 +126,7 @@ class CompetitionServiceIntegrationTests {
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                 });
@@ -139,7 +140,7 @@ class CompetitionServiceIntegrationTests {
             assertEquals("AG 1", event.getAgegroup());
             assertEquals(Gender.Female, event.getGender());
             assertEquals("D1", event.getDiscipline());
-            assertEquals(new Round((byte) 0, true), event.getRound());
+            assertEquals(new Round((byte) 0, RoundType.Final), event.getRound());
             assertEquals(InputValueType.Time, event.getInputValueType());
             assertEquals(0, entryService.findEntries(competitionId, event.getId()).length);
         }
@@ -152,11 +153,11 @@ class CompetitionServiceIntegrationTests {
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                 });
-                updater.updateEvent(EventType.Individual, "AG 2", Gender.Male, "D2", new Round((byte) 1, false), InputValueType.Rank, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 2", Gender.Male, "D2", new Round((byte) 1, RoundType.Heat), InputValueType.Rank, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                 });
@@ -173,7 +174,7 @@ class CompetitionServiceIntegrationTests {
             assertEquals("AG 1", event1.getAgegroup());
             assertEquals(Gender.Female, event1.getGender());
             assertEquals("D1", event1.getDiscipline());
-            assertEquals(new Round((byte) 0, true), event1.getRound());
+            assertEquals(new Round((byte) 0, RoundType.Final), event1.getRound());
             assertEquals(InputValueType.Time, event1.getInputValueType());
             assertEquals(0, entryService.findEntries(competitionId, event1.getId()).length);
 
@@ -181,7 +182,7 @@ class CompetitionServiceIntegrationTests {
             assertEquals("AG 2", event2.getAgegroup());
             assertEquals(Gender.Male, event2.getGender());
             assertEquals("D2", event2.getDiscipline());
-            assertEquals(new Round((byte) 1, false), event2.getRound());
+            assertEquals(new Round((byte) 1, RoundType.Heat), event2.getRound());
             assertEquals(InputValueType.Rank, event2.getInputValueType());
             assertEquals(0, entryService.findEntries(competitionId, event2.getId()).length);
         }
@@ -192,7 +193,7 @@ class CompetitionServiceIntegrationTests {
             CompetitionCreated competitionCreated = service.execute(new CreateCompetition("Alphabet 1", "abc 1", null, null));
             service.update(competitionCreated.id(), updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                 });
@@ -215,11 +216,11 @@ class CompetitionServiceIntegrationTests {
             String competitionId = competitionCreated.id();
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                 });
-                updater.updateEvent(EventType.Individual, "AG 2", Gender.Male, "D2", new Round((byte) 1, false), InputValueType.Rank, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 2", Gender.Male, "D2", new Round((byte) 1, RoundType.Heat), InputValueType.Rank, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                 });
@@ -228,7 +229,7 @@ class CompetitionServiceIntegrationTests {
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                 });
@@ -242,7 +243,7 @@ class CompetitionServiceIntegrationTests {
             assertEquals("AG 1", event.getAgegroup());
             assertEquals(Gender.Female, event.getGender());
             assertEquals("D1", event.getDiscipline());
-            assertEquals(new Round((byte) 0, true), event.getRound());
+            assertEquals(new Round((byte) 0, RoundType.Final), event.getRound());
             assertEquals(InputValueType.Time, event.getInputValueType());
             assertEquals(0, entryService.findEntries(competitionId, event.getId()).length);
         }
@@ -255,7 +256,7 @@ class CompetitionServiceIntegrationTests {
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                     eventUpdater.updateEntry("123", entryUpdater -> {
@@ -291,7 +292,7 @@ class CompetitionServiceIntegrationTests {
             String competitionId = competitionCreated.id();
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                     eventUpdater.updateEntry("123", entryUpdater -> {
@@ -308,7 +309,7 @@ class CompetitionServiceIntegrationTests {
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                 });
@@ -331,7 +332,7 @@ class CompetitionServiceIntegrationTests {
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                     eventUpdater.updateEntry("123", entryUpdater -> entryUpdater.updateEntry(entryEntity -> {
@@ -382,7 +383,7 @@ class CompetitionServiceIntegrationTests {
             String competitionId = competitionCreated.id();
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                     eventUpdater.updateEntry("123", entryUpdater -> {
@@ -407,7 +408,7 @@ class CompetitionServiceIntegrationTests {
 
             service.update(competitionId, updater -> {
                 updater.updateCompetition(competition -> competition.setName("zyx"));
-                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, true), InputValueType.Time, eventUpdater -> {
+                updater.updateEvent(EventType.Individual, "AG 1", Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, eventUpdater -> {
                     eventUpdater.updateEvent(eventEntity -> {
                     });
                     eventUpdater.updateEntry("123", entryUpdater -> {

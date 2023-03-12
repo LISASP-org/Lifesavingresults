@@ -5,6 +5,7 @@ import org.lisasp.results.api.*;
 import org.lisasp.results.api.type.EventType;
 import org.lisasp.results.api.type.Gender;
 import org.lisasp.results.api.type.InputValueType;
+import org.lisasp.results.api.type.RoundType;
 import org.lisasp.results.api.value.Round;
 import org.lisasp.results.api.value.Start;
 import org.lisasp.results.service.imports.ImportService;
@@ -97,7 +98,7 @@ public class ImportServiceIntegrationTest {
         assertEquals(EventType.Team, event1.getEventType());
         assertEquals(Gender.Female, event1.getGender());
         assertEquals(InputValueType.Time, event1.getInputValueType());
-        assertEquals(new Round((byte)0, true), event1.getRound());
+        assertEquals(new Round((byte)0, RoundType.Final), event1.getRound());
         EntryDto[] entries1 = Arrays.stream(entryService.findEntries(competitionId, event1.getId())).sorted(Comparator.comparing(EntryDto::getNumber)).toArray(EntryDto[]::new);
         assertEquals(2, entries1.length);
         EntryDto entry1a = entries1[0];
@@ -126,7 +127,7 @@ public class ImportServiceIntegrationTest {
         assertEquals(EventType.Team, event2.getEventType());
         assertEquals(Gender.Female, event2.getGender());
         assertEquals(InputValueType.Time, event2.getInputValueType());
-        assertEquals(new Round((byte)0, true), event2.getRound());
+        assertEquals(new Round((byte)0, RoundType.Final), event2.getRound());
         EntryDto[] entries2 = Arrays.stream(entryService.findEntries(competitionId, event2.getId())).sorted(Comparator.comparing(EntryDto::getNumber)).toArray(EntryDto[]::new);
         assertEquals(2, entries1.length);
         EntryDto entry2a = entries2[0];

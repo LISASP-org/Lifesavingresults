@@ -17,6 +17,10 @@ public class Penalty {
         this.points = points;
     }
 
+    public Penalty(String name, PenaltyType type) {
+        this(name, type, (short) 0);
+    }
+
     private String name;
     private PenaltyType type;
     private short points;
