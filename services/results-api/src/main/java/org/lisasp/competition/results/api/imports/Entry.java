@@ -1,0 +1,23 @@
+package org.lisasp.competition.results.api.imports;
+
+import lombok.Builder;
+import lombok.Value;
+import org.lisasp.competition.results.api.value.SplitTime;
+import org.lisasp.competition.results.api.value.Penalty;
+import org.lisasp.competition.results.api.value.Start;
+import org.lisasp.competition.results.api.value.Swimmer;
+
+@Value
+@Builder
+public class Entry {
+    private String number;
+    private String name;
+    private String club;
+    private String nationality;
+    private int timeInMillis;
+    private byte placeInHeat;
+    private Penalty[] penalties;
+    private Swimmer[] swimmer;
+    private SplitTime[] splitTimes;
+    private Start start;
+}

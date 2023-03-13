@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.competition</groupId>
-            <artifactId>results-server</artifactId>
+            <artifactId>competition-server</artifactId>
         </dependency>
     </dependencies>
 
