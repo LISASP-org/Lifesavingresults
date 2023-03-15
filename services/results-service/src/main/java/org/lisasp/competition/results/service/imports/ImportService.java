@@ -1,28 +1,28 @@
 package org.lisasp.competition.results.service.imports;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.competition.results.api.exception.NotFoundException;
+import org.lisasp.competition.base.api.exception.NotFoundException;
+import org.lisasp.competition.base.api.exception.FileFormatException;
 import org.lisasp.competition.results.api.imports.Competition;
 import org.lisasp.competition.results.api.imports.Entry;
 import org.lisasp.competition.results.api.imports.Event;
-import org.lisasp.competition.results.api.imports.exception.FileFormatException;
+import org.lisasp.competition.results.service.CompetitionResultEntity;
+import org.lisasp.competition.results.service.CompetitionResultService;
+import org.lisasp.competition.results.service.EntryResultEntity;
+import org.lisasp.competition.results.service.EventResultEntity;
 import org.lisasp.competition.results.service.imports.jauswertung.JAuswertungImporter;
-import org.lisasp.competition.results.service.CompetitionEntity;
-import org.lisasp.competition.results.service.CompetitionService;
-import org.lisasp.competition.results.service.EntryEntity;
-import org.lisasp.competition.results.service.EventEntity;
 
 import java.util.Arrays;
 
 @RequiredArgsConstructor
 public class ImportService {
-    private final CompetitionService competitionService;
+    private final CompetitionResultService competitionResultService;
     private final ImportStorage storage;
 
     private final JAuswertungImporter jAuswertungImporter = new JAuswertungImporter();
 
     public void importFromJAuswertung(String uploadId, String competitionJson) throws NotFoundException, FileFormatException {
-        String id = competitionService.getCompetitionIdByUploadId(uploadId);
+        String id = competitionResultService.getCompetitionIdByUploadId(uploadId);
 
         Competition importedCompetition = jAuswertungImporter.importJson(competitionJson);
 
@@ -35,34 +35,45 @@ public class ImportService {
             return;
         }
 
-        competitionService.update(id, competitionUpdater -> {
+        competitionResultService.update(id, competitionUpdater -> {
             competitionUpdater.updateCompetition(competitionEntity -> updateCompetition(competition, competitionEntity));
-            Arrays.stream(competition.getEvents()).forEach(event -> competitionUpdater.updateEvent(event.getEventType(), event.getAgegroup(), event.getGender(), event.getDiscipline(), event.getRound(), event.getInputValueType(), eventUpdater -> {
-                eventUpdater.updateEvent(eventEntity -> updateEvent(event, eventEntity));
-                Arrays.stream(event.getEntries()).forEach(entry -> eventUpdater.updateEntry(entry.getNumber(), e -> e.updateEntry(entryEntity -> updateEntry(entry, entryEntity))));
-            }));
+            Arrays.stream(competition.getEvents())
+                  .forEach(event -> competitionUpdater.updateEvent(event.getEventType(),
+                                                                   event.getAgegroup(),
+                                                                   event.getGender(),
+                                                                   event.getDiscipline(),
+                                                                   event.getRound(),
+                                                                   event.getInputValueType(),
+                                                                   eventUpdater -> {
+                                                                       eventUpdater.updateEvent(eventEntity -> updateEvent(event, eventEntity));
+                                                                       Arrays.stream(event.getEntries())
+                                                                             .forEach(entry -> eventUpdater.updateEntry(entry.getNumber(),
+                                                                                                                        e -> e.updateEntry(entryEntity -> updateEntry(
+                                                                                                                                entry,
+                                                                                                                                entryEntity))));
+                                                                   }));
         });
     }
 
-    private static void updateEntry(Entry entry, EntryEntity entryEntity) {
-        entryEntity.setName(entry.getName());
-        entryEntity.setClub(entry.getClub());
-        entryEntity.setNationality(entry.getNationality());
-        entryEntity.setPenalties(entry.getPenalties());
-        entryEntity.setPlaceInHeat(entry.getPlaceInHeat());
-        entryEntity.setStart(entry.getStart());
-        entryEntity.setSwimmer(entry.getSwimmer());
-        entryEntity.setSplitTimes(entry.getSplitTimes());
-        entryEntity.setTimeInMillis(entry.getTimeInMillis());
+    private static void updateEntry(Entry entry, EntryResultEntity entryResultEntity) {
+        entryResultEntity.setName(entry.getName());
+        entryResultEntity.setClub(entry.getClub());
+        entryResultEntity.setNationality(entry.getNationality());
+        entryResultEntity.setPenalties(entry.getPenalties());
+        entryResultEntity.setPlaceInHeat(entry.getPlaceInHeat());
+        entryResultEntity.setStart(entry.getStart());
+        entryResultEntity.setSwimmer(entry.getSwimmer());
+        entryResultEntity.setSplitTimes(entry.getSplitTimes());
+        entryResultEntity.setTimeInMillis(entry.getTimeInMillis());
     }
 
-    private static void updateEvent(Event event, EventEntity eventEntity) {
+    private static void updateEvent(Event event, EventResultEntity eventResultEntity) {
     }
 
-    private static void updateCompetition(Competition competition, CompetitionEntity competitionEntity) {
-        competitionEntity.setName(competition.getName());
-        competitionEntity.setAcronym(competition.getAcronym());
-        competitionEntity.setFrom(competition.getFrom());
-        competitionEntity.setTill(competition.getTill());
+    private static void updateCompetition(Competition competition, CompetitionResultEntity competitionResultEntity) {
+        competitionResultEntity.setName(competition.getName());
+        competitionResultEntity.setAcronym(competition.getAcronym());
+        competitionResultEntity.setFrom(competition.getFrom());
+        competitionResultEntity.setTill(competition.getTill());
     }
 }

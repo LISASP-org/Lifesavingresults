@@ -1,5 +1,7 @@
 server:
   port: 9001
+  servlet:
+    context-path: /api
 
 app:
   keycloak:
@@ -29,6 +31,10 @@ spring:
         jwt:
           issuer-uri: ${app.keycloak.server-url}/realms/${app.keycloak.realm}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+  artemis:
+    mode: embedded
+    embedded:
+      enabled: true
 
 jwt:
   auth:
@@ -51,3 +57,8 @@ springdoc:
   swagger-ui:
     path: /api-docs.html
     disable-swagger-default-url: true
+
+logging:
+  level:
+    org.apache.activemq.audit.base: WARN
+    org.apache.activemq.audit.message: WARN

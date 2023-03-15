@@ -2,15 +2,15 @@ package org.lisasp.competition;
 
 import org.junit.jupiter.api.*;
 import org.lisasp.competition.results.api.*;
-import org.lisasp.competition.results.api.type.EventType;
-import org.lisasp.competition.results.api.type.Gender;
-import org.lisasp.competition.results.api.type.InputValueType;
-import org.lisasp.competition.results.api.type.RoundType;
+import org.lisasp.competition.base.api.type.EventType;
+import org.lisasp.competition.base.api.type.Gender;
+import org.lisasp.competition.base.api.type.InputValueType;
+import org.lisasp.competition.base.api.type.RoundType;
 import org.lisasp.competition.results.api.value.Round;
 import org.lisasp.competition.results.api.value.Start;
-import org.lisasp.competition.results.service.CompetitionService;
-import org.lisasp.competition.results.service.EntryService;
-import org.lisasp.competition.results.service.EventService;
+import org.lisasp.competition.results.service.CompetitionResultService;
+import org.lisasp.competition.results.service.EntryResultService;
+import org.lisasp.competition.results.service.EventResultService;
 import org.lisasp.competition.results.service.imports.ImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,13 +40,13 @@ public class ImportServiceIntegrationTest {
     private ImportService service;
 
     @Autowired
-    private CompetitionService competitionService;
+    private CompetitionResultService competitionResultService;
 
     @Autowired
-    private EventService eventService;
+    private EventResultService eventResultService;
 
     @Autowired
-    private EntryService entryService;
+    private EntryResultService entryResultService;
 
     @BeforeEach
     void prepare() throws IOException {
@@ -62,34 +62,34 @@ public class ImportServiceIntegrationTest {
     @Test
     @Transactional
     void importSimpleCompetition() throws Exception {
-        CompetitionCreated created = competitionService.execute(new CreateCompetition("Competition to import", "CTI", null, null));
-        String uploadId = competitionService.findCompetition(created.id()).getUploadId();
+        CompetitionCreated created = competitionResultService.execute(new CreateCompetition("Competition to import", "CTI", null, null));
+        String uploadId = competitionResultService.findCompetition(created.id()).getUploadId();
         String content = readFile("individual-no-event");
 
         service.importFromJAuswertung(uploadId, content);
 
-        CompetitionDto competition = competitionService.findCompetition(created.id());
+        CompetitionDto competition = competitionResultService.findCompetition(created.id());
         assertNotNull(competition);
         assertEquals(created.id(), competition.getId());
 
-        assertEquals(0, eventService.findEvents(created.id()).length);
+        assertEquals(0, eventResultService.findEvents(created.id()).length);
     }
 
     @Test
     @Transactional
     void importCompleteTeamCompetition() throws Exception {
-        CompetitionCreated created = competitionService.execute(new CreateCompetition("Competition to import", "CTI", null, null));
+        CompetitionCreated created = competitionResultService.execute(new CreateCompetition("Competition to import", "CTI", null, null));
         String competitionId = created.id();
-        String uploadId = competitionService.findCompetition(competitionId).getUploadId();
+        String uploadId = competitionResultService.findCompetition(competitionId).getUploadId();
         String content = readFile("team");
 
         service.importFromJAuswertung(uploadId, content);
 
-        CompetitionDto competition = competitionService.findCompetition(competitionId);
+        CompetitionDto competition = competitionResultService.findCompetition(competitionId);
         assertNotNull(competition);
         assertEquals(competitionId, competition.getId());
 
-        EventDto[] events = Arrays.stream(eventService.findEvents(competitionId)).sorted(Comparator.comparing(EventDto::getAgegroup)).toArray(EventDto[]::new);
+        EventDto[] events = Arrays.stream(eventResultService.findEvents(competitionId)).sorted(Comparator.comparing(EventDto::getAgegroup)).toArray(EventDto[]::new);
         assertEquals(2, events.length);
 
         EventDto event1 = events[0];
@@ -99,7 +99,7 @@ public class ImportServiceIntegrationTest {
         assertEquals(Gender.Female, event1.getGender());
         assertEquals(InputValueType.Time, event1.getInputValueType());
         assertEquals(new Round((byte) 0, RoundType.Final), event1.getRound());
-        EntryDto[] entries1 = Arrays.stream(entryService.findEntries(competitionId, event1.getId()))
+        EntryDto[] entries1 = Arrays.stream(entryResultService.findEntries(competitionId, event1.getId()))
                                     .sorted(Comparator.comparing(EntryDto::getNumber))
                                     .toArray(EntryDto[]::new);
         assertEquals(2, entries1.length);
@@ -130,7 +130,7 @@ public class ImportServiceIntegrationTest {
         assertEquals(Gender.Female, event2.getGender());
         assertEquals(InputValueType.Time, event2.getInputValueType());
         assertEquals(new Round((byte) 0, RoundType.Final), event2.getRound());
-        EntryDto[] entries2 = Arrays.stream(entryService.findEntries(competitionId, event2.getId()))
+        EntryDto[] entries2 = Arrays.stream(entryResultService.findEntries(competitionId, event2.getId()))
                                     .sorted(Comparator.comparing(EntryDto::getNumber))
                                     .toArray(EntryDto[]::new);
         assertEquals(2, entries1.length);

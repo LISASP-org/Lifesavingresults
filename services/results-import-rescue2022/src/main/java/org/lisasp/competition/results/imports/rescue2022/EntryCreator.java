@@ -1,11 +1,11 @@
 package org.lisasp.competition.results.imports.rescue2022;
 
+import org.lisasp.competition.base.api.type.Gender;
+import org.lisasp.competition.base.api.type.PenaltyType;
+import org.lisasp.competition.base.api.type.Sex;
 import org.lisasp.competition.results.api.imports.Entry;
-import org.lisasp.competition.results.api.type.Gender;
-import org.lisasp.competition.results.api.type.PenaltyType;
-import org.lisasp.competition.results.api.type.Sex;
-import org.lisasp.competition.results.api.value.SplitTime;
 import org.lisasp.competition.results.api.value.Penalty;
+import org.lisasp.competition.results.api.value.SplitTime;
 import org.lisasp.competition.results.api.value.Start;
 import org.lisasp.competition.results.api.value.Swimmer;
 import org.lisasp.competition.results.imports.rescue2022.model.result.MemField;
@@ -111,8 +111,8 @@ class EntryCreator {
         }
         PenaltyType type = switch (penalty) {
             case "DNF", "NT" -> PenaltyType.DidNotFinish;
-            case "DNS" -> PenaltyType.DidNotStart;
-            case "DSQ", "ASS", "ABS" -> PenaltyType.Disqualified;
+            case "DNS", "ASS", "ABS" -> PenaltyType.DidNotStart;
+            case "DSQ" -> PenaltyType.Disqualified;
             default -> PenaltyType.None;
         };
         if (type == PenaltyType.None) {
@@ -134,8 +134,8 @@ class EntryCreator {
         }
         String[] parts = time.split("\\.");
         int seconds = Integer.parseInt(parts[0]);
-        int hundrets = Integer.parseInt(parts[1]);
+        int hundredth = Integer.parseInt(parts[1]);
 
-        return ((minutes * 60 + seconds) * 100 + hundrets) * 10;
+        return ((minutes * 60 + seconds) * 100 + hundredth) * 10;
     }
 }

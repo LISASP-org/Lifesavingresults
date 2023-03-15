@@ -2,8 +2,8 @@ package org.lisasp.competition.results.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
-import org.lisasp.competition.results.api.type.EventType;
-import org.lisasp.competition.results.api.type.Gender;
+import org.lisasp.competition.base.api.type.EventType;
+import org.lisasp.competition.base.api.type.Gender;
 
 @Value
 @AllArgsConstructor

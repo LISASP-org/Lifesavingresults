@@ -3,9 +3,9 @@ package org.lisasp.competition.results.api;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.lisasp.competition.results.api.type.EventType;
-import org.lisasp.competition.results.api.type.Gender;
-import org.lisasp.competition.results.api.type.InputValueType;
+import org.lisasp.competition.base.api.type.EventType;
+import org.lisasp.competition.base.api.type.Gender;
+import org.lisasp.competition.base.api.type.InputValueType;
 import org.lisasp.competition.results.api.value.Round;
 
 @Data

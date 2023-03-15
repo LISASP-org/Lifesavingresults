@@ -1,12 +1,12 @@
 package org.lisasp.competition;
 
 import org.junit.jupiter.api.*;
+import org.lisasp.competition.base.api.exception.NotFoundException;
+import org.lisasp.competition.base.api.type.EventType;
+import org.lisasp.competition.base.api.type.Gender;
+import org.lisasp.competition.base.api.type.InputValueType;
+import org.lisasp.competition.base.api.type.RoundType;
 import org.lisasp.competition.results.api.*;
-import org.lisasp.competition.results.api.exception.NotFoundException;
-import org.lisasp.competition.results.api.type.EventType;
-import org.lisasp.competition.results.api.type.Gender;
-import org.lisasp.competition.results.api.type.InputValueType;
-import org.lisasp.competition.results.api.type.RoundType;
 import org.lisasp.competition.results.api.value.Round;
 import org.lisasp.competition.results.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +25,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class CompetitionServiceIntegrationTests {
 
     @Autowired
-    private CompetitionRepository competitionRepository;
+    private CompetitionResultRepository competitionResultRepository;
     @Autowired
     private EventRepository eventRepository;
     @Autowired
     private EntryRepository entryRepository;
 
     @Autowired
-    private CompetitionService service;
+    private CompetitionResultService service;
     @Autowired
-    private EventService eventService;
+    private EventResultService eventResultService;
     @Autowired
-    private EntryService entryService;
+    private EntryResultService entryResultService;
 
     @Autowired
     private DatabaseCleaner cleaner;
 
     @BeforeEach
     void prepare() {
-        cleaner = new DatabaseCleaner(competitionRepository, eventRepository, entryRepository);
+        cleaner = new DatabaseCleaner(competitionResultRepository, eventRepository, entryRepository);
     }
 
     @AfterEach
@@ -141,14 +141,14 @@ class CompetitionServiceIntegrationTests {
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
-            assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
-            EventDto event = eventService.findEvents(competitionDto.getId())[0];
+            assertEquals(1, eventResultService.findEvents(competitionDto.getId()).length);
+            EventDto event = eventResultService.findEvents(competitionDto.getId())[0];
             assertEquals("AG 1", event.getAgegroup());
             assertEquals(Gender.Female, event.getGender());
             assertEquals("D1", event.getDiscipline());
             assertEquals(new Round((byte) 0, RoundType.Final), event.getRound());
             assertEquals(InputValueType.Time, event.getInputValueType());
-            assertEquals(0, entryService.findEntries(competitionId, event.getId()).length);
+            assertEquals(0, entryResultService.findEntries(competitionId, event.getId()).length);
         }
 
         @Test
@@ -180,7 +180,7 @@ class CompetitionServiceIntegrationTests {
             assertEquals("zyx", competitionDto.getName());
 
             EventDto[] events =
-                    Arrays.stream(eventService.findEvents(competitionDto.getId())).sorted(Comparator.comparing(EventDto::getAgegroup)).toArray(EventDto[]::new);
+                    Arrays.stream(eventResultService.findEvents(competitionDto.getId())).sorted(Comparator.comparing(EventDto::getAgegroup)).toArray(EventDto[]::new);
             assertEquals(2, events.length);
 
             EventDto event1 = events[0];
@@ -189,7 +189,7 @@ class CompetitionServiceIntegrationTests {
             assertEquals("D1", event1.getDiscipline());
             assertEquals(new Round((byte) 0, RoundType.Final), event1.getRound());
             assertEquals(InputValueType.Time, event1.getInputValueType());
-            assertEquals(0, entryService.findEntries(competitionId, event1.getId()).length);
+            assertEquals(0, entryResultService.findEntries(competitionId, event1.getId()).length);
 
             EventDto event2 = events[1];
             assertEquals("AG 2", event2.getAgegroup());
@@ -197,7 +197,7 @@ class CompetitionServiceIntegrationTests {
             assertEquals("D2", event2.getDiscipline());
             assertEquals(new Round((byte) 1, RoundType.Heat), event2.getRound());
             assertEquals(InputValueType.Rank, event2.getInputValueType());
-            assertEquals(0, entryService.findEntries(competitionId, event2.getId()).length);
+            assertEquals(0, entryResultService.findEntries(competitionId, event2.getId()).length);
         }
 
         @Test
@@ -225,7 +225,7 @@ class CompetitionServiceIntegrationTests {
 
             CompetitionDto competitionDto = service.findCompetition(competitionCreated.id());
             assertEquals("abc", competitionDto.getName());
-            assertEquals(0, eventService.findEvents(competitionDto.getId()).length);
+            assertEquals(0, eventResultService.findEvents(competitionDto.getId()).length);
         }
 
         @Test
@@ -269,14 +269,14 @@ class CompetitionServiceIntegrationTests {
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
-            assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
-            EventDto event = eventService.findEvents(competitionDto.getId())[0];
+            assertEquals(1, eventResultService.findEvents(competitionDto.getId()).length);
+            EventDto event = eventResultService.findEvents(competitionDto.getId())[0];
             assertEquals("AG 1", event.getAgegroup());
             assertEquals(Gender.Female, event.getGender());
             assertEquals("D1", event.getDiscipline());
             assertEquals(new Round((byte) 0, RoundType.Final), event.getRound());
             assertEquals(InputValueType.Time, event.getInputValueType());
-            assertEquals(0, entryService.findEntries(competitionId, event.getId()).length);
+            assertEquals(0, entryResultService.findEntries(competitionId, event.getId()).length);
         }
 
         @Test
@@ -310,11 +310,11 @@ class CompetitionServiceIntegrationTests {
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
-            assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
-            EventDto event = eventService.findEvents(competitionDto.getId())[0];
+            assertEquals(1, eventResultService.findEvents(competitionDto.getId()).length);
+            EventDto event = eventResultService.findEvents(competitionDto.getId())[0];
 
-            assertEquals(1, entryService.findEntries(competitionId, event.getId()).length);
-            EntryDto entry = entryService.findEntries(competitionId, event.getId())[0];
+            assertEquals(1, entryResultService.findEntries(competitionId, event.getId()).length);
+            EntryDto entry = entryResultService.findEntries(competitionId, event.getId())[0];
             assertEquals("123", entry.getNumber());
             assertEquals(123450, entry.getTimeInMillis());
             assertEquals("A", entry.getName());
@@ -367,10 +367,10 @@ class CompetitionServiceIntegrationTests {
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
-            assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
-            EventDto event = eventService.findEvents(competitionDto.getId())[0];
+            assertEquals(1, eventResultService.findEvents(competitionDto.getId()).length);
+            EventDto event = eventResultService.findEvents(competitionDto.getId())[0];
 
-            assertEquals(0, entryService.findEntries(competitionId, event.getId()).length);
+            assertEquals(0, entryResultService.findEntries(competitionId, event.getId()).length);
         }
 
         @Test
@@ -410,10 +410,10 @@ class CompetitionServiceIntegrationTests {
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
-            assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
-            EventDto event = eventService.findEvents(competitionDto.getId())[0];
+            assertEquals(1, eventResultService.findEvents(competitionDto.getId()).length);
+            EventDto event = eventResultService.findEvents(competitionDto.getId())[0];
 
-            EntryDto[] entries = Arrays.stream(entryService.findEntries(competitionId, event.getId()))
+            EntryDto[] entries = Arrays.stream(entryResultService.findEntries(competitionId, event.getId()))
                                        .sorted(Comparator.comparing(EntryDto::getNumber))
                                        .toArray(EntryDto[]::new);
             assertEquals(2, entries.length);
@@ -494,10 +494,10 @@ class CompetitionServiceIntegrationTests {
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals("zyx", competitionDto.getName());
 
-            assertEquals(1, eventService.findEvents(competitionDto.getId()).length);
-            EventDto event = eventService.findEvents(competitionDto.getId())[0];
+            assertEquals(1, eventResultService.findEvents(competitionDto.getId()).length);
+            EventDto event = eventResultService.findEvents(competitionDto.getId())[0];
 
-            EntryDto[] entries = Arrays.stream(entryService.findEntries(competitionId, event.getId()))
+            EntryDto[] entries = Arrays.stream(entryResultService.findEntries(competitionId, event.getId()))
                                        .sorted(Comparator.comparing(EntryDto::getNumber))
                                        .toArray(EntryDto[]::new);
             assertEquals(1, entries.length);

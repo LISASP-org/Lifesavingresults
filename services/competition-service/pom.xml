@@ -15,7 +15,16 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.competition</groupId>
+            <artifactId>base-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lisasp.competition</groupId>
             <artifactId>competition-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.lisasp</groupId>
+            <artifactId>basics-spring-jpa</artifactId>
         </dependency>
     </dependencies>
 </project>

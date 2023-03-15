@@ -20,6 +20,7 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
+        <module>base-api</module>
         <module>competition-api</module>
         <module>competition-service</module>
         <module>results-api</module>
@@ -52,6 +53,7 @@
 
         <mariadb.version>3.1.2</mariadb.version>
         <h2.version>2.1.214</h2.version>
+        <artemismq.version>2.28.0</artemismq.version>
 
         <spring-boot.skip>true</spring-boot.skip>
     </properties>
@@ -101,6 +103,11 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.competition</groupId>
+                <artifactId>base-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>competition-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -124,6 +131,11 @@
                 <groupId>org.keycloak</groupId>
                 <artifactId>keycloak-admin-client</artifactId>
                 <version>${keycloak.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>artemis-jms-server</artifactId>
+                <version>${artemismq.version}</version>
             </dependency>
 
             <dependency>

@@ -18,6 +18,10 @@
         </dependency>
         <dependency>
             <groupId>org.lisasp.competition</groupId>
+            <artifactId>base-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lisasp.competition</groupId>
             <artifactId>results-api</artifactId>
         </dependency>
     </dependencies>

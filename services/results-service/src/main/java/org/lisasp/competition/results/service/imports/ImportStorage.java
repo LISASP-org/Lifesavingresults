@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.lisasp.competition.results.api.imports.Competition;
-import org.lisasp.competition.results.api.imports.exception.FileFormatException;
+import org.lisasp.competition.base.api.exception.FileFormatException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

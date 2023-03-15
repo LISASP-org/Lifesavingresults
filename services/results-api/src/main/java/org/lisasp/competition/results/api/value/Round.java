@@ -3,7 +3,7 @@ package org.lisasp.competition.results.api.value;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
-import org.lisasp.competition.results.api.type.RoundType;
+import org.lisasp.competition.base.api.type.RoundType;
 
 @Value
 public class Round {

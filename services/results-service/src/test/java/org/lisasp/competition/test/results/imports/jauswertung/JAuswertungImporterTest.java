@@ -2,13 +2,13 @@ package org.lisasp.competition.test.results.imports.jauswertung;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lisasp.competition.results.api.type.*;
-import org.lisasp.competition.results.api.value.Penalty;
-import org.lisasp.competition.results.api.value.Round;
-import org.lisasp.competition.results.api.value.Start;
+import org.lisasp.competition.base.api.type.*;
 import org.lisasp.competition.results.api.imports.Competition;
 import org.lisasp.competition.results.api.imports.Entry;
 import org.lisasp.competition.results.api.imports.Event;
+import org.lisasp.competition.results.api.value.Penalty;
+import org.lisasp.competition.results.api.value.Round;
+import org.lisasp.competition.results.api.value.Start;
 import org.lisasp.competition.results.service.imports.jauswertung.JAuswertungImporter;
 
 import java.io.FileNotFoundException;

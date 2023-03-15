@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.lisasp.competition.results.service.*;
 import org.lisasp.competition.results.service.imports.ImportService;
 import org.lisasp.competition.results.service.imports.ImportStorage;
+import org.lisasp.competition.service.CompetitionRepository;
+import org.lisasp.competition.service.CompetitionService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,18 +19,29 @@ public class ResultsApplication {
     }
 
     @Bean
-    CompetitionService competitionService(CompetitionRepository competitionRepository, EventRepository eventRepository, EntryRepository entryRepository) {
-        return new CompetitionService(competitionRepository, eventRepository, entryRepository);
+    CompetitionService competitionService(CompetitionRepository competitionRepository) {
+        return new CompetitionService(competitionRepository);
     }
 
     @Bean
-    EventService eventService(CompetitionRepository competitionRepository, EventRepository eventRepository, EntryRepository entryRepository) {
-        return new EventService(competitionRepository, eventRepository);
+    CompetitionResultService competitionResultService(CompetitionResultRepository competitionResultRepository,
+                                                      EventRepository eventRepository,
+                                                      EntryRepository entryRepository) {
+        return new CompetitionResultService(competitionResultRepository, eventRepository, entryRepository);
     }
 
     @Bean
-    EntryService entryService(CompetitionRepository competitionRepository, EventRepository eventRepository, EntryRepository entryRepository) {
-        return new EntryService(eventRepository, entryRepository);
+    EventResultService eventResultService(CompetitionResultRepository competitionResultRepository,
+                                          EventRepository eventRepository,
+                                          EntryRepository entryRepository) {
+        return new EventResultService(competitionResultRepository, eventRepository);
+    }
+
+    @Bean
+    EntryResultService entryResultService(CompetitionResultRepository competitionResultRepository,
+                                          EventRepository eventRepository,
+                                          EntryRepository entryRepository) {
+        return new EntryResultService(eventRepository, entryRepository);
     }
 
     @Bean
@@ -37,7 +50,7 @@ public class ResultsApplication {
     }
 
     @Bean
-    ImportService importService(CompetitionService competitionService, ImportStorage importStorage) {
-        return new ImportService(competitionService, importStorage);
+    ImportService importService(CompetitionResultService competitionResultService, ImportStorage importStorage) {
+        return new ImportService(competitionResultService, importStorage);
     }
 }

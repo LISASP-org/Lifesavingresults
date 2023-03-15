@@ -13,6 +13,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.lisasp.competition</groupId>
+            <artifactId>base-api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>

@@ -3,7 +3,7 @@ package org.lisasp.competition.results.api.value;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
-import org.lisasp.competition.results.api.type.Sex;
+import org.lisasp.competition.base.api.type.Sex;
 
 @Value
 public final class Swimmer {
