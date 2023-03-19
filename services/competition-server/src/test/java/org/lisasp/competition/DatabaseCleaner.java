@@ -2,8 +2,9 @@ package org.lisasp.competition;
 
 import lombok.RequiredArgsConstructor;
 import org.lisasp.competition.results.service.CompetitionResultRepository;
-import org.lisasp.competition.results.service.EntryRepository;
-import org.lisasp.competition.results.service.EventRepository;
+import org.lisasp.competition.results.service.EntryResultRepository;
+import org.lisasp.competition.results.service.EventResultRepository;
+import org.lisasp.competition.service.CompetitionRepository;
 import org.springframework.stereotype.Component;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,18 +13,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Component
 class DatabaseCleaner {
 
+    private final CompetitionRepository competitionRepository;
     private final CompetitionResultRepository competitionResultRepository;
-    private final EventRepository eventRepository;
-    private final EntryRepository entryRepository;
-    public void clean() {
-        entryRepository.deleteAll();
-        eventRepository.deleteAll();
-        competitionResultRepository.deleteAll();
-        // TestTransaction.flagForCommit();
-        // TestTransaction.end();
+    private final EventResultRepository eventResultRepository;
+    private final EntryResultRepository entryResultRepository;
 
+    public void clean() {
+        competitionRepository.deleteAll();
+        entryResultRepository.deleteAll();
+        eventResultRepository.deleteAll();
+        competitionResultRepository.deleteAll();
+
+        assertEquals(0, competitionRepository.count());
         assertEquals(0, competitionResultRepository.count());
-        assertEquals(0, eventRepository.count());
-        assertEquals(0, entryRepository.count());
+        assertEquals(0, eventResultRepository.count());
+        assertEquals(0, entryResultRepository.count());
     }
 }

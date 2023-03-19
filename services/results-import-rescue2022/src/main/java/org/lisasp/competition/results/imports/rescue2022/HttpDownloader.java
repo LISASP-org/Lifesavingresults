@@ -17,7 +17,7 @@ public class HttpDownloader implements Downloader {
 
     private final String format;
 
-    private final URI toURI(String type, String filename) throws URISyntaxException {
+    private URI toURI(String type, String filename) throws URISyntaxException {
         return new URI(String.format(format, type, filename).replace(" ", "%20"));
     }
 
@@ -25,18 +25,18 @@ public class HttpDownloader implements Downloader {
     public byte[] download(String type, String filename) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(toURI(type, filename))
-                    .version(HttpClient.Version.HTTP_2)
-                    .GET()
-                    .build();
+                                             .uri(toURI(type, filename))
+                                             .version(HttpClient.Version.HTTP_2)
+                                             .GET()
+                                             .build();
 
             HttpResponse<byte[]> response = HttpClient.newBuilder()
-                    .build()
-                    .send(request, HttpResponse.BodyHandlers.ofByteArray());
+                                                      .build()
+                                                      .send(request, HttpResponse.BodyHandlers.ofByteArray());
             if (response.statusCode() >= 200 && response.statusCode() < 300) {
                 return new String(response.body(), "windows-1252").getBytes(StandardCharsets.UTF_8);
             }
-            log.info("Statuscode: {}", response.statusCode());
+            log.info("Status code: {}", response.statusCode());
             return null;
         } catch (URISyntaxException | IOException | InterruptedException e) {
             e.printStackTrace();

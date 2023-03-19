@@ -1,8 +1,13 @@
-package org.lisasp.competition.test.results.model;
+package org.lisasp.competition.test.results.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.lisasp.basics.spring.jpa.BaseEntity;
 import org.springframework.data.repository.CrudRepository;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -13,12 +18,32 @@ class TestDoubleCrudRepository<T extends BaseEntity> implements CrudRepository<T
     protected final Map<String, T> entries = new HashMap<>();
 
     @Override
-    public <S extends T> S save(S entity) {
-        return (S) entries.put(entity.getId(), entity);
+    public <S extends T> @NotNull S save(@NotNull S entity) {
+        entries.put(entity.getId(), entity);
+        beforeSave(entity);
+        return entity;
+    }
+
+    private <S extends T> void beforeSave(S entity) {
+        try {
+            Method method;
+            try {
+                method = entity.getClass().getDeclaredMethod("beforeSave");
+            } catch (NoSuchMethodException ex) {
+                method = BaseEntity.class.getDeclaredMethod("beforeSave");
+            }
+            if (method == null) {
+                return;
+            }
+            method.setAccessible(true);
+            method.invoke(entity);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
-    public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends T> @NotNull Iterable<S> saveAll(Iterable<S> entities) {
         return StreamSupport.stream(entities.spliterator(), false).map(e -> save(e)).toList();
     }
 

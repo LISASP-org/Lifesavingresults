@@ -1,21 +1,25 @@
-package org.lisasp.competition.test.results.model;
+package org.lisasp.competition.test.results.service;
 
 import lombok.Setter;
 import org.lisasp.competition.results.service.CompetitionResultEntity;
+import org.lisasp.competition.results.service.EventResultRepository;
 import org.lisasp.competition.results.service.EventResultEntity;
-import org.lisasp.competition.results.service.EventRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class TestDoubleEventRepository extends TestDoubleCrudRepository<EventResultEntity> implements EventRepository {
+public class TestDoubleEventResultRepository extends TestDoubleCrudRepository<EventResultEntity> implements EventResultRepository {
 
     @Setter
     private TestDoubleCompetitionResultRepository competitionRepository;
 
     @Setter
-    private TestDoubleEntryRepository entryRepository;
+    private TestDoubleEntryResultRepository entryRepository;
+
+    @Override
+    public List<String> findAllEventIdByCompetitionId(String competitionId) {
+        return findAllByCompetitionId(competitionId).stream().map(e -> e.getId()).toList();
+    }
 
     @Override
     public List<EventResultEntity> findAllByCompetitionId(String competitionId) {
@@ -48,7 +52,7 @@ public class TestDoubleEventRepository extends TestDoubleCrudRepository<EventRes
             competition.getEvents().add(entity);
         }
         competitionRepository.check(competition);
-        check(Arrays.asList(entity));
+        check(List.of(entity));
         return super.save(entity);
     }
 }

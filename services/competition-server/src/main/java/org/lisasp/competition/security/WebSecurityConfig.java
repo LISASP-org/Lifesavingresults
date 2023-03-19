@@ -22,14 +22,15 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/api", "/api/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-                .requestMatchers("/api", "/api/**").hasAnyRole(ADMIN, USER)
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
-                .anyRequest().authenticated();
+            .requestMatchers(HttpMethod.GET, "", "/**").permitAll()
+            .requestMatchers(HttpMethod.PUT, "/result/import/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+            .requestMatchers("", "/**").hasAnyRole(ADMIN, USER)
+            .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
+            .anyRequest().authenticated();
         http.oauth2ResourceServer()
-                .jwt()
-                .jwtAuthenticationConverter(jwtAuthConverter);
+            .jwt()
+            .jwtAuthenticationConverter(jwtAuthConverter);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors().and().csrf().disable();
         return http.build();

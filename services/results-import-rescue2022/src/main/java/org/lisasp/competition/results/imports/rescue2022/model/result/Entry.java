@@ -5,78 +5,78 @@ import lombok.Data;
 
 @Data
 public class Entry {
-    @JsonProperty(value="b")
+    @JsonProperty(value = "b")
     private String b;
-    @JsonProperty(value="c")
+    @JsonProperty(value = "c")
     private String c;
-    @JsonProperty(value="PlaCls")
+    @JsonProperty(value = "PlaCls")
     private String plaCls;
-    @JsonProperty(value="PlaClsIta")
+    @JsonProperty(value = "PlaClsIta")
     private String PlaClsIta;
-    @JsonProperty(value="PlaClsRil")
+    @JsonProperty(value = "PlaClsRil")
     private String PlaClsRil;
-    @JsonProperty(value="PlaLane")
+    @JsonProperty(value = "PlaLane")
     private String PlaLane;
-    @JsonProperty(value="PlaCod")
+    @JsonProperty(value = "PlaCod")
     private String PlaCod;
-    @JsonProperty(value="PlaOrd")
+    @JsonProperty(value = "PlaOrd")
     private String plaOrd;
-    @JsonProperty(value="PlaNat")
+    @JsonProperty(value = "PlaNat")
     private String PlaNat;
-    @JsonProperty(value="PlaTeamCod")
+    @JsonProperty(value = "PlaTeamCod")
     private String PlaTeamCod;
-    @JsonProperty(value="TeamDescrIta")
+    @JsonProperty(value = "TeamDescrIta")
     private String TeamDescrIta;
-    @JsonProperty(value="Team2DescrIta")
+    @JsonProperty(value = "Team2DescrIta")
     private String Team2DescrIta;
-    @JsonProperty(value="PlaSurname")
+    @JsonProperty(value = "PlaSurname")
     private String PlaSurname;
-    @JsonProperty(value="PlaName")
+    @JsonProperty(value = "PlaName")
     private String PlaName;
-    @JsonProperty(value="PlaBirth")
+    @JsonProperty(value = "PlaBirth")
     private String PlaBirth;
-    @JsonProperty(value="MemIscr")
+    @JsonProperty(value = "MemIscr")
     private String MemIscr;
-    @JsonProperty(value="MemFC")
+    @JsonProperty(value = "MemFC")
     private String MemFC;
-    @JsonProperty(value="MemNote")
+    @JsonProperty(value = "MemNote")
     private String MemNote;
-    @JsonProperty(value="PlaCat")
+    @JsonProperty(value = "PlaCat")
     private String PlaCat;
-    @JsonProperty(value="DiffIntRec1")
+    @JsonProperty(value = "DiffIntRec1")
     private String DiffIntRec1;
-    @JsonProperty(value="DiffIntRec2")
+    @JsonProperty(value = "DiffIntRec2")
     private String DiffIntRec2;
-    @JsonProperty(value="DiffIntRec3")
+    @JsonProperty(value = "DiffIntRec3")
     private String DiffIntRec3;
-    @JsonProperty(value="DiffIntRec4")
+    @JsonProperty(value = "DiffIntRec4")
     private String DiffIntRec4;
-    @JsonProperty(value="DiffIntRec5")
+    @JsonProperty(value = "DiffIntRec5")
     private String DiffIntRec5;
-    @JsonProperty(value="MemPrest")
+    @JsonProperty(value = "MemPrest")
     private String MemPrest;
-    @JsonProperty(value="MemQual")
+    @JsonProperty(value = "MemQual")
     private String MemQual;
-    @JsonProperty(value="MemPoint")
+    @JsonProperty(value = "MemPoint")
     private String MemPoint;
-    @JsonProperty(value="MemRBattCls")
+    @JsonProperty(value = "MemRBattCls")
     private String MemRBattCls;
-    @JsonProperty(value="MemRBatt")
+    @JsonProperty(value = "MemRBatt")
     private String MemRBatt;
-    @JsonProperty(value="MemRComment")
+    @JsonProperty(value = "MemRComment")
     private String MemRComment;
-    @JsonProperty(value="Gap")
+    @JsonProperty(value = "Gap")
     private String Gap;
-    @JsonProperty(value="Last50")
+    @JsonProperty(value = "Last50")
     private String Last50;
-    @JsonProperty(value="Last100")
+    @JsonProperty(value = "Last100")
     private String Last100;
-    @JsonProperty(value="Last200")
+    @JsonProperty(value = "Last200")
     private String Last200;
-    @JsonProperty(value="Last400")
+    @JsonProperty(value = "Last400")
     private String Last400;
-    @JsonProperty(value="MemFields")
+    @JsonProperty(value = "MemFields")
     private MemField[] MemFields;
-    @JsonProperty(value="Players")
+    @JsonProperty(value = "Players")
     private Player[] players;
 }

@@ -5,18 +5,18 @@ import lombok.Data;
 
 @Data
 public class Heat {
-    @JsonProperty(value="Cod")
+    @JsonProperty(value = "Cod")
     private String code;
-    @JsonProperty(value="Ita")
+    @JsonProperty(value = "Ita")
     private String italian;
-    @JsonProperty(value="Eng")
+    @JsonProperty(value = "Eng")
     private String english;
-    @JsonProperty(value="Fra")
+    @JsonProperty(value = "Fra")
     private String french;
-    @JsonProperty(value="UffDate")
+    @JsonProperty(value = "UffDate")
     private String uffDate;
-    @JsonProperty(value="UffTime")
+    @JsonProperty(value = "UffTime")
     private String uffTime;
-    @JsonProperty(value="Revised")
+    @JsonProperty(value = "Revised")
     private String revised;
 }

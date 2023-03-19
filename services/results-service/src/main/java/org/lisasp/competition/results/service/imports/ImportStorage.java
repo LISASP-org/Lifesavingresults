@@ -3,9 +3,10 @@ package org.lisasp.competition.results.service.imports;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.lisasp.competition.results.api.imports.Competition;
 import org.lisasp.competition.base.api.exception.FileFormatException;
+import org.lisasp.competition.results.api.imports.Competition;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 public class ImportStorage {
 
@@ -27,7 +29,8 @@ public class ImportStorage {
             if (isUnmodified(id, serialized)) {
                 return StorageResult.Unchanged;
             }
-            return saveToDisk(id, serialized);
+            saveToDisk(id, serialized);
+            return StorageResult.Saved;
         } catch (IOException e) {
             throw new FileFormatException(e);
         }
@@ -38,16 +41,16 @@ public class ImportStorage {
             String oldContent = contentsOfFileFor(id);
             return serialized.equals(oldContent);
         } catch (IOException ex) {
+            log.debug("Could not read file for id {}", id);
             // If we cannot read the old file, the new content should be saved.
             return false;
         }
     }
 
     @NotNull
-    private StorageResult saveToDisk(String id, String serialized) throws IOException {
+    private void saveToDisk(String id, String serialized) throws IOException {
         ensureDirectory();
-        Files.write(filenameFor(id), serialized.getBytes(StandardCharsets.UTF_8), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
-        return StorageResult.Saved;
+        Files.writeString(filenameFor(id), serialized, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
     }
 
     private void ensureDirectory() throws IOException {
@@ -58,6 +61,7 @@ public class ImportStorage {
         try {
             return Optional.of(deserialize(contentsOfFileFor(id)));
         } catch (IOException ex) {
+            log.debug("Could not read file", ex);
             return Optional.empty();
         }
     }

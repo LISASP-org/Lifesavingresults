@@ -1,53 +1,64 @@
 {
-  "name" : "Two Entries",
-  "events" : [ {
-    "agegroup" : "AK 12",
-    "sex" : "w",
-    "discipline" : "50m Hindernisschwimmen",
-    "round" : 0,
-    "isFinal" : true,
-    "valueType" : "TimeInMillis",
-    "times" : [ {
-      "startnumber" : "11",
-      "name" : "von Scleinitz, Centa",
-      "organization" : "Neumarkt (ND)",
-      "value" : 78530,
-      "penalties" : [ {
-        "name": "P321",
-        "type": "Points",
-        "points": 123
-      } ],
-      "swimmer" : [ {
-        "startnumber" : "11",
-        "firstName" : "Centa",
-        "lastName" : "von Scleinitz",
-        "organization" : "Neumarkt (ND)",
-        "sex" : "w",
-        "yearOfBirth" : 2013
-      } ],
-      "start" : {
-        "heat" : "1",
-        "lane" : 6
-      }
-    }, {
-      "startnumber" : "1",
-      "name" : "Hain, Cosima",
-      "organization" : "Murrhardt (ND)",
-      "value" : 54720,
-      "penalties" : [ ],
-      "swimmer" : [ {
-        "startnumber" : "1",
-        "firstName" : "Cosima",
-        "lastName" : "Hain",
-        "organization" : "Murrhardt (ND)",
-        "sex" : "w",
-        "yearOfBirth" : 2012
-      } ],
-      "start" : {
-        "heat" : "2",
-        "lane" : 1
-      }
-    } ],
-    "competitorType" : "Individual"
-  } ]
+  "name": "Two Entries",
+  "events": [
+    {
+      "agegroup": "AK 12",
+      "sex": "w",
+      "discipline": "50m Hindernisschwimmen",
+      "round": 0,
+      "isFinal": true,
+      "valueType": "TimeInMillis",
+      "times": [
+        {
+          "startnumber": "11",
+          "name": "von Domas, Gerta",
+          "organization": "Neumarkt (ND)",
+          "value": 78530,
+          "penalties": [
+            {
+              "name": "P321",
+              "type": "Points",
+              "points": 123
+            }
+          ],
+          "swimmer": [
+            {
+              "startnumber": "11",
+              "firstName": "Gerta",
+              "lastName": "von Domas",
+              "organization": "Neumarkt (ND)",
+              "sex": "w",
+              "yearOfBirth": 2013
+            }
+          ],
+          "start": {
+            "heat": "1",
+            "lane": 6
+          }
+        },
+        {
+          "startnumber": "1",
+          "name": "Schuster, Corinna",
+          "organization": "Murrhardt (ND)",
+          "value": 54720,
+          "penalties": [],
+          "swimmer": [
+            {
+              "startnumber": "1",
+              "firstName": "Corinna",
+              "lastName": "Schuster",
+              "organization": "Murrhardt (ND)",
+              "sex": "w",
+              "yearOfBirth": 2012
+            }
+          ],
+          "start": {
+            "heat": "2",
+            "lane": 1
+          }
+        }
+      ],
+      "competitorType": "Individual"
+    }
+  ]
 }

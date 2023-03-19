@@ -19,29 +19,15 @@ public class ResultsApplication {
     }
 
     @Bean
-    CompetitionService competitionService(CompetitionRepository competitionRepository) {
-        return new CompetitionService(competitionRepository);
+    CompetitionService competitionService(CompetitionRepository competitionRepository, ResultService resultService) {
+        return new CompetitionService(competitionRepository).register(new CompetitionChangeAdapter(resultService));
     }
 
     @Bean
-    CompetitionResultService competitionResultService(CompetitionResultRepository competitionResultRepository,
-                                                      EventRepository eventRepository,
-                                                      EntryRepository entryRepository) {
-        return new CompetitionResultService(competitionResultRepository, eventRepository, entryRepository);
-    }
-
-    @Bean
-    EventResultService eventResultService(CompetitionResultRepository competitionResultRepository,
-                                          EventRepository eventRepository,
-                                          EntryRepository entryRepository) {
-        return new EventResultService(competitionResultRepository, eventRepository);
-    }
-
-    @Bean
-    EntryResultService entryResultService(CompetitionResultRepository competitionResultRepository,
-                                          EventRepository eventRepository,
-                                          EntryRepository entryRepository) {
-        return new EntryResultService(eventRepository, entryRepository);
+    ResultService competitionResultService(CompetitionResultRepository competitionResultRepository,
+                                           EventResultRepository eventResultRepository,
+                                           EntryResultRepository entryResultRepository) {
+        return new ResultService(competitionResultRepository, eventResultRepository, entryResultRepository);
     }
 
     @Bean
@@ -50,7 +36,7 @@ public class ResultsApplication {
     }
 
     @Bean
-    ImportService importService(CompetitionResultService competitionResultService, ImportStorage importStorage) {
-        return new ImportService(competitionResultService, importStorage);
+    ImportService importService(ResultService resultService, ImportStorage importStorage) {
+        return new ImportService(resultService, importStorage);
     }
 }

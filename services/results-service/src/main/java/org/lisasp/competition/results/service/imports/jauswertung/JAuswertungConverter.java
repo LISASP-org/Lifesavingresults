@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RequiredArgsConstructor
-public class JAuswertungImporter {
+public class JAuswertungConverter {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public Competition importJson(String json) throws FileFormatException {
@@ -99,21 +99,21 @@ public class JAuswertungImporter {
     }
 
     private byte toPlace(InputValueType inputValueType, org.lisasp.competition.results.service.imports.jauswertung.model.Entry importedEntry) {
-        if (!inputValueType.equals(InputValueType.Rank)) {
+        if (inputValueType != InputValueType.Rank) {
             return (byte) 0;
         }
         return (byte) importedEntry.getValue();
     }
 
     private int toTime(InputValueType inputValueType, org.lisasp.competition.results.service.imports.jauswertung.model.Entry importedEntry) {
-        if (!inputValueType.equals(InputValueType.Time)) {
+        if (inputValueType != InputValueType.Time) {
             return 0;
         }
         return importedEntry.getValue();
     }
 
     private InputValueType toEntryValueType(ValueTypes valueType) {
-        return valueType.equals(ValueTypes.TimeInMillis) ? InputValueType.Time : InputValueType.Rank;
+        return valueType == ValueTypes.TimeInMillis ? InputValueType.Time : InputValueType.Rank;
     }
 
     private static final Set<String> male = new HashSet<>(Arrays.asList("m", "männlich", "male"));
@@ -144,7 +144,7 @@ public class JAuswertungImporter {
     }
 
     private EventType toEventType(CompetitorType competitorType) {
-        return competitorType.equals(CompetitorType.Team) ? EventType.Team : EventType.Individual;
+        return competitorType == CompetitorType.Team ? EventType.Team : EventType.Individual;
     }
 
     private org.lisasp.competition.results.service.imports.jauswertung.model.Competition deserialize(String json) throws FileFormatException {

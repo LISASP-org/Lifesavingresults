@@ -1,6 +1,7 @@
-package org.lisasp.competition.test.results.model;
+package org.lisasp.competition.test.results.service;
 
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.lisasp.competition.results.service.CompetitionResultEntity;
 import org.lisasp.competition.results.service.CompetitionResultRepository;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
 public class TestDoubleCompetitionResultRepository extends TestDoubleCrudRepository<CompetitionResultEntity> implements CompetitionResultRepository {
 
     @Setter
-    private TestDoubleEventRepository eventRepository;
+    private TestDoubleEventResultRepository eventRepository;
 
     @Override
     public Optional<CompetitionResultEntity> findByUploadId(String uploadId) {
@@ -18,7 +19,7 @@ public class TestDoubleCompetitionResultRepository extends TestDoubleCrudReposit
     }
 
     @Override
-    public <S extends CompetitionResultEntity> S save(S entity) {
+    public <S extends CompetitionResultEntity> @NotNull S save(S entity) {
         if (entity.getEvents() == null) {
             entity.setEvents(new ArrayList<>());
         }

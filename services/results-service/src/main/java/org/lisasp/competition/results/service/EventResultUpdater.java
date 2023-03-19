@@ -1,21 +1,26 @@
 package org.lisasp.competition.results.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.competition.base.api.type.EventType;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.base.api.type.InputValueType;
+import org.lisasp.competition.results.api.imports.Entry;
+import org.lisasp.competition.results.api.imports.Event;
 import org.lisasp.competition.results.api.value.Round;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
-public class EventResultUpdater {
+class EventResultUpdater {
+
+    private final ObjectMapper mapper = new ObjectMapper();
 
     private final Changes<EventResultEntity> eventChanges;
     private final Changes<EntryResultEntity> entryChanges;
@@ -26,22 +31,45 @@ public class EventResultUpdater {
     private boolean used = false;
     private boolean modified = false;
 
-    public void updateEvent(Consumer<EventResultEntity> updater) {
+    void updateEvent(Event importedEvent) {
         used = true;
 
-        String before = event.toString();
-        updater.accept(event);
+        String before = serialize(event);
+        updateFields(importedEvent);
         if (mustBeSaved(before)) {
             modified = true;
         }
+
+        if (importedEvent.entries() != null) {
+            for (Entry entry : importedEvent.entries()) {
+                updateEntry(entry);
+            }
+        }
+    }
+
+    private String serialize(EventResultEntity event) {
+        try {
+            return mapper.writeValueAsString(event);
+        } catch (JsonProcessingException e) {
+            return event.toString();
+        }
+    }
+
+    private void updateFields(Event importedEvent) {
+        event.setEventType(importedEvent.eventType());
+        event.setAgegroup(importedEvent.agegroup());
+        event.setGender(importedEvent.gender());
+        event.setDiscipline(importedEvent.discipline());
+        event.setRound(importedEvent.round());
+        event.setInputValueType(importedEvent.inputValueType());
     }
 
     private boolean mustBeSaved(String before) {
-        return event.isNew() || !event.toString().equals(before);
+        return event.isNew() || !serialize(event).equals(before);
     }
 
-    void save() {
-        entries.forEach(e -> e.save());
+    void checkChanges() {
+        entries.forEach(EntryResultUpdater::checkChanges);
 
         if (!used) {
             eventChanges.delete(event);
@@ -71,13 +99,12 @@ public class EventResultUpdater {
         return event.matches(eventType, agegroup, gender, discipline, round, inputValueType);
     }
 
-    public void updateEntry(String number, Consumer<EntryResultUpdater> updater) {
-        EntryResultUpdater entryResultUpdater = entries.stream().filter(e -> e.matches(number)).findFirst().orElseGet(() -> {
+    private void updateEntry(Entry entry) {
+        EntryResultUpdater entryResultUpdater = entries.stream().filter(e -> e.matches(entry.number())).findFirst().orElseGet(() -> {
             EntryResultUpdater newEntryResultUpdater = new EntryResultUpdater(entryChanges, new EntryResultEntity(event));
-            newEntryResultUpdater.updateEntry(entryEntity -> entryEntity.setNumber(number));
             entries.add(newEntryResultUpdater);
             return newEntryResultUpdater;
         });
-        updater.accept(entryResultUpdater);
+        entryResultUpdater.updateEntry(entry);
     }
 }

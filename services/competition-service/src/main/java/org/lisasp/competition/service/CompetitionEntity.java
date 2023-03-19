@@ -2,29 +2,38 @@ package org.lisasp.competition.service;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.lisasp.basics.spring.jpa.BaseEntity;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@ToString(exclude = {"events"})
+@NoArgsConstructor
 public class CompetitionEntity extends BaseEntity {
     @Column(length = 40, nullable = false)
+    @NotNull
     private String name;
-    @Column(length = 16)
+    @Column(length = 16, nullable = false)
+    @NotNull
     private String acronym;
-    @Column(length = 40)
-    private String uploadId;
-    @Column(name = "from_date")
+    @Column(name = "from_date", nullable = false)
+    @NotNull
     private LocalDate from;
-    @Column(name = "till_date")
+    @Column(name = "till_date", nullable = false)
+    @NotNull
     private LocalDate till;
+
+    public CompetitionEntity(String id) {
+        super(id);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("CompetitionEntity(id=%s, version=%d, name=%s, acronym=%s, from=%tF, till=%tF)", getId(), getVersion(), name, acronym, from, till);
+    }
 }

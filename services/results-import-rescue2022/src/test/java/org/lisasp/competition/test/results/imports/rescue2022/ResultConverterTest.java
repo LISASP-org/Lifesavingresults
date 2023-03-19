@@ -72,7 +72,8 @@ class ResultConverterTest {
     private static Predicate<Path> onlyNormalResultFiles() {
         return f -> {
             String filename = f.toString();
-            return !filename.contains("ScheduleByDate_") && !filename.contains("ScheduleByEvent_") && !filename.endsWith("NUMZMD.JSON") && !filename.endsWith("NUS1SOC.JSON");
+            return !filename.contains("ScheduleByDate_") && !filename.contains("ScheduleByEvent_") && !filename.endsWith("NUMZMD.JSON") &&
+                   !filename.endsWith("NUS1SOC.JSON");
         };
     }
 }

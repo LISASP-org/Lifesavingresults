@@ -129,8 +129,8 @@ class EntryCreator {
         }
         int minutes = 0;
         if (time.contains(":")) {
-            minutes = Integer.parseInt(time, 0, time.indexOf(":"), 10);
-            time = time.substring(time.indexOf(":") + 1);
+            minutes = Integer.parseInt(time, 0, time.indexOf(':'), 10);
+            time = time.substring(time.indexOf(':') + 1);
         }
         String[] parts = time.split("\\.");
         int seconds = Integer.parseInt(parts[0]);

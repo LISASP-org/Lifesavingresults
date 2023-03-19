@@ -46,6 +46,7 @@ public class ResultsConverter {
             log.info("Converting '{}'", filename);
             return resultConverter.convert(file);
         } catch (IOException ex) {
+            ex.printStackTrace();
             return null;
         }
     }

@@ -9,7 +9,6 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.lisasp.competition</groupId>
     <artifactId>results-import-rescue2022</artifactId>
 
     <dependencies>

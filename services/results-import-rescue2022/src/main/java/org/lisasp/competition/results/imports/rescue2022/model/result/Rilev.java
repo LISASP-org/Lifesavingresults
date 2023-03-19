@@ -5,14 +5,14 @@ import lombok.Data;
 
 @Data
 public class Rilev {
-    @JsonProperty(value="Num")
+    @JsonProperty(value = "Num")
     private String number;
-    @JsonProperty(value="Name")
+    @JsonProperty(value = "Name")
     private String name;
-    @JsonProperty(value="NameIta")
+    @JsonProperty(value = "NameIta")
     private String italian;
-    @JsonProperty(value="NameEng")
+    @JsonProperty(value = "NameEng")
     private String english;
-    @JsonProperty(value="NameFra")
+    @JsonProperty(value = "NameFra")
     private String french;
 }

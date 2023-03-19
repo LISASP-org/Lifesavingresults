@@ -35,9 +35,7 @@ public class ResultsDownloader {
     }
 
     public void download(String competition, String type) throws IOException {
-        getFilenames(type).forEach(f -> {
-            downloadFile(competition, type, f);
-        });
+        getFilenames(type).forEach(f -> downloadFile(competition, type, f));
     }
 
     private void downloadFile(String competition, String type, String f) {
@@ -45,9 +43,7 @@ public class ResultsDownloader {
             Path directory = basedir.resolve(Path.of("data", "downloads", competition, type));
             files.createDirectories(directory);
             Path localFilename = directory.resolve(f);
-            if (files.exists(localFilename)) {
-                // log.info("Skipping file '{}'.", f);
-            } else {
+            if (!files.exists(localFilename)) {
                 log.info("Downloading file '{}'...", f);
                 byte[] content = downloader.download(type, f);
                 files.put(localFilename, content);

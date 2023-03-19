@@ -1,12 +1,12 @@
 package org.lisasp.competition.results.imports.rescue2022;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.competition.results.api.imports.Entry;
-import org.lisasp.competition.results.api.imports.Event;
 import org.lisasp.competition.base.api.type.EventType;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.base.api.type.InputValueType;
 import org.lisasp.competition.base.api.type.RoundType;
+import org.lisasp.competition.results.api.imports.Entry;
+import org.lisasp.competition.results.api.imports.Event;
 import org.lisasp.competition.results.api.value.Round;
 import org.lisasp.competition.results.imports.rescue2022.model.result.ResultFile;
 

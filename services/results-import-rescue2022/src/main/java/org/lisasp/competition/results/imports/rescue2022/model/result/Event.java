@@ -5,18 +5,18 @@ import lombok.Data;
 
 @Data
 public class Event {
-    @JsonProperty(value="Date")
+    @JsonProperty(value = "Date")
     private String code;
-    @JsonProperty(value="Part")
+    @JsonProperty(value = "Part")
     private String italian;
-    @JsonProperty(value="Comunicate")
+    @JsonProperty(value = "Comunicate")
     private String english;
-    @JsonProperty(value="Audience")
+    @JsonProperty(value = "Audience")
     private String french;
-    @JsonProperty(value="Place")
+    @JsonProperty(value = "Place")
     private String place;
-    @JsonProperty(value="Time")
+    @JsonProperty(value = "Time")
     private String time;
-    @JsonProperty(value="Ord")
+    @JsonProperty(value = "Ord")
     private String ord;
 }

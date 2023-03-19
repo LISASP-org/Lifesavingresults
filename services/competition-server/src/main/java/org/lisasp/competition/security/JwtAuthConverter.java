@@ -3,6 +3,7 @@ package org.lisasp.competition.security;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,15 +29,16 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
     private final JwtAuthConverterProperties properties;
 
     @Override
-    public AbstractAuthenticationToken convert(Jwt jwt) {
+    public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
         log.info("Converting: {}", jwt);
-        Collection<GrantedAuthority> authorities = Stream.concat(jwtGrantedAuthoritiesConverter.convert(jwt).stream(), extractResourceRoles(jwt).stream()).collect(Collectors.toSet());
+        Collection<GrantedAuthority> authorities =
+                Stream.concat(jwtGrantedAuthoritiesConverter.convert(jwt).stream(), extractResourceRoles(jwt).stream()).collect(Collectors.toSet());
         return new JwtAuthenticationToken(jwt, authorities, getPrincipalClaimName(jwt));
     }
 
     private String getPrincipalClaimName(Jwt jwt) {
         String claimName = JwtClaimNames.SUB;
-        if (properties.getPrincipalAttribute() != null) {
+        if (null != properties.getPrincipalAttribute()) {
             claimName = properties.getPrincipalAttribute();
         }
         return jwt.getClaim(claimName);
@@ -44,15 +46,15 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
 
     private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt jwt) {
         Map<String, Object> resourceAccess = jwt.getClaim("resource_access");
-        if (resourceAccess == null) {
+        if (null == resourceAccess) {
             return Set.of();
         }
         Map<String, Object> resource = (Map<String, Object>) resourceAccess.get(properties.getResourceId());
-        if (resource == null) {
+        if (null == resource) {
             return Set.of();
         }
         Collection<String> resourceRoles = (Collection<String>) resource.get("roles");
-        if (resourceRoles == null) {
+        if (null == resourceRoles) {
             return Set.of();
         }
 

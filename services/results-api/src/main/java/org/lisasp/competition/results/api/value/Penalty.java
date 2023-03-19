@@ -2,11 +2,13 @@ package org.lisasp.competition.results.api.value;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Value;
 import org.lisasp.competition.base.api.type.PenaltyType;
 
-@Value
-public class Penalty {
+public record Penalty(String name, PenaltyType type, short points) {
+
+    public Penalty(String name, PenaltyType type) {
+        this(name, type, (short) 0);
+    }
 
     @JsonCreator
     public Penalty(@JsonProperty(value = "name", required = true) String name,
@@ -16,12 +18,4 @@ public class Penalty {
         this.type = type;
         this.points = points;
     }
-
-    public Penalty(String name, PenaltyType type) {
-        this(name, type, (short) 0);
-    }
-
-    private String name;
-    private PenaltyType type;
-    private short points;
 }

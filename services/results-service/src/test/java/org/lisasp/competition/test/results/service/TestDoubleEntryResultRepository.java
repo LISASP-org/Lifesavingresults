@@ -1,21 +1,27 @@
-package org.lisasp.competition.test.results.model;
+package org.lisasp.competition.test.results.service;
 
 import lombok.Setter;
 import org.lisasp.competition.results.service.EntryResultEntity;
-import org.lisasp.competition.results.service.EntryRepository;
+import org.lisasp.competition.results.service.EntryResultRepository;
 import org.lisasp.competition.results.service.EventResultEntity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
-public class TestDoubleEntryRepository extends TestDoubleCrudRepository<EntryResultEntity> implements EntryRepository {
+public class TestDoubleEntryResultRepository extends TestDoubleCrudRepository<EntryResultEntity> implements EntryResultRepository {
 
     @Setter
-    private TestDoubleEventRepository eventRepository;
+    private TestDoubleEventResultRepository eventRepository;
+
     @Override
     public List<EntryResultEntity> findAllByEventId(String eventId) {
         return entries.values().stream().filter(e -> e.getEvent().getId().equals(eventId)).toList();
+    }
+
+    @Override
+    public List<String> findAllEntryIdByEventId(Collection<String> eventIds) {
+        return entries.values().stream().filter(e -> eventIds.contains(e.getEvent().getId())).map(e -> e.getId()).toList();
     }
 
     public void check(List<EntryResultEntity> entities) {
@@ -31,7 +37,7 @@ public class TestDoubleEntryRepository extends TestDoubleCrudRepository<EntryRes
         if (event.getEntries().stream().noneMatch(e -> e.getId().equals(entity.getId()))) {
             event.getEntries().add(entity);
         }
-        eventRepository.check(Arrays.asList(event));
+        eventRepository.check(List.of(event));
         return super.save(entity);
     }
 }

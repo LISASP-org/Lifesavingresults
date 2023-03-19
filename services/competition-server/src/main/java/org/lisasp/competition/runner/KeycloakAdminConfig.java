@@ -35,11 +35,11 @@ public class KeycloakAdminConfig {
     @Bean
     public Keycloak keycloakAdmin(@Value("${app.keycloak.server-url}") String keycloakServerUrl) {
         return KeycloakBuilder.builder()
-                .serverUrl(keycloakServerUrl)
-                .realm("master")
-                .username("keycloak")
-                .password("keycloak")
-                .clientId("admin-cli")
-                .build();
+                              .serverUrl(keycloakServerUrl)
+                              .realm("master")
+                              .username("keycloak")
+                              .password("keycloak")
+                              .clientId("admin-cli")
+                              .build();
     }
 }

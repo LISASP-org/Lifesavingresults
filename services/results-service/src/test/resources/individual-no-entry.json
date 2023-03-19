@@ -1,13 +1,15 @@
 {
-  "name" : "No Entry",
-  "events" : [ {
-    "agegroup" : "AK 12",
-    "sex" : "w",
-    "discipline" : "50m Hindernisschwimmen",
-    "round" : 0,
-    "isFinal" : true,
-    "valueType" : "TimeInMillis",
-    "times" : [ ],
-    "competitorType" : "Individual"
-  } ]
+  "name": "No Entry",
+  "events": [
+    {
+      "agegroup": "AK 12",
+      "sex": "w",
+      "discipline": "50m Hindernisschwimmen",
+      "round": 0,
+      "isFinal": true,
+      "valueType": "TimeInMillis",
+      "times": [],
+      "competitorType": "Individual"
+    }
+  ]
 }

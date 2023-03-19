@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Data
 public class Export {
-    @JsonProperty(value="ExportFormat")
+    @JsonProperty(value = "ExportFormat")
     private String format;
-    @JsonProperty(value="ExpType")
+    @JsonProperty(value = "ExpType")
     private String type;
-    @JsonProperty(value="ExpName")
+    @JsonProperty(value = "ExpName")
     private String name;
-    @JsonProperty(value="ExpDescr")
+    @JsonProperty(value = "ExpDescr")
     private String description;
 
 }

@@ -2,17 +2,9 @@ package org.lisasp.competition.results.api.value;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Value;
 import org.lisasp.competition.base.api.type.Sex;
 
-@Value
-public final class Swimmer {
-    private final String startNumber;
-    private final String firstName;
-    private final String lastName;
-    private final Sex sex;
-    private final short yearOfBirth;
-
+public record Swimmer(String startNumber, String firstName, String lastName, Sex sex, short yearOfBirth) {
     @JsonCreator
     public Swimmer(@JsonProperty(value = "startNumber", required = true) String startNumber,
                    @JsonProperty(value = "firstName", required = true) String firstName,

@@ -9,6 +9,7 @@ import org.lisasp.competition.results.imports.rescue2022.Downloader;
 import org.lisasp.competition.results.imports.rescue2022.ResultsDownloader;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -28,7 +29,7 @@ public class ResultsDownloaderTest {
     }
 
     private boolean isEmpty(Path directory) throws IOException {
-        return Files.list(directory).count() == 0;
+        return Files.list(directory).findAny().isEmpty();
     }
 
     @Test
@@ -78,7 +79,8 @@ public class ResultsDownloaderTest {
         assertArrayEquals(new byte[]{2}, Files.readAllBytes(json001));
         assertArrayEquals(new byte[]{3}, Files.readAllBytes(json002));
 
-        assertArrayEquals(new String[]{"001.JSON", "002.JSON"}, Files.list(targetDirectory).map(p -> p.getFileName().toString()).sorted().toArray(String[]::new));
+        assertArrayEquals(new String[]{"001.JSON", "002.JSON"},
+                          Files.list(targetDirectory).map(p -> p.getFileName().toString()).sorted().toArray(String[]::new));
     }
 
     @Test
@@ -104,19 +106,19 @@ public class ResultsDownloaderTest {
         public byte[] download(String type, String filename) {
             try {
                 if (type.equals("Empty") && filename.equals("Contatori.json")) {
-                    return ResultsDownloaderTest.class.getResourceAsStream("/category/Empty.json").readAllBytes();
+                    return readContent("/category/Empty.json");
                 }
                 if (type.equals("Orario") && filename.equals("Contatori.json")) {
-                    return ResultsDownloaderTest.class.getResourceAsStream("/category/Orario.json").readAllBytes();
+                    return readContent("/category/Orario.json");
                 }
                 if (type.equals("Category") && filename.equals("Contatori.json")) {
-                    return ResultsDownloaderTest.class.getResourceAsStream("/category/Category.json").readAllBytes();
+                    return readContent("/category/Category.json");
                 }
                 if (type.equals("OneEntry") && filename.equals("Contatori.json")) {
-                    return ResultsDownloaderTest.class.getResourceAsStream("/category/OneEntry.json").readAllBytes();
+                    return readContent("/category/OneEntry.json");
                 }
                 if (type.equals("TwoEntries") && filename.equals("Contatori.json")) {
-                    return ResultsDownloaderTest.class.getResourceAsStream("/category/TwoEntries.json").readAllBytes();
+                    return readContent("/category/TwoEntries.json");
                 }
                 if (type.equals("OneEntry") && filename.equals("001.JSON")) {
                     return new byte[]{1};
@@ -131,6 +133,12 @@ public class ResultsDownloaderTest {
                 ex.printStackTrace();
             }
             throw new IllegalArgumentException(String.format("%s - %s", type, filename));
+        }
+
+        private static byte[] readContent(String name) throws IOException {
+            try (InputStream is = ResultsDownloaderTest.class.getResourceAsStream(name)) {
+                return is.readAllBytes();
+            }
         }
     }
 }

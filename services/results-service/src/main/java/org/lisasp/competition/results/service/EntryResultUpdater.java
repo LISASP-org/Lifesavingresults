@@ -1,35 +1,63 @@
 package org.lisasp.competition.results.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.function.Consumer;
+import org.lisasp.competition.results.api.imports.Entry;
 
 @Slf4j
 @RequiredArgsConstructor
-public class EntryResultUpdater {
+class EntryResultUpdater {
+
+    private final ObjectMapper mapper = new ObjectMapper();
+
     private final Changes<EntryResultEntity> entryChanges;
     private final EntryResultEntity entry;
 
     private boolean used = false;
-    private boolean modified = true;
+    private boolean modified = false;
 
-    public void updateEntry(Consumer<EntryResultEntity> updater) {
+    void updateEntry(Entry importedEntry) {
         used = true;
 
-        String before = entry.toString();
-        updater.accept(entry);
-        entry.fixNull();
+        String before = serialize(entry);
+        updateFields(importedEntry);
         if (mustBeSaved(before)) {
             modified = true;
         }
     }
 
-    private boolean mustBeSaved(String before) {
-        return entry.isNew() || !entry.toString().equals(before);
+    private String serialize(EntryResultEntity entry) {
+        try {
+            return mapper.writeValueAsString(entry);
+        } catch (JsonProcessingException e) {
+            return entry.toString();
+        }
     }
 
-    void save() {
+    private void updateFields(Entry importedEntry) {
+        entry.setNumber(importedEntry.number());
+        entry.setSwimmer(importedEntry.swimmer());
+        entry.setStart(importedEntry.start());
+        entry.setSplitTimes(importedEntry.splitTimes());
+        entry.setPlaceInHeat(importedEntry.placeInHeat());
+        entry.setPenalties(importedEntry.penalties());
+        entry.setNationality(importedEntry.nationality());
+        entry.setName(importedEntry.name());
+        entry.setClub(importedEntry.club());
+        entry.setTimeInMillis(importedEntry.timeInMillis());
+    }
+
+    private boolean mustBeSaved(String before) {
+        boolean isNew = entry.isNew();
+        String current = serialize(entry);
+        boolean changed = !serialize(entry).equals(before);
+
+        return entry.isNew() || !serialize(entry).equals(before);
+    }
+
+    void checkChanges() {
         if (!used) {
             entryChanges.delete(entry);
         } else if (modified) {

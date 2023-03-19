@@ -1,12 +1,11 @@
 package org.lisasp.competition.service;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.competition.api.CompetitionCreated;
+import org.lisasp.competition.api.CompetitionChangeListener;
 import org.lisasp.competition.api.CompetitionDto;
 import org.lisasp.competition.api.CreateCompetition;
-import org.lisasp.competition.base.api.exception.*;
+import org.lisasp.competition.base.api.exception.NotFoundException;
 
-import java.util.UUID;
 import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
@@ -15,10 +14,10 @@ public class CompetitionService {
     private final CompetitionRepository competitionRepository;
 
     private final EntityToDtoMapper mapper = new EntityToDtoMapper();
+    private final CompetitionChangeNotifier notifier = new CompetitionChangeNotifier();
 
-    public CompetitionCreated execute(CreateCompetition createCompetition) {
+    public CompetitionDto create(CreateCompetition createCompetition) {
         CompetitionEntity competition = new CompetitionEntity();
-        competition.setUploadId(UUID.randomUUID().toString());
         competition.setName(createCompetition.name());
         competition.setAcronym(createCompetition.acronym());
         competition.setFrom(createCompetition.from());
@@ -26,7 +25,20 @@ public class CompetitionService {
 
         competitionRepository.save(competition);
 
-        return new CompetitionCreated(competition.getId());
+        CompetitionDto dto = mapper.entityToDto(competition);
+        notifier.added(dto);
+        return dto;
+    }
+
+    public void deleteCompetition(String id) {
+        if (id == null) {
+            throw new NullPointerException("Id must not be null");
+        }
+        competitionRepository.findById(id).ifPresent(e -> {
+            CompetitionDto dto = mapper.entityToDto(e);
+            competitionRepository.deleteById(e.getId());
+            notifier.deleted(dto);
+        });
     }
 
     public CompetitionDto findCompetition(String id) throws NotFoundException {
@@ -35,11 +47,26 @@ public class CompetitionService {
     }
 
     public CompetitionDto[] findCompetitions() {
-        return StreamSupport.stream(competitionRepository.findAll().spliterator(), false).map(e -> mapper.entityToDto(e).withoutUploadId()).toArray(CompetitionDto[]::new);
+        return StreamSupport.stream(competitionRepository.findAll().spliterator(), false).map(mapper::entityToDto).toArray(CompetitionDto[]::new);
     }
 
-    public String getCompetitionIdByUploadId(String uploadId) throws CompetitionNotFoundException {
-        CompetitionEntity entity = competitionRepository.findByUploadId(uploadId).orElseThrow(() -> new CompetitionNotFoundException(uploadId));
-        return entity.getId();
+    public CompetitionDto update(CompetitionDto competition) throws NotFoundException {
+        CompetitionEntity entity =
+                competitionRepository.findById(competition.id()).orElseThrow(() -> new NotFoundException("Competition", competition.id()));
+        entity.setName(competition.name());
+        entity.setAcronym(competition.acronym());
+        entity.setFrom(competition.from());
+        entity.setTill(competition.till());
+
+        competitionRepository.save(entity);
+
+        CompetitionDto dto = mapper.entityToDto(entity);
+        notifier.updated(dto);
+        return dto;
+    }
+
+    public CompetitionService register(CompetitionChangeListener listener) {
+        notifier.add(listener);
+        return this;
     }
 }

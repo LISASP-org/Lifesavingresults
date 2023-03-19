@@ -2,7 +2,6 @@ package org.lisasp.competition.results.imports.rescue2022;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.lisasp.competition.results.api.imports.Event;
 import org.lisasp.competition.results.imports.rescue2022.model.result.ResultFile;
 
@@ -60,11 +59,7 @@ public class ResultConverter {
         return new EventCreator(defaultAgegroup).parse(resultFile);
     }
 
-    @Value
-    private static class ReplacePattern {
-        private final String search;
-        private final String replace;
-
+    private record ReplacePattern(String search, String replace) {
         private String replace(String text) {
             return text.replace(search, replace);
         }

@@ -1,7 +1,6 @@
 package org.lisasp.competition.results.service.imports.jauswertung.model;
 
 import lombok.Data;
-import lombok.Value;
 
 @Data
 public class Swimmer {
