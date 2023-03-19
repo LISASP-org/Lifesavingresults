@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.lisasp.results</groupId>
+    <groupId>org.lisasp.competition</groupId>
     <artifactId>results-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -20,13 +20,17 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
+        <module>base-api</module>
+        <module>competition-api</module>
+        <module>competition-service</module>
         <module>results-api</module>
         <module>results-service</module>
         <module>time-service</module>
-        <module>results-server</module>
+        <module>competition-server</module>
         <module>results-distribution</module>
 
-        <module>import-rescue2022</module>
+        <module>results-import-rescue2022</module>
+        <module>time-api</module>
     </modules>
 
     <properties>
@@ -36,20 +40,22 @@
         <basics.version>1.0.1</basics.version>
         <opencsv.version>5.7.1</opencsv.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
-        <springdoc.version>2.0.2</springdoc.version>
+        <springdoc.version>2.0.4</springdoc.version>
 
         <keycloak.version>21.0.1</keycloak.version>
 
         <lombok.version>1.18.26</lombok.version>
-        <slf4j.version>2.0.6</slf4j.version>
+        <slf4j.version>2.0.7</slf4j.version>
         <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <mockito.version>5.1.1</mockito.version>
+        <mockito.version>5.2.0</mockito.version>
         <testcontainers.version>1.17.6</testcontainers.version>
+        <testcontainers-keycloak.version>2.5.0</testcontainers-keycloak.version>
 
         <mariadb.version>3.1.2</mariadb.version>
         <h2.version>2.1.214</h2.version>
+        <artemismq.version>2.28.0</artemismq.version>
 
         <spring-boot.skip>true</spring-boot.skip>
     </properties>
@@ -68,28 +74,53 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp</groupId>
+                <artifactId>basics-spring-jms</artifactId>
+                <version>${basics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp</groupId>
                 <artifactId>basics-jre</artifactId>
+                <version>${basics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp</groupId>
+                <artifactId>basics-notification</artifactId>
                 <version>${basics.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.lisasp.results</groupId>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>competition-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>competition-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>results-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp.results</groupId>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>results-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp.results</groupId>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>time-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp.results</groupId>
-                <artifactId>results-server</artifactId>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>base-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>competition-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -112,6 +143,11 @@
                 <groupId>org.keycloak</groupId>
                 <artifactId>keycloak-admin-client</artifactId>
                 <version>${keycloak.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>artemis-jms-server</artifactId>
+                <version>${artemismq.version}</version>
             </dependency>
 
             <dependency>
@@ -152,7 +188,11 @@
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
@@ -170,6 +210,11 @@
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.dasniko</groupId>
+                <artifactId>testcontainers-keycloak</artifactId>
+                <version>${testcontainers-keycloak.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -393,12 +438,10 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <configuration>
-                    <threads>12</threads>
                     <timestampedReports>false</timestampedReports>
                     <failWhenNoMutations>false</failWhenNoMutations>
                     <excludedClasses>
-                        <excludedClass>org.lisasp.alphatimer.datatests.*</excludedClass>
-                        <excludedClass>org.lisasp.alphatimer.serial.*</excludedClass>
+                        <excludedClass>org.lisasp.example.*</excludedClass>
                     </excludedClasses>
                     <avoidCallsTo>
                         <avoidCallsTo>java.util.logging</avoidCallsTo>
@@ -410,6 +453,9 @@
                         <mutator>DEFAULTS</mutator>
                         <mutator>STRONGER</mutator>
                     </mutators>
+                    <features>
+                        <feature>+auto_threads</feature>
+                    </features>
                 </configuration>
                 <dependencies>
                     <dependency>
