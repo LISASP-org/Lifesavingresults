@@ -38,7 +38,7 @@
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
     "orval": "^6.12.1",
