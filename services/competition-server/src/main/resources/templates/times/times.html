@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{fragments/head :: head}"></div>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main role="main" class="container-xl">
+    <h1 class="mt-5">Zeiten</h1>
+
+    <div th:replace="~{fragments/messages :: messages}"></div>
+
+    <form class="row g-3" action="#" th:action="@{/web/times/}" th:object="${query}" method="get">
+        <div class="row mb-3">
+            <label for="eventType" class="col-sm-2 form-label">Typ</label>
+            <div class="col-sm-10">
+                <select type="text" class="form-control" id="eventType" th:field="*{eventType}">
+                    <option value="Individual">Einzel</option>
+                    <option value="Team">Mannschaft</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="agegroup" class="col-sm-2 form-label">Altersklasse</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="agegroup" th:field="*{agegroup}"
+                       placeholder="AK 12, AK 13/14, ..."/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="gender" class="col-sm-2 form-label">Geschlecht</label>
+            <div class="col-sm-10">
+                <select type="text" class="form-control" id="gender" th:field="*{gender}">
+                    <option value="Male">Männlich</option>
+                    <option value="Female">Weiblich</option>
+                    <option value="Mixed">Gemischt</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="discipline" class="col-sm-2 form-label">Disziplin</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="discipline" th:field="*{discipline}"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <button type="submit" class="btn btn-primary">Aktualisieren</button>
+        </div>
+    </form>
+
+    <div th:if="${times.length > 0}">
+        <table class="table table-hover table-responsive-xl">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Club</th>
+                <th scope="col">Nation</th>
+                <th scope="col">Zeit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="time : ${times}">
+                <th scope="row">
+                    [[${time.name}]]
+                </th>
+                <td>
+                    [[${time.club}]]
+                </td>
+                <td>
+                    [[${time.nationality}]]
+                </td>
+                <td>
+                    [[${time.timeInMillis}]]
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -50,7 +50,7 @@ public class ResultController {
                    @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
     @Transactional
     public EntryDto[] findEntriesByEvent(@PathVariable String competitionId, @PathVariable String eventId) throws NotFoundException {
-        return resultService.findEntries(competitionId, eventId);
+        return resultService.findEntries(eventId);
     }
 
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"),
@@ -59,8 +59,19 @@ public class ResultController {
     @PutMapping("/import/jauswertung/{uploadId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public void importFromJAuswertung(@PathVariable String uploadId, @RequestBody String competition) throws NotFoundException, FileFormatException,
-                                                                                                             InvalidDataException {
+    public void importFromJAuswertung(@PathVariable String uploadId, @RequestBody String competition)
+            throws NotFoundException, FileFormatException, InvalidDataException {
         importService.importFromJAuswertung(uploadId, competition);
+    }
+
+    @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"),
+                   @ApiResponse(responseCode = "400", description = "The provided data could not be parsed"),
+                   @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)})
+    @PutMapping("/import/core/{uploadId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
+    public void importCompetition(@PathVariable String uploadId, @RequestBody String competition)
+            throws NotFoundException, FileFormatException, InvalidDataException {
+        importService.importCompetition(uploadId, competition);
     }
 }

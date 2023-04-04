@@ -37,6 +37,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
                                                                                 .filter(r -> r.getRealm().equals(config.getRealmName()))
                                                                                 .findAny();
             if (representationOptional.isPresent()) {
+                log.info("Realm already initialized...");
                 return;
             }
 

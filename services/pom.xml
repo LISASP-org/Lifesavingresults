@@ -25,12 +25,12 @@
         <module>competition-service</module>
         <module>results-api</module>
         <module>results-service</module>
+        <module>time-api</module>
         <module>time-service</module>
         <module>competition-server</module>
         <module>results-distribution</module>
 
         <module>results-import-rescue2022</module>
-        <module>time-api</module>
     </modules>
 
     <properties>
@@ -41,6 +41,7 @@
         <opencsv.version>5.7.1</opencsv.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <springdoc.version>2.0.4</springdoc.version>
+        <bootstrap.version>5.2.3</bootstrap.version>
 
         <keycloak.version>21.0.1</keycloak.version>
 
@@ -58,6 +59,7 @@
         <artemismq.version>2.28.0</artemismq.version>
 
         <spring-boot.skip>true</spring-boot.skip>
+        <pitest.skip>false</pitest.skip>
     </properties>
 
     <scm>
@@ -110,6 +112,11 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.competition</groupId>
+                <artifactId>time-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>time-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -151,6 +158,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>${bootstrap.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.jetbrains</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${jetbrains.annotations.version}</version>
@@ -174,6 +187,11 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.10.0</version>
             </dependency>
 
             <dependency>
@@ -233,6 +251,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -438,6 +462,7 @@
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <configuration>
+                    <skip>${pitest.skip}</skip>
                     <timestampedReports>false</timestampedReports>
                     <failWhenNoMutations>false</failWhenNoMutations>
                     <excludedClasses>

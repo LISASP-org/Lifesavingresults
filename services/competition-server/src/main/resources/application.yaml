@@ -13,7 +13,8 @@ app:
     users: admin, user, felix, dennis
   cors:
     allowed-origins: http://localhost:5173
-
+  development:
+    test-ui-enabled: false
 
 spring:
   application:
@@ -25,12 +26,23 @@ spring:
     url: jdbc:h2:mem:competitions;DB_CLOSE_DELAY=-1;
     username: sa
     password: sa
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: ${app.keycloak.server-url}/realms/${app.keycloak.realm}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+  h2:
+    console:
+      enabled: false
+
+  thymeleaf:
+    cache: false
+
   artemis:
     mode: embedded
     embedded:

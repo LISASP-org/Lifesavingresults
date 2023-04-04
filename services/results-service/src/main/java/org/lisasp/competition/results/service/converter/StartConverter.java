@@ -11,9 +11,6 @@ public class StartConverter implements AttributeConverter<Start, String> {
 
     @Override
     public String convertToDatabaseColumn(Start start) {
-        if (start == null) {
-            return null;
-        }
         try {
             return mapper.writeValueAsString(start);
         } catch (JsonProcessingException e) {

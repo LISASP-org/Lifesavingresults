@@ -1,5 +1,5 @@
 package org.lisasp.competition.base.api;
 
-public enum EventType {
+public enum ChangeType {
     Created, Updated, Deleted
 }

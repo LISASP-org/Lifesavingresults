@@ -27,7 +27,7 @@ public class CompetitionController {
     @PostMapping("")
     @Transactional
     public CompetitionDto createCompetition(@RequestBody CreateCompetition createCompetition) {
-        log.info("Import from JAuswertung for {}", createCompetition.name());
+        log.info("Import from JAuswertung for {}", createCompetition.getName());
         return competitionService.create(createCompetition);
     }
 

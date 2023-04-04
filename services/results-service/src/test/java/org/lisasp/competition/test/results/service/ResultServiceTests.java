@@ -12,13 +12,14 @@ import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.base.api.type.InputValueType;
 import org.lisasp.competition.base.api.type.RoundType;
 import org.lisasp.competition.results.api.CompetitionDto;
+import org.lisasp.competition.results.api.EntryChangeListener;
 import org.lisasp.competition.results.api.EntryDto;
 import org.lisasp.competition.results.api.EventDto;
-import org.lisasp.competition.results.api.TimeChangeListener;
 import org.lisasp.competition.results.api.imports.Competition;
 import org.lisasp.competition.results.api.imports.Entry;
 import org.lisasp.competition.results.api.imports.Event;
 import org.lisasp.competition.results.api.value.*;
+import org.lisasp.competition.results.service.CompetitionChangeAdapter;
 import org.lisasp.competition.results.service.ResultService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +37,7 @@ class ResultServiceTests {
     private static final LocalDate date1 = LocalDate.of(2023, Month.AUGUST, 3);
     private static final LocalDate date2 = LocalDate.of(2023, Month.AUGUST, 5);
 
-    private TimeChangeListener listener;
+    private EntryChangeListener listener;
 
     private TestDoubleCompetitionResultRepository competitionRepository;
     private TestDoubleEventResultRepository eventRepository;
@@ -45,7 +46,7 @@ class ResultServiceTests {
 
     @BeforeEach
     void prepare() {
-        listener = mock(TimeChangeListener.class);
+        listener = mock(EntryChangeListener.class);
 
         competitionRepository = new TestDoubleCompetitionResultRepository();
         eventRepository = new TestDoubleEventResultRepository();
@@ -57,6 +58,9 @@ class ResultServiceTests {
         entryRepository.setEventRepository(eventRepository);
 
         service = new ResultService(competitionRepository, eventRepository, entryRepository);
+        service.register(listener);
+
+        // second register should have no effect
         service.register(listener);
     }
 
@@ -123,7 +127,7 @@ class ResultServiceTests {
 
     @Test
     void queryUnknownEntries() {
-        assertThrows(NotFoundException.class, () -> service.findEntries("does-not-exist", "dito"));
+        assertThrows(NotFoundException.class, () -> service.findEntries("does-not-exist"));
     }
 
     @Test
@@ -169,7 +173,7 @@ class ResultServiceTests {
     class UpdateCompetition {
 
         @Test
-        void updateCompetition() throws Exception {
+        void updateCompetitionWithoutEvents() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", date1, date2));
 
             Competition competition = new Competition("", "", null, null, new Event[0]);
@@ -210,7 +214,7 @@ class ResultServiceTests {
         }
 
         @Test
-        void updateCompetitionWithNullEvents() throws InvalidDataException, NotFoundException {
+        void updateCompetitionWithNullEvents() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", date1, date2));
 
             Competition competition = new Competition("", "", null, null, null);
@@ -226,7 +230,7 @@ class ResultServiceTests {
         }
 
         @Test
-        void updateCompetitionWithNullEntries() throws InvalidDataException, NotFoundException {
+        void updateCompetitionWithNullEntries() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", date1, date2));
 
             Competition competition = new Competition("",
@@ -315,9 +319,34 @@ class ResultServiceTests {
             assertEquals("D1", event.discipline());
             assertEquals(new Round((byte) 0, RoundType.Final), event.round());
             assertEquals(InputValueType.Time, event.inputValueType());
-            assertEquals(0, service.findEntries(competitionId, event.id()).length);
+            assertEquals(0, service.findEntries(event.id()).length);
 
             verifyNoMoreInteractions(listener);
+        }
+
+        @Test
+        void findEventTest() throws Exception {
+            service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
+            final String competitionId = "1";
+            Competition competition = new Competition("",
+                                                      "",
+                                                      null,
+                                                      null,
+                                                      new Event[]{new Event("AG 1",
+                                                                            EventType.Individual,
+                                                                            Gender.Female,
+                                                                            "D1",
+                                                                            new Round((byte) 0, RoundType.Final),
+                                                                            InputValueType.Time,
+                                                                            new Entry[0])});
+            service.update(competitionId, competition);
+
+            EventDto[] events = service.findEvents(competitionId);
+            assertEquals(1, events.length);
+
+            EventDto event = service.findEvent(events[0].id());
+
+            assertEquals(events[0], event);
         }
 
         @Test
@@ -359,7 +388,7 @@ class ResultServiceTests {
             assertEquals("D1", event1.discipline());
             assertEquals(new Round((byte) 0, RoundType.Final), event1.round());
             assertEquals(InputValueType.Time, event1.inputValueType());
-            assertEquals(0, service.findEntries(competitionId, event1.id()).length);
+            assertEquals(0, service.findEntries(event1.id()).length);
 
             EventDto event2 = events[1];
             assertEquals("AG 2", event2.agegroup());
@@ -367,7 +396,7 @@ class ResultServiceTests {
             assertEquals("D2", event2.discipline());
             assertEquals(new Round((byte) 1, RoundType.Heat), event2.round());
             assertEquals(InputValueType.Rank, event2.inputValueType());
-            assertEquals(0, service.findEntries(competitionId, event2.id()).length);
+            assertEquals(0, service.findEntries(event2.id()).length);
 
             verifyNoMoreInteractions(listener);
         }
@@ -451,7 +480,7 @@ class ResultServiceTests {
             assertEquals("D1", event.discipline());
             assertEquals(new Round((byte) 0, RoundType.Final), event.round());
             assertEquals(InputValueType.Time, event.inputValueType());
-            assertEquals(0, service.findEntries(competitionId, event.id()).length);
+            assertEquals(0, service.findEntries(event.id()).length);
 
             verifyNoMoreInteractions(listener);
         }
@@ -490,8 +519,8 @@ class ResultServiceTests {
             assertEquals(1, service.findEvents(competitionDto.id()).length);
             EventDto event = service.findEvents(competitionDto.id())[0];
 
-            assertEquals(1, service.findEntries(competitionId, event.id()).length);
-            EntryDto entry = service.findEntries(competitionId, event.id())[0];
+            assertEquals(1, service.findEntries(event.id()).length);
+            EntryDto entry = service.findEntries(event.id())[0];
             assertEquals("123", entry.number());
             assertEquals(123450, entry.timeInMillis());
             assertEquals("A", entry.name());
@@ -548,7 +577,7 @@ class ResultServiceTests {
             assertEquals(1, service.findEvents(competitionDto.id()).length);
             EventDto event = service.findEvents(competitionDto.id())[0];
 
-            assertEquals(0, service.findEntries(competitionId, event.id()).length);
+            assertEquals(0, service.findEntries(event.id()).length);
 
             verify(listener, times(2)).changed(any());
             verifyNoMoreInteractions(listener);
@@ -601,7 +630,76 @@ class ResultServiceTests {
             EventDto event = service.findEvents(competitionDto.id())[0];
 
             EntryDto[] entries =
-                    Arrays.stream(service.findEntries(competitionId, event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
+                    Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
+            assertEquals(2, entries.length);
+
+            EntryDto entry1 = entries[0];
+            assertEquals("123", entry1.number());
+            assertEquals(123450, entry1.timeInMillis());
+            assertEquals("A", entry1.name());
+            assertEquals("B", entry1.club());
+            assertEquals("GER", entry1.nationality());
+
+            EntryDto entry2 = entries[1];
+            assertEquals("456", entry2.number());
+            assertEquals(543210, entry2.timeInMillis());
+            assertEquals("C", entry2.name());
+            assertEquals("D", entry2.club());
+            assertEquals("GER", entry2.nationality());
+
+            verify(listener, times(2)).changed(any());
+            verifyNoMoreInteractions(listener);
+        }
+
+        @Test
+        @Transactional
+        void updateWithSameDataTwice() throws Exception {
+            service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
+            final String competitionId = "1";
+
+            Competition competition = new Competition("",
+                                                      "",
+                                                      null,
+                                                      null,
+                                                      new Event[]{new Event("AG 1",
+                                                                            EventType.Individual,
+                                                                            Gender.Female,
+                                                                            "D1",
+                                                                            new Round((byte) 0, RoundType.Final),
+                                                                            InputValueType.Time,
+                                                                            new Entry[]{new Entry("123",
+                                                                                                  "A",
+                                                                                                  "B",
+                                                                                                  "GER",
+                                                                                                  123450,
+                                                                                                  (byte) 1,
+                                                                                                  new Penalty[0],
+                                                                                                  new Swimmer[0],
+                                                                                                  new SplitTime[0],
+                                                                                                  new Start("1", (byte) 2)),
+                                                                                        new Entry("456",
+                                                                                                  "C",
+                                                                                                  "D",
+                                                                                                  "GER",
+                                                                                                  543210,
+                                                                                                  (byte) 1,
+                                                                                                  new Penalty[0],
+                                                                                                  new Swimmer[0],
+                                                                                                  new SplitTime[0],
+                                                                                                  new Start("1",
+                                                                                                            (byte) 2))})});
+
+            service.update(competitionId, competition);
+            service.update(competitionId, competition);
+
+            CompetitionDto competitionDto = service.findCompetition(competitionId);
+            assertEquals("Alphabet 1", competitionDto.name());
+
+            assertEquals(1, service.findEvents(competitionDto.id()).length);
+            EventDto event = service.findEvents(competitionDto.id())[0];
+
+            EntryDto[] entries =
+                    Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
             assertEquals(2, entries.length);
 
             EntryDto entry1 = entries[0];
@@ -691,7 +789,7 @@ class ResultServiceTests {
             EventDto event = service.findEvents(competitionDto.id())[0];
 
             EntryDto[] entries =
-                    Arrays.stream(service.findEntries(competitionId, event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
+                    Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
             assertEquals(1, entries.length);
 
             EntryDto entry1 = entries[0];
@@ -703,6 +801,50 @@ class ResultServiceTests {
 
             verify(listener, times(3)).changed(any());
             verifyNoMoreInteractions(listener);
+        }
+    }
+
+    @Nested
+    class ChangeListenerTests {
+
+        @Test
+        void createdEventTest() throws NotFoundException {
+            CompetitionChangeAdapter changeListener = new CompetitionChangeAdapter(service);
+            changeListener.added(new org.lisasp.competition.api.CompetitionDto("1", 1, "Created", "CRT", date1, date1));
+
+            CompetitionDto dto = service.findCompetition("1");
+            assertNotNull(dto);
+            assertEquals("1", dto.id());
+            assertEquals(1, dto.version());
+            assertEquals("Created", dto.name());
+            assertEquals("CRT", dto.acronym());
+            assertEquals(date1, dto.from());
+            assertEquals(date1, dto.till());
+        }
+
+        @Test
+        void updatedEventTest() throws NotFoundException {
+            CompetitionChangeAdapter changeListener = new CompetitionChangeAdapter(service);
+            changeListener.added(new org.lisasp.competition.api.CompetitionDto("1", 1, "Created", "CRT", date1, date1));
+            changeListener.updated(new org.lisasp.competition.api.CompetitionDto("1", 2, "Updated", "UPD", date2, date2));
+
+            CompetitionDto dto = service.findCompetition("1");
+            assertNotNull(dto);
+            assertEquals("1", dto.id());
+            assertEquals(2, dto.version());
+            assertEquals("Updated", dto.name());
+            assertEquals("UPD", dto.acronym());
+            assertEquals(date2, dto.from());
+            assertEquals(date2, dto.till());
+        }
+
+        @Test
+        void deletedEventTest() {
+            CompetitionChangeAdapter changeListener = new CompetitionChangeAdapter(service);
+            changeListener.added(new org.lisasp.competition.api.CompetitionDto("1", 1, "Created", "CRT", date1, date1));
+            changeListener.deleted(new org.lisasp.competition.api.CompetitionDto("1", 1, "Created", "CRT", date1, date1));
+
+            assertArrayEquals(new CompetitionDto[0], service.findCompetitions());
         }
     }
 }

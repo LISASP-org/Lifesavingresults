@@ -18,10 +18,10 @@ public class CompetitionService {
 
     public CompetitionDto create(CreateCompetition createCompetition) {
         CompetitionEntity competition = new CompetitionEntity();
-        competition.setName(createCompetition.name());
-        competition.setAcronym(createCompetition.acronym());
-        competition.setFrom(createCompetition.from());
-        competition.setTill(createCompetition.till());
+        competition.setName(createCompetition.getName());
+        competition.setAcronym(createCompetition.getAcronym());
+        competition.setFrom(createCompetition.getFrom());
+        competition.setTill(createCompetition.getTill());
 
         competitionRepository.save(competition);
 

@@ -10,7 +10,7 @@ import org.lisasp.competition.results.api.value.Penalty;
 import org.lisasp.competition.results.api.value.SplitTime;
 import org.lisasp.competition.results.api.value.Start;
 import org.lisasp.competition.results.api.value.Swimmer;
-import org.lisasp.competition.results.service.converter.IntermediateTimeArrayConverter;
+import org.lisasp.competition.results.service.converter.SplitTimeArrayConverter;
 import org.lisasp.competition.results.service.converter.PenaltyArrayConverter;
 import org.lisasp.competition.results.service.converter.StartConverter;
 import org.lisasp.competition.results.service.converter.SwimmerArrayConverter;
@@ -38,6 +38,7 @@ public class EntryResultEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(nullable = false, name = "eventId")
     @NotNull
+    @Enumerated(EnumType.STRING)
     private EventResultEntity event;
     @Column(nullable = false, length = 10)
     @NotNull
@@ -65,7 +66,7 @@ public class EntryResultEntity extends BaseEntity {
     @Column(columnDefinition = "text", length = 1000, nullable = false)
     @NotNull
     private Swimmer[] swimmer;
-    @Convert(converter = IntermediateTimeArrayConverter.class)
+    @Convert(converter = SplitTimeArrayConverter.class)
     @Column(columnDefinition = "text", length = 1000, nullable = false)
     @NotNull
     private SplitTime[] splitTimes;

@@ -10,4 +10,8 @@
     </parent>
 
     <artifactId>competition-api</artifactId>
+
+    <properties>
+        <pitest.skip>true</pitest.skip>
+    </properties>
 </project>

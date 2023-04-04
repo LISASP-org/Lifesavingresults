@@ -1,6 +1,5 @@
 package org.lisasp.competition.results.service.imports;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -54,16 +52,7 @@ public class ImportStorage {
     }
 
     private void ensureDirectory() throws IOException {
-        Files.createDirectories(Path.of(configuration.getStorageDirectory()));
-    }
-
-    private Optional<Competition> get(String id) throws FileFormatException {
-        try {
-            return Optional.of(deserialize(contentsOfFileFor(id)));
-        } catch (IOException ex) {
-            log.debug("Could not read file", ex);
-            return Optional.empty();
-        }
+        Files.createDirectories(configuration.getStorageDirectory());
     }
 
     private String contentsOfFileFor(String id) throws IOException {
@@ -72,15 +61,6 @@ public class ImportStorage {
 
     @NotNull
     private Path filenameFor(String id) {
-        return Path.of(configuration.getStorageDirectory(), id + ".json");
+        return configuration.getStorageDirectory().resolve(id + ".json");
     }
-
-    private Competition deserialize(String json) throws FileFormatException {
-        try {
-            return mapper.readValue(json, Competition.class);
-        } catch (JsonProcessingException ex) {
-            throw new FileFormatException(ex);
-        }
-    }
-
 }
