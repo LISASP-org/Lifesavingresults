@@ -1,0 +1,16 @@
+package org.lisasp.competition;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@Tag("IntegrationTest")
+@SpringBootTest
+class ResultsApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}

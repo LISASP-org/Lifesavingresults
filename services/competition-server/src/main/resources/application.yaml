@@ -1,0 +1,64 @@
+server:
+  port: 9001
+  servlet:
+    context-path: /api
+
+app:
+  keycloak:
+    server-url: http://localhost:48080
+    realm: lifesaving
+    client-id: lifesaving-results-webapp
+    valid-redirect-urls: http://localhost:5173/*
+    web-origins: http://localhost:5173, http://localhost:9001
+    users: admin, user, felix, dennis
+  cors:
+    allowed-origins: http://localhost:5173
+
+
+spring:
+  application:
+    name: results-api
+  jpa:
+    generate-ddl: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:competitions;DB_CLOSE_DELAY=-1;
+    username: sa
+    password: sa
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${app.keycloak.server-url}/realms/${app.keycloak.realm}
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+  artemis:
+    mode: embedded
+    embedded:
+      enabled: true
+
+jwt:
+  auth:
+    converter:
+      resource-id: ${app.keycloak.client-id}
+      principal-attribute: preferred_username
+
+management:
+  endpoints:
+    web:
+      exposure.include: beans, env, health, info, metrics, mappings
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  show-actuator: true
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /api-docs.html
+    disable-swagger-default-url: true
+
+logging:
+  level:
+    org.apache.activemq.audit.base: WARN
+    org.apache.activemq.audit.message: WARN

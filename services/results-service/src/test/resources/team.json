@@ -1,0 +1,207 @@
+{
+  "name": "Bezirksmeisterschaften Musterhausen",
+  "events": [
+    {
+      "agegroup": "AK 12",
+      "competitorType": "Team",
+      "sex": "w",
+      "discipline": "4*50m Hindernisstaffel",
+      "round": 0,
+      "isFinal": true,
+      "valueType": "TimeInMillis",
+      "times": [
+        {
+          "startnumber": "11",
+          "name": "Miesbach 11",
+          "organization": "Miesbach (WE)",
+          "value": 181830,
+          "penalties": [],
+          "swimmer": [
+            {
+              "startnumber": "11",
+              "firstName": "Hila",
+              "lastName": "Becker",
+              "organization": "Miesbach (WE)",
+              "sex": "f",
+              "yearOfBirth": 2011
+            },
+            {
+              "startnumber": "11",
+              "firstName": "Hanne",
+              "lastName": "Weber",
+              "organization": "Miesbach (WE)",
+              "sex": "f",
+              "yearOfBirth": 2011
+            },
+            {
+              "startnumber": "11",
+              "firstName": "Hanni",
+              "lastName": "Braun",
+              "organization": "Miesbach (WE)",
+              "sex": "f",
+              "yearOfBirth": 2011
+            },
+            {
+              "startnumber": "11",
+              "firstName": "Hanna",
+              "lastName": "Huber",
+              "organization": "Miesbach (WE)",
+              "sex": "f",
+              "yearOfBirth": 2011
+            }
+          ],
+          "start": {
+            "heat": "1",
+            "lane": 4
+          }
+        },
+        {
+          "startnumber": "1",
+          "name": "Geilenkirchen 1",
+          "organization": "Geilenkirchen (SA)",
+          "value": 182990,
+          "penalties": [],
+          "swimmer": [
+            {
+              "startnumber": "1",
+              "firstName": "Birte",
+              "lastName": "Baumann",
+              "organization": "Geilenkirchen (SA)",
+              "sex": "f",
+              "yearOfBirth": 2011
+            },
+            {
+              "startnumber": "1",
+              "firstName": "Bianca",
+              "lastName": "Vogt",
+              "organization": "Geilenkirchen (SA)",
+              "sex": "f",
+              "yearOfBirth": 2011
+            },
+            {
+              "startnumber": "1",
+              "firstName": "Brigitte",
+              "lastName": "Ziegler",
+              "organization": "Geilenkirchen (SA)",
+              "sex": "f",
+              "yearOfBirth": 2011
+            },
+            {
+              "startnumber": "1",
+              "firstName": "Birgit",
+              "lastName": "Bock",
+              "organization": "Geilenkirchen (SA)",
+              "sex": "f",
+              "yearOfBirth": 2011
+            }
+          ],
+          "start": {
+            "heat": "1",
+            "lane": 1
+          }
+        }
+      ]
+    },
+    {
+      "agegroup": "AK 15/16",
+      "competitorType": "Team",
+      "sex": "w",
+      "discipline": "4*50m Hindernisstaffel",
+      "round": 0,
+      "isFinal": true,
+      "valueType": "TimeInMillis",
+      "times": [
+        {
+          "startnumber": "55",
+          "name": "Münster 7",
+          "organization": "Münster (ND)",
+          "value": 177310,
+          "penalties": [],
+          "swimmer": [
+            {
+              "startnumber": "",
+              "firstName": "Chantal",
+              "lastName": "Witt",
+              "organization": "Münster (ND)",
+              "sex": "f",
+              "yearOfBirth": 2007
+            },
+            {
+              "startnumber": "",
+              "firstName": "Lele",
+              "lastName": "Böhme",
+              "organization": "Münster (ND)",
+              "sex": "f",
+              "yearOfBirth": 2007
+            },
+            {
+              "startnumber": "",
+              "firstName": "Jana",
+              "lastName": "Fink",
+              "organization": "Münster (ND)",
+              "sex": "f",
+              "yearOfBirth": 2007
+            },
+            {
+              "startnumber": "",
+              "firstName": "Susanne",
+              "lastName": "Gärtner",
+              "organization": "Münster (ND)",
+              "sex": "f",
+              "yearOfBirth": 2007
+            }
+          ],
+          "start": {
+            "heat": "9",
+            "lane": 6
+          }
+        },
+        {
+          "startnumber": "56",
+          "name": "Vöhringen 8",
+          "organization": "Vöhringen (HH)",
+          "value": 166370,
+          "penalties": [],
+          "swimmer": [
+            {
+              "startnumber": "",
+              "firstName": "Christina",
+              "lastName": "Noll",
+              "organization": "Vöhringen (HH)",
+              "sex": "f",
+              "yearOfBirth": 2007
+            },
+            {
+              "startnumber": "",
+              "firstName": "Marion",
+              "lastName": "Zahn",
+              "organization": "Vöhringen (HH)",
+              "sex": "f",
+              "yearOfBirth": 2007
+            },
+            {
+              "startnumber": "",
+              "firstName": "Marie",
+              "lastName": "Pfaff",
+              "organization": "Vöhringen (HH)",
+              "sex": "f",
+              "yearOfBirth": 2007
+            },
+            {
+              "startnumber": "",
+              "firstName": "Anne",
+              "lastName": "Kohler",
+              "organization": "Vöhringen (HH)",
+              "sex": "f",
+              "yearOfBirth": 2007
+            }
+          ],
+          "start": {
+            "heat": "10",
+            "lane": 5
+          }
+        }
+      ]
+    }
+  ]
+}
