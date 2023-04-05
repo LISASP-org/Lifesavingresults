@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import org.lisasp.competition.results.api.value.SplitTime;
 
-public class IntermediateTimeArrayConverter implements AttributeConverter<SplitTime[], String> {
+public class SplitTimeArrayConverter implements AttributeConverter<SplitTime[], String> {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 

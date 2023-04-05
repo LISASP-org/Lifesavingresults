@@ -37,6 +37,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
                                                                                 .filter(r -> r.getRealm().equals(config.getRealmName()))
                                                                                 .findAny();
             if (representationOptional.isPresent()) {
+                log.info("Realm already initialized...");
                 return;
             }
 
@@ -53,7 +54,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
             clientRepresentation.setPublicClient(true);
             clientRepresentation.setRedirectUris(config.getValidRedirectUrls());
             clientRepresentation.setWebOrigins(config.getWebOrigins());
-            clientRepresentation.setDefaultRoles(new String[]{WebSecurityConfig.USER});
+            // clientRepresentation.setDefaultRoles(new String[]{WebSecurityConfig.USER});
             realmRepresentation.setClients(List.of(clientRepresentation));
 
             // Users

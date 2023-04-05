@@ -9,6 +9,7 @@ import org.lisasp.competition.results.api.imports.Event;
 import org.lisasp.competition.results.api.value.Penalty;
 import org.lisasp.competition.results.api.value.Round;
 import org.lisasp.competition.results.api.value.Start;
+import org.lisasp.competition.results.api.value.Swimmer;
 import org.lisasp.competition.results.service.imports.jauswertung.JAuswertungConverter;
 
 import java.io.FileNotFoundException;
@@ -35,11 +36,11 @@ class JAuswertungConverterTest {
     void prepare() throws URISyntaxException, IOException {
         importer = new JAuswertungConverter();
 
-        individualNoEvent = readResource("/individual-no-event.json");
-        individualNoEntry = readResource("/individual-no-entry.json");
-        individualSingleEntry = readResource("/individual-single-entry.json");
-        individualTwoEntries = readResource("/individual-two-entries.json");
-        individualTwoEvents = readResource("/individual-two-events.json");
+        individualNoEvent = readResource("/jauswertung/individual-no-event.json");
+        individualNoEntry = readResource("/jauswertung/individual-no-entry.json");
+        individualSingleEntry = readResource("/jauswertung/individual-single-entry.json");
+        individualTwoEntries = readResource("/jauswertung/individual-two-entries.json");
+        individualTwoEvents = readResource("/jauswertung/individual-two-events.json");
     }
 
     private String readResource(String filename) throws IOException, URISyntaxException {
@@ -58,6 +59,7 @@ class JAuswertungConverterTest {
         assertNotNull(events);
         assertEquals(1, events.length);
         Event event = events[0];
+        assertEquals(new Round((byte)0, RoundType.Final), event.round());
 
         Entry[] entries = event.entries();
         assertEquals(1, entries.length);
@@ -72,6 +74,8 @@ class JAuswertungConverterTest {
         assertEquals(new Start("1", (byte) 6), entry.start());
         assertEquals(1, entry.penalties().length);
         assertEquals(new Penalty("P321", PenaltyType.Points, (short) 123), entry.penalties()[0]);
+        assertEquals(1, entry.swimmer().length);
+        assertEquals(new Swimmer("11", "Gerta", "von Domas", Sex.Female, (short)2013), entry.swimmer()[0]);
     }
 
     @Test

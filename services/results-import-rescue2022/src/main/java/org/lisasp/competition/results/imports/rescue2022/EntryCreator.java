@@ -1,5 +1,6 @@
 package org.lisasp.competition.results.imports.rescue2022;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.base.api.type.PenaltyType;
 import org.lisasp.competition.base.api.type.Sex;

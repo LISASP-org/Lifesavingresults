@@ -1,6 +1,7 @@
 package org.lisasp.competition.results.imports.rescue2022;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.text.StringEscapeUtils;
 import org.lisasp.competition.base.api.type.EventType;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.base.api.type.InputValueType;
@@ -12,6 +13,8 @@ import org.lisasp.competition.results.imports.rescue2022.model.result.ResultFile
 
 import java.util.Arrays;
 import java.util.Locale;
+
+import static org.lisasp.competition.results.imports.rescue2022.NameHelper.unescape;
 
 @RequiredArgsConstructor
 public class EventCreator {
@@ -61,7 +64,7 @@ public class EventCreator {
         if (value == null || value.isBlank() || value.equals("JJ")) {
             return defaultAgegroup;
         }
-        return value;
+        return unescape(value);
     }
 
     private EventType extractEventType(ResultFile resultFile) {
@@ -79,6 +82,6 @@ public class EventCreator {
     }
 
     private String extractDiscipline(ResultFile result) {
-        return result.getCompetition().getEnglish();
+        return unescape(result.getCompetition().getEnglish());
     }
 }

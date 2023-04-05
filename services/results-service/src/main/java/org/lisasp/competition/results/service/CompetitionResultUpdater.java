@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.lisasp.competition.base.api.exception.CompetitionNotFoundException;
 import org.lisasp.competition.base.api.exception.NotFoundException;
-import org.lisasp.competition.results.api.TimeChangeListener;
+import org.lisasp.competition.results.api.EntryChangeListener;
 import org.lisasp.competition.results.api.imports.Competition;
 import org.lisasp.competition.results.api.imports.Event;
 
@@ -25,7 +25,7 @@ class CompetitionResultUpdater {
     private Changes<EventResultEntity> eventChanges;
     private final EntryResultChangeListener changeListener = new EntryResultChangeListener();
 
-    CompetitionResultUpdater initialize(String id, TimeChangeListener[] listeners) throws NotFoundException {
+    CompetitionResultUpdater initialize(String id, EntryChangeListener[] listeners) throws NotFoundException {
         changeListener.setListeners(listeners);
 
         entryChanges = new Changes<>(entryResultRepository, null, changeListener);
@@ -67,7 +67,7 @@ class CompetitionResultUpdater {
                                                   event.round(),
                                                   event.inputValueType()))
                            .findFirst()
-                           .orElseGet(() -> createNewEventUpdater())
+                           .orElseGet(this::createNewEventUpdater)
                            .updateEvent(event);
     }
 

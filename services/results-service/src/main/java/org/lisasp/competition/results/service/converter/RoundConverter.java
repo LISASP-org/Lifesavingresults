@@ -11,9 +11,6 @@ public class RoundConverter implements AttributeConverter<Round, String> {
 
     @Override
     public String convertToDatabaseColumn(Round round) {
-        if (round == null) {
-            return null;
-        }
         try {
             return mapper.writeValueAsString(round);
         } catch (JsonProcessingException e) {

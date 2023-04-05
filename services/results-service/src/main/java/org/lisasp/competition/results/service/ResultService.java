@@ -5,9 +5,9 @@ import org.lisasp.competition.base.api.exception.CompetitionNotFoundException;
 import org.lisasp.competition.base.api.exception.InvalidDataException;
 import org.lisasp.competition.base.api.exception.NotFoundException;
 import org.lisasp.competition.results.api.CompetitionDto;
+import org.lisasp.competition.results.api.EntryChangeListener;
 import org.lisasp.competition.results.api.EntryDto;
 import org.lisasp.competition.results.api.EventDto;
-import org.lisasp.competition.results.api.TimeChangeListener;
 import org.lisasp.competition.results.api.imports.Competition;
 
 import java.util.ArrayList;
@@ -24,12 +24,13 @@ public class ResultService {
 
     private final EntityToDtoMapper mapper = new EntityToDtoMapper();
 
-    private final List<TimeChangeListener> listeners = new ArrayList<>();
+    private final List<EntryChangeListener> listeners = new ArrayList<>();
 
-    public void register(TimeChangeListener listener) {
+    public ResultService register(EntryChangeListener listener) {
         if (!listeners.contains(listener)) {
             listeners.add(listener);
         }
+        return this;
     }
 
     public void addOrUpdate(org.lisasp.competition.api.CompetitionDto competitionDto) {
@@ -67,6 +68,11 @@ public class ResultService {
                             .toArray(CompetitionDto[]::new);
     }
 
+    public EventDto findEvent(String id) throws NotFoundException {
+        EventResultEntity entity = eventResultRepository.findById(id).orElseThrow(() -> new NotFoundException("Event", id));
+        return mapper.entityToDto(entity);
+    }
+
     public EventDto[] findEvents(String competitionId) throws NotFoundException {
         if (!competitionResultRepository.existsById(competitionId)) {
             throw new NotFoundException("Competition", competitionId);
@@ -74,8 +80,8 @@ public class ResultService {
         return eventResultRepository.findAllByCompetitionId(competitionId).stream().map(e -> mapper.entityToDto(e)).toArray(EventDto[]::new);
     }
 
-    public EntryDto[] findEntries(String competitionId, String eventId) throws NotFoundException {
-        if (!eventResultRepository.existsByCompetitionIdAndId(competitionId, eventId)) {
+    public EntryDto[] findEntries(String eventId) throws NotFoundException {
+        if (!eventResultRepository.existsById(eventId)) {
             throw new NotFoundException("Event", eventId);
         }
         return entryResultRepository.findAllByEventId(eventId).stream().map(e -> mapper.entityToDto(e)).toArray(EntryDto[]::new);
@@ -97,8 +103,9 @@ public class ResultService {
             throw new InvalidDataException("Competition must not be null");
         }
         CompetitionResultUpdater competitionResultUpdater =
-                new CompetitionResultUpdater(competitionResultRepository, eventResultRepository, entryResultRepository)
-                        .initialize(id, listeners.toArray(TimeChangeListener[]::new));
+                new CompetitionResultUpdater(competitionResultRepository, eventResultRepository, entryResultRepository).initialize(id,
+                                                                                                                                   listeners.toArray(
+                                                                                                                                           EntryChangeListener[]::new));
         competitionResultUpdater.updateCompetition(competition);
         competitionResultUpdater.checkChanges();
     }

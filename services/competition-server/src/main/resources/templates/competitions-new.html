@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{fragments/head :: head}"></div>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main role="main" class="container-xl">
+    <h1 class="mt-5">Wettkampf anlegen</h1>
+
+    <div th:replace="~{fragments/messages :: messages}"></div>
+
+    <form class="row g-3" action="#" th:action="@{/web/competitions/new}" th:object="${competition}" method="post">
+        <div class="row mb-3">
+            <label for="name" class="col-sm-1 form-label">Name</label>
+            <div class="col-sm-11">
+                <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Names des Wettkampfs">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="acronym" class="col-sm-1 form-label">Kürzel</label>
+            <div class="col-sm-11">
+                <input type="text" class="form-control" id="acronym" th:field="*{acronym}"
+                       placeholder="Kurzer Name z.B. DEM2023, DSM2019">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="from" class="col-sm-1 form-label">Von</label>
+            <div class="col-sm-5">
+                <input type="date" class="form-control" id="from" th:field="*{from}">
+            </div>
+            <label for="till" class="col-sm-1 form-label">Bis</label>
+            <div class="col-sm-5">
+                <input type="date" class="form-control" id="till" th:field="*{till}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary container-fluid">Anlegen</button>
+            </div>
+            <div class="col-sm-2">
+                <button type="reset" class="btn btn-outline-secondary container-fluid">Abbrechen</button>
+            </div>
+        </div>
+    </form>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -21,14 +21,14 @@ class EntryResultUpdater {
     void updateEntry(Entry importedEntry) {
         used = true;
 
-        String before = serialize(entry);
+        String before = serialize();
         updateFields(importedEntry);
         if (mustBeSaved(before)) {
             modified = true;
         }
     }
 
-    private String serialize(EntryResultEntity entry) {
+    private String serialize() {
         try {
             return mapper.writeValueAsString(entry);
         } catch (JsonProcessingException e) {
@@ -50,11 +50,11 @@ class EntryResultUpdater {
     }
 
     private boolean mustBeSaved(String before) {
-        boolean isNew = entry.isNew();
-        String current = serialize(entry);
-        boolean changed = !serialize(entry).equals(before);
+        return entry.isNew() || idChanged(before);
+    }
 
-        return entry.isNew() || !serialize(entry).equals(before);
+    private boolean idChanged(String before) {
+        return !serialize().equals(before);
     }
 
     void checkChanges() {

@@ -81,7 +81,7 @@ class CompetitionServiceTests {
     }
 
     @Test
-    void updateCompetitionWithWrongId() throws Exception {
+    void updateCompetitionWithWrongId() {
         CompetitionDto update = new CompetitionDto("1", 1, "Updated", "upd", date2, date2);
         assertThrows(NotFoundException.class, () -> service.update(update));
     }
