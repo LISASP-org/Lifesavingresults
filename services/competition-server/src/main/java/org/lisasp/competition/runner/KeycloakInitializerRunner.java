@@ -54,7 +54,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
             clientRepresentation.setPublicClient(true);
             clientRepresentation.setRedirectUris(config.getValidRedirectUrls());
             clientRepresentation.setWebOrigins(config.getWebOrigins());
-            clientRepresentation.setDefaultRoles(new String[]{WebSecurityConfig.USER});
+            // clientRepresentation.setDefaultRoles(new String[]{WebSecurityConfig.USER});
             realmRepresentation.setClients(List.of(clientRepresentation));
 
             // Users

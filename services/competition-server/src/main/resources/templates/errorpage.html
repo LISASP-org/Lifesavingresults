@@ -11,6 +11,7 @@
     <div th:replace="~{fragments/messages :: messages}"></div>
 
     <p>Es ist ein Fehler aufgetreten.</p>
+    <p th:if="${statuscode != null}">HTTP-Fehler: [[${statuscode}]]</p>
 </main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
