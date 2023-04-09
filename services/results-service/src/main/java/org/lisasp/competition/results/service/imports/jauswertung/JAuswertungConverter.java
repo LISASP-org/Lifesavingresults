@@ -31,7 +31,7 @@ public class JAuswertungConverter {
     }
 
     private Event[] importEvents(org.lisasp.competition.results.service.imports.jauswertung.model.Event[] importedEvents) {
-        return Arrays.stream(importedEvents).map(e -> toEvent(e)).toArray(Event[]::new);
+        return Arrays.stream(importedEvents).map(this::toEvent).toArray(Event[]::new);
     }
 
     private Event toEvent(org.lisasp.competition.results.service.imports.jauswertung.model.Event importetEvent) {
@@ -74,7 +74,7 @@ public class JAuswertungConverter {
     }
 
     private Penalty[] toPenalties(org.lisasp.competition.results.service.imports.jauswertung.model.Penalty[] penalties) {
-        return Arrays.stream(penalties).map(p -> toPenalty(p)).toArray(Penalty[]::new);
+        return Arrays.stream(penalties).map(this::toPenalty).toArray(Penalty[]::new);
     }
 
     private Penalty toPenalty(org.lisasp.competition.results.service.imports.jauswertung.model.Penalty p) {

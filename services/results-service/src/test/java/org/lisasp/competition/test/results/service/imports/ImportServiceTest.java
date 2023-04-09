@@ -1,7 +1,11 @@
-package org.lisasp.competition.test.results.service.imports.core;
+package org.lisasp.competition.test.results.service.imports;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.lisasp.competition.base.api.exception.InvalidDataException;
 import org.lisasp.competition.base.api.type.EventType;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.base.api.type.InputValueType;
@@ -25,8 +29,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ImportServiceTest {
 
@@ -34,13 +37,11 @@ public class ImportServiceTest {
 
     private ResultService resultService;
 
-    private String storagePath;
+    @TempDir
+    private Path storagePath;
 
     @BeforeEach
-    void prepare() throws IOException {
-        Path path = Files.createTempDirectory("import-service");
-        storagePath = path.toString();
-
+    void prepare() {
         ImportConfiguration config = () -> storagePath;
 
         TestDoubleEntryResultRepository entryRepository = new TestDoubleEntryResultRepository();
@@ -57,6 +58,16 @@ public class ImportServiceTest {
         service = new ImportService(resultService, new ImportStorage(config));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"", "-", "{ abc", "abc }"})
+    void importInvalidJson(String content) throws Exception {
+        final String competitionId = "1";
+        resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", null, null));
+        String uploadId = resultService.findCompetition(competitionId).uploadId();
+
+        assertThrows(InvalidDataException.class, () -> service.importCompetition(uploadId, content));
+    }
+
     @Test
     void importSimpleCompetition() throws Exception {
         final String competitionId = "1";
@@ -64,7 +75,24 @@ public class ImportServiceTest {
         String uploadId = resultService.findCompetition(competitionId).uploadId();
         String content = readFile("individual-no-event");
 
-        service.importFromJAuswertung(uploadId, content);
+        service.importCompetition(uploadId, content);
+
+        CompetitionDto competition = resultService.findCompetition(competitionId);
+        assertNotNull(competition);
+        assertEquals(competitionId, competition.id());
+
+        assertEquals(0, resultService.findEvents(competitionId).length);
+    }
+
+    @Test
+    void importSimpleCompetitionTwice() throws Exception {
+        final String competitionId = "1";
+        resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", null, null));
+        String uploadId = resultService.findCompetition(competitionId).uploadId();
+        String content = readFile("individual-no-event");
+
+        service.importCompetition(uploadId, content);
+        service.importCompetition(uploadId, content);
 
         CompetitionDto competition = resultService.findCompetition(competitionId);
         assertNotNull(competition);
@@ -80,7 +108,7 @@ public class ImportServiceTest {
         String uploadId = resultService.findCompetition(competitionId).uploadId();
         String content = readFile("team");
 
-        service.importFromJAuswertung(uploadId, content);
+        service.importCompetition(uploadId, content);
 
         CompetitionDto competition = resultService.findCompetition(competitionId);
         assertNotNull(competition);
@@ -88,69 +116,46 @@ public class ImportServiceTest {
         assertEquals("Competition to import", competition.name());
         assertEquals("CTI", competition.acronym());
 
-        EventDto[] events = Arrays.stream(resultService.findEvents(competitionId)).sorted(Comparator.comparing(EventDto::agegroup)).toArray(EventDto[]::new);
+        EventDto[] events = Arrays.stream(resultService.findEvents(competitionId)).sorted(Comparator.comparing(EventDto::gender)).toArray(EventDto[]::new);
         assertEquals(2, events.length);
 
         EventDto event1 = events[0];
-        assertEquals("AK 12", event1.agegroup());
-        assertEquals("4*50m Hindernisstaffel", event1.discipline());
+        assertEquals("Open", event1.agegroup());
+        assertEquals("4x50 Obstacle Relay", event1.discipline());
         assertEquals(EventType.Team, event1.eventType());
         assertEquals(Gender.Female, event1.gender());
         assertEquals(InputValueType.Time, event1.inputValueType());
-        assertEquals(new Round((byte) 0, RoundType.Final), event1.round());
-        EntryDto[] entries1 = Arrays.stream(resultService.findEntries(competitionId, event1.id()))
-                                    .sorted(Comparator.comparing(EntryDto::number))
-                                    .toArray(EntryDto[]::new);
-        assertEquals(2, entries1.length);
-        EntryDto entry1a = entries1[0];
-        assertEquals("Geilenkirchen 1", entry1a.name());
-        assertEquals("Geilenkirchen (SA)", entry1a.club());
-        assertEquals("", entry1a.nationality());
-        assertEquals("1", entry1a.number());
-        assertEquals(0, entry1a.placeInHeat());
-        assertEquals(new Start("1", (byte) 1), entry1a.start());
-        assertEquals(4, entry1a.swimmer().length);
-        assertEquals(182990, entry1a.timeInMillis());
-        EntryDto entry1b = entries1[1];
-        assertEquals("Miesbach 11", entry1b.name());
-        assertEquals("Miesbach (WE)", entry1b.club());
-        assertEquals("", entry1b.nationality());
-        assertEquals("11", entry1b.number());
-        assertEquals(0, entry1b.placeInHeat());
-        assertEquals(new Start("1", (byte) 4), entry1b.start());
-        assertEquals(4, entry1b.swimmer().length);
-        assertEquals(181830, entry1b.timeInMillis());
-
+        assertEquals(new Round((byte) 1, RoundType.Heat), event1.round());
+        EntryDto[] entries1 = Arrays.stream(resultService.findEntries(event1.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
+        assertEquals(1, entries1.length);
+        EntryDto entry1 = entries1[0];
+        assertEquals("New Zealand", entry1.name());
+        assertEquals("New Zealand", entry1.club());
+        assertEquals("NZL", entry1.nationality());
+        assertEquals("5303", entry1.number());
+        assertEquals(1, entry1.placeInHeat());
+        assertEquals(new Start("2", (byte) 5), entry1.start());
+        assertEquals(0, entry1.swimmer().length);
+        assertEquals(113510, entry1.timeInMillis());
 
         EventDto event2 = events[1];
-        assertEquals("AK 15/16", event2.agegroup());
-        assertEquals("4*50m Hindernisstaffel", event2.discipline());
+        assertEquals("Open", event2.agegroup());
+        assertEquals("4x50 Obstacle Relay", event2.discipline());
         assertEquals(EventType.Team, event2.eventType());
-        assertEquals(Gender.Female, event2.gender());
+        assertEquals(Gender.Male, event2.gender());
         assertEquals(InputValueType.Time, event2.inputValueType());
-        assertEquals(new Round((byte) 0, RoundType.Final), event2.round());
-        EntryDto[] entries2 = Arrays.stream(resultService.findEntries(competitionId, event2.id()))
-                                    .sorted(Comparator.comparing(EntryDto::number))
-                                    .toArray(EntryDto[]::new);
-        assertEquals(2, entries1.length);
-        EntryDto entry2a = entries2[0];
-        assertEquals("Münster 7", entry2a.name());
-        assertEquals("Münster (ND)", entry2a.club());
-        assertEquals("", entry2a.nationality());
-        assertEquals("55", entry2a.number());
-        assertEquals(0, entry2a.placeInHeat());
-        assertEquals(new Start("9", (byte) 6), entry2a.start());
-        assertEquals(4, entry2a.swimmer().length);
-        assertEquals(177310, entry2a.timeInMillis());
-        EntryDto entry2b = entries2[1];
-        assertEquals("Vöhringen 8", entry2b.name());
-        assertEquals("Vöhringen (HH)", entry2b.club());
-        assertEquals("", entry2b.nationality());
-        assertEquals("56", entry2b.number());
-        assertEquals(0, entry2b.placeInHeat());
-        assertEquals(new Start("10", (byte) 5), entry2b.start());
-        assertEquals(4, entry2b.swimmer().length);
-        assertEquals(166370, entry2b.timeInMillis());
+        assertEquals(new Round((byte) 1, RoundType.Heat), event2.round());
+        EntryDto[] entries2 = Arrays.stream(resultService.findEntries(event2.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
+        assertEquals(1, entries2.length);
+        EntryDto entry2 = entries2[0];
+        assertEquals("Australia", entry2.name());
+        assertEquals("Australia", entry2.club());
+        assertEquals("AUS", entry2.nationality());
+        assertEquals("5296", entry2.number());
+        assertEquals(2, entry2.placeInHeat());
+        assertEquals(new Start("1", (byte) 4), entry2.start());
+        assertEquals(0, entry2.swimmer().length);
+        assertEquals(113540, entry2.timeInMillis());
     }
 
     private String readFile(String name) throws IOException {

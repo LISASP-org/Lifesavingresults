@@ -1,6 +1,7 @@
 package org.lisasp.competition.results.imports.rescue2022;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -13,7 +14,7 @@ class NameHelper {
     private static final String[] spacedPrefixes = Arrays.stream(prefixes).map(p -> " " + p).toArray(String[]::new);
 
     static String fixName(String name) {
-        String[] parts = name.trim().split(" ");
+        String[] parts = unescape(name).trim().split(" ");
         return replacePrefixes(Arrays.stream(parts)
                                      .filter(p -> !p.isBlank())
                                      .map(p -> StringUtils.capitalize(p.toLowerCase(Locale.ROOT)))
@@ -32,5 +33,9 @@ class NameHelper {
             }
         }
         return name;
+    }
+
+    static String unescape(String text) {
+        return StringEscapeUtils.unescapeHtml4(text);
     }
 }

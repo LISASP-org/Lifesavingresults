@@ -65,7 +65,11 @@ class EventResultUpdater {
     }
 
     private boolean mustBeSaved(String before) {
-        return event.isNew() || !serialize(event).equals(before);
+        return event.isNew() || isChanged(before);
+    }
+
+    private boolean isChanged(String before) {
+        return !serialize(event).equals(before);
     }
 
     void checkChanges() {
@@ -89,9 +93,6 @@ class EventResultUpdater {
     }
 
     private static Stream<EntryResultEntity> getEntityStream(EventResultEntity event) {
-        if (event.getEntries() == null) {
-            return Stream.of();
-        }
         return event.getEntries().stream();
     }
 

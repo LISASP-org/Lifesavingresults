@@ -11,7 +11,7 @@ import org.lisasp.competition.base.api.type.RoundType;
 import org.lisasp.competition.results.api.CompetitionDto;
 import org.lisasp.competition.results.api.EntryDto;
 import org.lisasp.competition.results.api.EventDto;
-import org.lisasp.competition.results.api.TimeChangeListener;
+import org.lisasp.competition.results.api.EntryChangeListener;
 import org.lisasp.competition.results.api.imports.Competition;
 import org.lisasp.competition.results.api.imports.Entry;
 import org.lisasp.competition.results.api.imports.Event;
@@ -54,11 +54,11 @@ class CompetitionServiceIntegrationTests {
     @Autowired
     private DatabaseCleaner cleaner;
 
-    private TimeChangeListener listener;
+    private EntryChangeListener listener;
 
     @BeforeEach
     void prepare() {
-        listener = mock(TimeChangeListener.class);
+        listener = mock(EntryChangeListener.class);
         service.register(listener);
 
         cleaner = new DatabaseCleaner(competitionRepository, competitionResultRepository, eventResultRepository, entryResultRepository);
@@ -130,8 +130,8 @@ class CompetitionServiceIntegrationTests {
         assertEquals(1, service.findEvents(competitionDto.id()).length);
         EventDto event = service.findEvents(competitionDto.id())[0];
 
-        assertEquals(1, service.findEntries(competitionId, event.id()).length);
-        EntryDto entry = service.findEntries(competitionId, event.id())[0];
+        assertEquals(1, service.findEntries(event.id()).length);
+        EntryDto entry = service.findEntries(event.id())[0];
         assertEquals("123", entry.number());
         assertEquals(123450, entry.timeInMillis());
         assertEquals("A", entry.name());

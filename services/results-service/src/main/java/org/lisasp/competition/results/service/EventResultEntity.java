@@ -38,9 +38,11 @@ public class EventResultEntity extends BaseEntity {
     private String agegroup;
     @Column(nullable = false, length = 12)
     @NotNull
+    @Enumerated(EnumType.STRING)
     private EventType eventType;
     @Column(nullable = false, length = 10)
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     @Column(nullable = false, length = 100)
     @NotNull
@@ -51,6 +53,7 @@ public class EventResultEntity extends BaseEntity {
     private Round round;
     @Column(nullable = false, length = 10)
     @NotNull
+    @Enumerated(EnumType.STRING)
     private InputValueType inputValueType;
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<EntryResultEntity> entries;

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{fragments/head :: head}"></div>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main role="main" class="container-xl">
+    <h1 class="mt-5">Wettkampf</h1>
+
+    <div th:replace="~{fragments/messages :: messages}"></div>
+
+    <div th:if="${competition != null}">
+        <p>Name: [[${competition.name}]]</p>
+        <p>Acronym: [[${competition.acronym}]]</p>
+        <p>Von: [[${competition.from}]]</p>
+        <p>Bis: [[${competition.till}]]</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="#" th:action="@{'/web/results/upload/' + ${competition.uploadId}}">
+        <table>
+            <tr><td>Datei</td><td><input type="file" name="file" /></td></tr>
+            <tr><td></td><td><input type="submit" value="Importieren" /></td></tr>
+        </table>
+    </form>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

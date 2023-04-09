@@ -1,7 +1,7 @@
 package org.lisasp.competition;
 
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.io.TempDir;
 import org.lisasp.competition.base.api.type.EventType;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.base.api.type.InputValueType;
@@ -47,10 +47,12 @@ public class ImportServiceIntegrationTest {
     @Autowired
     private ResultService resultService;
 
+    @TempDir
+    private Path storagePath;
+
     @BeforeEach
-    void prepare() throws IOException {
-        Path path = Files.createTempDirectory("import-service");
-        config.setStorageDirectory(path.toString());
+    void prepare() {
+        config.setStorageDirectory(storagePath);
     }
 
     @AfterEach
@@ -99,7 +101,7 @@ public class ImportServiceIntegrationTest {
         assertEquals(Gender.Female, event1.gender());
         assertEquals(InputValueType.Time, event1.inputValueType());
         assertEquals(new Round((byte) 0, RoundType.Final), event1.round());
-        EntryDto[] entries1 = Arrays.stream(resultService.findEntries(competitionId, event1.id()))
+        EntryDto[] entries1 = Arrays.stream(resultService.findEntries(event1.id()))
                                     .sorted(Comparator.comparing(EntryDto::number))
                                     .toArray(EntryDto[]::new);
         assertEquals(2, entries1.length);
@@ -130,7 +132,7 @@ public class ImportServiceIntegrationTest {
         assertEquals(Gender.Female, event2.gender());
         assertEquals(InputValueType.Time, event2.inputValueType());
         assertEquals(new Round((byte) 0, RoundType.Final), event2.round());
-        EntryDto[] entries2 = Arrays.stream(resultService.findEntries(competitionId, event2.id()))
+        EntryDto[] entries2 = Arrays.stream(resultService.findEntries(event2.id()))
                                     .sorted(Comparator.comparing(EntryDto::number))
                                     .toArray(EntryDto[]::new);
         assertEquals(2, entries1.length);

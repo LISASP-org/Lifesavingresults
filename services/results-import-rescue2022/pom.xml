@@ -11,6 +11,10 @@
 
     <artifactId>results-import-rescue2022</artifactId>
 
+    <properties>
+        <pitest.skip>true</pitest.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.lisasp.competition</groupId>
@@ -29,6 +33,10 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
         </dependency>
 
         <dependency>
