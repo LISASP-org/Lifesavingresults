@@ -5,9 +5,13 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', 'Helvetica', 'Arial', 'ui-sans-serif', 'system-ui'],
+        rampart: ['Rampart'],
       },
       gridTemplateColumns: {
         form: 'fit-content(200px) 1fr',
+        'only-content': 'auto',
+        'sidebar-content': '20rem auto',
+        'sidebar-content-sidebar': '20rem auto 20rem',
       },
       colors: {
         dlrgRed: {

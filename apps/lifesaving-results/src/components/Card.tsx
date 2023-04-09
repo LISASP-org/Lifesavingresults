@@ -18,12 +18,12 @@ export const Card = (props: Props) => {
       ])}
     >
       {!!props.title && (
-        <div className="mb-4">
+        <div className="mb-5">
           <H1>{props.title}</H1>
           <HR />
         </div>
       )}
-      {props.children}
+      <div className="flex flex-col gap-5">{props.children}</div>
     </div>
   );
 };

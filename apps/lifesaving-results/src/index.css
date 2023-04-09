@@ -1,11 +1,19 @@
-@import '@blueprintjs/core/lib/css/blueprint.css';
-@import '@blueprintjs/icons/lib/css/blueprint-icons.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
   font-family: 'Inter var';
-  src: url('/public/fonts/Inter-VariableFont.ttf');
+  src: url('/fonts/Inter-VariableFont.ttf');
+}
+
+@font-face {
+  font-family: 'Rampart';
+  src: url('/fonts/RampartOne-Regular.ttf');
+}
+
+html,
+body,
+#root {
+  height: 100%;
 }

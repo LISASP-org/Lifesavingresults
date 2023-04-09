@@ -1,4 +1,3 @@
-import { Spinner } from '@blueprintjs/core';
 import { Route, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { FeedbackLayout } from '../layout/FeedbackLayout';
@@ -17,7 +16,6 @@ export const logout_callbackRoute = new Route({
     return (
       <FeedbackLayout>
         <div className="flex flex-row align-middle gap-2 pt-10 text-white text-lg font-bold">
-          <Spinner size={20} />
           <span>Logging you out, please stand by ...</span>
         </div>
       </FeedbackLayout>
