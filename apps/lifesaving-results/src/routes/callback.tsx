@@ -1,4 +1,3 @@
-import { Spinner } from '@blueprintjs/core';
 import { Route, useNavigate, useSearch } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
@@ -39,7 +38,6 @@ export const callbackRoute = new Route({
     return (
       <FeedbackLayout>
         <div className="flex flex-row align-middle gap-2 pt-10 text-lg text-white font-bold">
-          <Spinner size={20} />
           <span>Logging you in, please stand by ...</span>
         </div>
       </FeedbackLayout>
