@@ -28,8 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.Month;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @Tag("IntegrationTest")
@@ -87,11 +86,11 @@ class CompetitionServiceIntegrationTests {
     @Transactional
     void findCompetitionByUploadIdTest() throws Exception {
         service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", date1, date2));
-        CompetitionDto competitionDto = service.findCompetition("1");
 
-        String actual = service.getCompetitionIdByUploadId(competitionDto.uploadId());
+        String actual = service.getUploadId("1");
 
-        assertEquals("1", actual);
+        assertNotNull(actual);
+        assertTrue(30 < actual.length());
 
         verifyNoMoreInteractions(listener);
     }

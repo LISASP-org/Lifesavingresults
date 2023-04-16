@@ -1,0 +1,21 @@
+---
+- name: Competition Organizer
+  rights:
+    - module: competition
+      name: edit
+    - module: competition
+      name: delete
+    - module: results
+      name: import
+    - module: authorization
+      name: competition
+- name: Competition Editor
+  rights:
+    - module: competition
+      name: edit
+    - module: results
+      name: import
+- name: Administrator
+  rights:
+    - module: authorization
+      name: admin

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TimesServiceTests {
 
     private static final CompetitionDto competition =
-            new CompetitionDto("1", 1, "uploadId", "Name", "Acr", LocalDate.of(2023, Month.JULY, 17), LocalDate.of(2023, Month.JULY, 17));
+            new CompetitionDto("1", 1, "Name", "Acr", LocalDate.of(2023, Month.JULY, 17), LocalDate.of(2023, Month.JULY, 17));
     private static final EventDto event =
             new EventDto("2",
                          1,
@@ -129,7 +129,6 @@ class TimesServiceTests {
                 ChangeType.Created,
                 new CompetitionDto("88be3d31-d2b4-48de-8baa-f1cfaf8925bf",
                                    1,
-                                   "00ff63bb-5656-4105-93c1-2189c1e39a47",
                                    "Rescue 2022",
                                    "Rescue2022",
                                    LocalDate.of(2022, Month.SEPTEMBER, 30),

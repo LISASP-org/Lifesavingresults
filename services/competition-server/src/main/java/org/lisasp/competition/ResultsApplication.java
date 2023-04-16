@@ -1,6 +1,10 @@
 package org.lisasp.competition;
 
-import lombok.RequiredArgsConstructor;
+import org.lisasp.competition.authorization.service.AuthorizationService;
+import org.lisasp.competition.authorization.service.RoleService;
+import org.lisasp.competition.authorization.service.users.UserRoleRepository;
+import org.lisasp.competition.authorization.service.users.UserRoleService;
+import org.lisasp.competition.base.api.exception.CouldNotInitializeException;
 import org.lisasp.competition.results.service.*;
 import org.lisasp.competition.results.service.imports.ImportService;
 import org.lisasp.competition.results.service.imports.ImportStorage;
@@ -12,7 +16,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-@RequiredArgsConstructor
 @SpringBootApplication
 public class ResultsApplication {
 
@@ -46,5 +49,20 @@ public class ResultsApplication {
     @Bean
     TimesService timesService(TimesRepository repository) {
         return new TimesService(repository);
+    }
+
+    @Bean
+    RoleService roleService() throws CouldNotInitializeException {
+        return new RoleService().loadRoles(this.getClass().getResourceAsStream("/roles.yaml"));
+    }
+
+    @Bean
+    UserRoleService userRoleService(UserRoleRepository userRoleRepository) {
+        return new UserRoleService(userRoleRepository);
+    }
+
+    @Bean
+    AuthorizationService authorizationService(RoleService roleService, UserRoleService userRoleService) {
+        return new AuthorizationService(roleService, userRoleService);
     }
 }

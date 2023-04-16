@@ -84,9 +84,9 @@ class ResultServiceTests {
     void queryCompetitionByUploadId() throws Exception {
         final String competitionId = "1";
         service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Alphabet", "abc", date1, date2));
-        CompetitionDto competitionDto1 = service.findCompetition(competitionId);
+        String uploadId = service.getUploadId(competitionId);
 
-        String actualId = service.getCompetitionIdByUploadId(competitionDto1.uploadId());
+        String actualId = service.getCompetitionIdByUploadId(uploadId);
 
         assertEquals(competitionId, actualId);
 
@@ -151,20 +151,6 @@ class ResultServiceTests {
         assertEquals(2, competitions.length);
         assertTrue(Arrays.stream(competitions).anyMatch(c -> c.name().equals("Alphabet 1")));
         assertTrue(Arrays.stream(competitions).anyMatch(c -> c.name().equals("Alphabet 2")));
-        assertTrue(Arrays.stream(competitions).allMatch(c -> c.uploadId().equals("")));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void findCompetitionByUploadIdTest() throws NotFoundException {
-        final String competitionId = "1";
-        service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Alphabet 1", "abc 1", date1, date2));
-        CompetitionDto competitionDto = service.findCompetition(competitionId);
-
-        String actual = service.getCompetitionIdByUploadId(competitionDto.uploadId());
-
-        assertEquals(competitionId, actual);
 
         verifyNoMoreInteractions(listener);
     }
@@ -233,16 +219,7 @@ class ResultServiceTests {
         void updateCompetitionWithNullEntries() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", date1, date2));
 
-            Competition competition = new Competition("",
-                                                      "",
-                                                      null,
-                                                      null,
-                                                      new Event[]{new Event("AG 1",
-                                                                            EventType.Individual,
-                                                                            Gender.Female,
-                                                                            "D1",
-                                                                            new Round((byte) 0, RoundType.Final),
-                                                                            InputValueType.Time, null)});
+            Competition competition = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, null)});
             service.update("1", competition);
 
             CompetitionDto competitionDto = service.findCompetition("1");
@@ -259,26 +236,7 @@ class ResultServiceTests {
             final String competitionId = "1";
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Alphabet 1", "abc 1", date1, date2));
 
-            Competition competition = new Competition("",
-                                                      "",
-                                                      null,
-                                                      null,
-                                                      new Event[]{new Event("AG 1",
-                                                                            EventType.Individual,
-                                                                            Gender.Female,
-                                                                            "D1",
-                                                                            new Round((byte) 0, RoundType.Final),
-                                                                            InputValueType.Time,
-                                                                            new Entry[]{new Entry("123",
-                                                                                                  "A",
-                                                                                                  "B",
-                                                                                                  "GER",
-                                                                                                  123450,
-                                                                                                  (byte) 1,
-                                                                                                  new Penalty[0],
-                                                                                                  new Swimmer[0],
-                                                                                                  new SplitTime[0],
-                                                                                                  new Start("1", (byte) 2))})});
+            Competition competition = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[]{new Entry("123", "A", "B", "GER", 123450, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2))})});
             service.update(competitionId, competition);
 
             service.delete(competitionId);
@@ -295,17 +253,7 @@ class ResultServiceTests {
         void addEventTest() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
-            Competition competition = new Competition("",
-                                                      "",
-                                                      null,
-                                                      null,
-                                                      new Event[]{new Event("AG 1",
-                                                                            EventType.Individual,
-                                                                            Gender.Female,
-                                                                            "D1",
-                                                                            new Round((byte) 0, RoundType.Final),
-                                                                            InputValueType.Time,
-                                                                            new Entry[0])});
+            Competition competition = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[0])});
 
             service.update(competitionId, competition);
 
@@ -328,17 +276,7 @@ class ResultServiceTests {
         void findEventTest() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
-            Competition competition = new Competition("",
-                                                      "",
-                                                      null,
-                                                      null,
-                                                      new Event[]{new Event("AG 1",
-                                                                            EventType.Individual,
-                                                                            Gender.Female,
-                                                                            "D1",
-                                                                            new Round((byte) 0, RoundType.Final),
-                                                                            InputValueType.Time,
-                                                                            new Entry[0])});
+            Competition competition = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[0])});
             service.update(competitionId, competition);
 
             EventDto[] events = service.findEvents(competitionId);
@@ -354,32 +292,14 @@ class ResultServiceTests {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
 
-            Competition competition = new Competition("",
-                                                      "",
-                                                      null,
-                                                      null,
-                                                      new Event[]{new Event("AG 1",
-                                                                            EventType.Individual,
-                                                                            Gender.Female,
-                                                                            "D1",
-                                                                            new Round((byte) 0, RoundType.Final),
-                                                                            InputValueType.Time,
-                                                                            new Entry[0]),
-                                                                  new Event("AG 2",
-                                                                            EventType.Individual,
-                                                                            Gender.Male,
-                                                                            "D2",
-                                                                            new Round((byte) 1, RoundType.Heat),
-                                                                            InputValueType.Rank,
-                                                                            new Entry[0])});
+            Competition competition = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[0]), new Event("AG 2", EventType.Individual, Gender.Male, "D2", new Round((byte) 1, RoundType.Heat), InputValueType.Rank, new Entry[0])});
             service.update(competitionId, competition);
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
             assertEquals(competitionId, competitionDto.id());
             assertEquals("Alphabet 1", competitionDto.name());
 
-            EventDto[] events =
-                    Arrays.stream(service.findEvents(competitionDto.id())).sorted(Comparator.comparing(EventDto::agegroup)).toArray(EventDto[]::new);
+            EventDto[] events = Arrays.stream(service.findEvents(competitionDto.id())).sorted(Comparator.comparing(EventDto::agegroup)).toArray(EventDto[]::new);
             assertEquals(2, events.length);
 
             EventDto event1 = events[0];
@@ -405,22 +325,8 @@ class ResultServiceTests {
         void removeEventTest() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
-            Competition competition1 = new Competition("",
-                                                       "",
-                                                       null,
-                                                       null,
-                                                       new Event[]{new Event("AG 1",
-                                                                             EventType.Individual,
-                                                                             Gender.Female,
-                                                                             "D1",
-                                                                             new Round((byte) 0, RoundType.Final),
-                                                                             InputValueType.Time,
-                                                                             new Entry[0])});
-            Competition competition2 = new Competition("",
-                                                       "",
-                                                       null,
-                                                       null,
-                                                       new Event[0]);
+            Competition competition1 = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[0])});
+            Competition competition2 = new Competition("", "", null, null, new Event[0]);
 
             service.update(competitionId, competition1);
             service.update(competitionId, competition2);
@@ -437,35 +343,8 @@ class ResultServiceTests {
         void removeOneOfTwoEventsTest() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
-            Competition competition1 = new Competition("",
-                                                       "",
-                                                       null,
-                                                       null,
-                                                       new Event[]{new Event("AG 1",
-                                                                             EventType.Individual,
-                                                                             Gender.Female,
-                                                                             "D1",
-                                                                             new Round((byte) 0, RoundType.Final),
-                                                                             InputValueType.Time,
-                                                                             new Entry[0]),
-                                                                   new Event("AG 2",
-                                                                             EventType.Individual,
-                                                                             Gender.Male,
-                                                                             "D2",
-                                                                             new Round((byte) 0, RoundType.Final),
-                                                                             InputValueType.Time,
-                                                                             new Entry[0])});
-            Competition competition2 = new Competition("",
-                                                       "",
-                                                       null,
-                                                       null,
-                                                       new Event[]{new Event("AG 1",
-                                                                             EventType.Individual,
-                                                                             Gender.Female,
-                                                                             "D1",
-                                                                             new Round((byte) 0, RoundType.Final),
-                                                                             InputValueType.Time,
-                                                                             new Entry[0])});
+            Competition competition1 = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[0]), new Event("AG 2", EventType.Individual, Gender.Male, "D2", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[0])});
+            Competition competition2 = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[0])});
             service.update(competitionId, competition1);
 
             service.update(competitionId, competition2);
@@ -491,26 +370,7 @@ class ResultServiceTests {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
 
-            Competition competition = new Competition("",
-                                                      "",
-                                                      null,
-                                                      null,
-                                                      new Event[]{new Event("AG 1",
-                                                                            EventType.Individual,
-                                                                            Gender.Female,
-                                                                            "D1",
-                                                                            new Round((byte) 0, RoundType.Final),
-                                                                            InputValueType.Time,
-                                                                            new Entry[]{new Entry("123",
-                                                                                                  "A",
-                                                                                                  "B",
-                                                                                                  "GER",
-                                                                                                  123450,
-                                                                                                  (byte) 1,
-                                                                                                  new Penalty[0],
-                                                                                                  new Swimmer[0],
-                                                                                                  new SplitTime[0],
-                                                                                                  new Start("1", (byte) 2))})});
+            Competition competition = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[]{new Entry("123", "A", "B", "GER", 123450, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2))})});
             service.update(competitionId, competition);
 
             CompetitionDto competitionDto = service.findCompetition(competitionId);
@@ -536,37 +396,8 @@ class ResultServiceTests {
         void removeEntryTest() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
-            Competition competition1 = new Competition("",
-                                                       "",
-                                                       null,
-                                                       null,
-                                                       new Event[]{new Event("AG 1",
-                                                                             EventType.Individual,
-                                                                             Gender.Female,
-                                                                             "D1",
-                                                                             new Round((byte) 0, RoundType.Final),
-                                                                             InputValueType.Time,
-                                                                             new Entry[]{new Entry("123",
-                                                                                                   "A",
-                                                                                                   "B",
-                                                                                                   "GER",
-                                                                                                   123450,
-                                                                                                   (byte) 1,
-                                                                                                   new Penalty[0],
-                                                                                                   new Swimmer[0],
-                                                                                                   new SplitTime[0],
-                                                                                                   new Start("1", (byte) 2))})});
-            Competition competition2 = new Competition("",
-                                                       "",
-                                                       null,
-                                                       null,
-                                                       new Event[]{new Event("AG 1",
-                                                                             EventType.Individual,
-                                                                             Gender.Female,
-                                                                             "D1",
-                                                                             new Round((byte) 0, RoundType.Final),
-                                                                             InputValueType.Time,
-                                                                             new Entry[0])});
+            Competition competition1 = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[]{new Entry("123", "A", "B", "GER", 123450, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2))})});
+            Competition competition2 = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[0])});
             service.update(competitionId, competition1);
 
             service.update(competitionId, competition2);
@@ -589,37 +420,7 @@ class ResultServiceTests {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
 
-            Competition competition = new Competition("",
-                                                      "",
-                                                      null,
-                                                      null,
-                                                      new Event[]{new Event("AG 1",
-                                                                            EventType.Individual,
-                                                                            Gender.Female,
-                                                                            "D1",
-                                                                            new Round((byte) 0, RoundType.Final),
-                                                                            InputValueType.Time,
-                                                                            new Entry[]{new Entry("123",
-                                                                                                  "A",
-                                                                                                  "B",
-                                                                                                  "GER",
-                                                                                                  123450,
-                                                                                                  (byte) 1,
-                                                                                                  new Penalty[0],
-                                                                                                  new Swimmer[0],
-                                                                                                  new SplitTime[0],
-                                                                                                  new Start("1", (byte) 2)),
-                                                                                        new Entry("456",
-                                                                                                  "C",
-                                                                                                  "D",
-                                                                                                  "GER",
-                                                                                                  543210,
-                                                                                                  (byte) 1,
-                                                                                                  new Penalty[0],
-                                                                                                  new Swimmer[0],
-                                                                                                  new SplitTime[0],
-                                                                                                  new Start("1",
-                                                                                                            (byte) 2))})});
+            Competition competition = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[]{new Entry("123", "A", "B", "GER", 123450, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2)), new Entry("456", "C", "D", "GER", 543210, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2))})});
 
             service.update(competitionId, competition);
 
@@ -629,8 +430,7 @@ class ResultServiceTests {
             assertEquals(1, service.findEvents(competitionDto.id()).length);
             EventDto event = service.findEvents(competitionDto.id())[0];
 
-            EntryDto[] entries =
-                    Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
+            EntryDto[] entries = Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
             assertEquals(2, entries.length);
 
             EntryDto entry1 = entries[0];
@@ -657,37 +457,7 @@ class ResultServiceTests {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
 
-            Competition competition = new Competition("",
-                                                      "",
-                                                      null,
-                                                      null,
-                                                      new Event[]{new Event("AG 1",
-                                                                            EventType.Individual,
-                                                                            Gender.Female,
-                                                                            "D1",
-                                                                            new Round((byte) 0, RoundType.Final),
-                                                                            InputValueType.Time,
-                                                                            new Entry[]{new Entry("123",
-                                                                                                  "A",
-                                                                                                  "B",
-                                                                                                  "GER",
-                                                                                                  123450,
-                                                                                                  (byte) 1,
-                                                                                                  new Penalty[0],
-                                                                                                  new Swimmer[0],
-                                                                                                  new SplitTime[0],
-                                                                                                  new Start("1", (byte) 2)),
-                                                                                        new Entry("456",
-                                                                                                  "C",
-                                                                                                  "D",
-                                                                                                  "GER",
-                                                                                                  543210,
-                                                                                                  (byte) 1,
-                                                                                                  new Penalty[0],
-                                                                                                  new Swimmer[0],
-                                                                                                  new SplitTime[0],
-                                                                                                  new Start("1",
-                                                                                                            (byte) 2))})});
+            Competition competition = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[]{new Entry("123", "A", "B", "GER", 123450, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2)), new Entry("456", "C", "D", "GER", 543210, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2))})});
 
             service.update(competitionId, competition);
             service.update(competitionId, competition);
@@ -698,8 +468,7 @@ class ResultServiceTests {
             assertEquals(1, service.findEvents(competitionDto.id()).length);
             EventDto event = service.findEvents(competitionDto.id())[0];
 
-            EntryDto[] entries =
-                    Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
+            EntryDto[] entries = Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
             assertEquals(2, entries.length);
 
             EntryDto entry1 = entries[0];
@@ -725,57 +494,8 @@ class ResultServiceTests {
         void removeOneOfTwoEntriesTest() throws Exception {
             service.addOrUpdate(new org.lisasp.competition.api.CompetitionDto("1", 1, "Alphabet 1", "abc 1", null, null));
             final String competitionId = "1";
-            Competition competition1 = new Competition("",
-                                                       "",
-                                                       null,
-                                                       null,
-                                                       new Event[]{new Event("AG 1",
-                                                                             EventType.Individual,
-                                                                             Gender.Female,
-                                                                             "D1",
-                                                                             new Round((byte) 0, RoundType.Final),
-                                                                             InputValueType.Time,
-                                                                             new Entry[]{new Entry("123",
-                                                                                                   "A",
-                                                                                                   "B",
-                                                                                                   "GER",
-                                                                                                   123450,
-                                                                                                   (byte) 1,
-                                                                                                   new Penalty[0],
-                                                                                                   new Swimmer[0],
-                                                                                                   new SplitTime[0],
-                                                                                                   new Start("1", (byte) 2)),
-                                                                                         new Entry("456",
-                                                                                                   "C",
-                                                                                                   "D",
-                                                                                                   "GER",
-                                                                                                   543210,
-                                                                                                   (byte) 1,
-                                                                                                   new Penalty[0],
-                                                                                                   new Swimmer[0],
-                                                                                                   new SplitTime[0],
-                                                                                                   new Start("1",
-                                                                                                             (byte) 2))})});
-            Competition competition2 = new Competition("",
-                                                       "",
-                                                       null,
-                                                       null,
-                                                       new Event[]{new Event("AG 1",
-                                                                             EventType.Individual,
-                                                                             Gender.Female,
-                                                                             "D1",
-                                                                             new Round((byte) 0, RoundType.Final),
-                                                                             InputValueType.Time,
-                                                                             new Entry[]{new Entry("123",
-                                                                                                   "A",
-                                                                                                   "B",
-                                                                                                   "GER",
-                                                                                                   123450,
-                                                                                                   (byte) 1,
-                                                                                                   new Penalty[0],
-                                                                                                   new Swimmer[0],
-                                                                                                   new SplitTime[0],
-                                                                                                   new Start("1", (byte) 2))})});
+            Competition competition1 = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[]{new Entry("123", "A", "B", "GER", 123450, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2)), new Entry("456", "C", "D", "GER", 543210, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2))})});
+            Competition competition2 = new Competition("", "", null, null, new Event[]{new Event("AG 1", EventType.Individual, Gender.Female, "D1", new Round((byte) 0, RoundType.Final), InputValueType.Time, new Entry[]{new Entry("123", "A", "B", "GER", 123450, (byte) 1, new Penalty[0], new Swimmer[0], new SplitTime[0], new Start("1", (byte) 2))})});
 
 
             service.update(competitionId, competition1);
@@ -788,8 +508,7 @@ class ResultServiceTests {
             assertEquals(1, service.findEvents(competitionDto.id()).length);
             EventDto event = service.findEvents(competitionDto.id())[0];
 
-            EntryDto[] entries =
-                    Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
+            EntryDto[] entries = Arrays.stream(service.findEntries(event.id())).sorted(Comparator.comparing(EntryDto::number)).toArray(EntryDto[]::new);
             assertEquals(1, entries.length);
 
             EntryDto entry1 = entries[0];

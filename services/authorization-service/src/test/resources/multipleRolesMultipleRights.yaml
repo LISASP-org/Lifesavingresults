@@ -1,0 +1,14 @@
+- name: First Role
+  rights:
+    - module: module1
+      name: First Right
+    - module: module1
+      name: Second Right
+    - module: module1
+      name: Third Right
+- name: Second Role
+  rights:
+    - module: module2
+      name: A Right
+    - module: module2
+      name: Another Right

@@ -12,6 +12,8 @@ import org.lisasp.competition.results.api.EntryDto;
 import org.lisasp.competition.results.api.EventDto;
 import org.lisasp.competition.results.service.ResultService;
 import org.lisasp.competition.results.service.imports.ImportService;
+import org.lisasp.competition.security.Rights;
+import org.lisasp.competition.security.CompetitionServerAuthorizationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +27,21 @@ public class ResultController {
     private final ResultService resultService;
     private final ImportService importService;
 
+    private final CompetitionServerAuthorizationService authorizationService;
+
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"), @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
     @GetMapping("/competition/{id}")
     @Transactional
     public CompetitionDto getCompetitionById(@PathVariable String id) throws NotFoundException {
         return resultService.findCompetition(id);
+    }
+
+    @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"), @ApiResponse(responseCode = "403", description = "user is not authorized"), @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
+    @GetMapping("/competition/{id}/uploadId")
+    @Transactional
+    public String getUploadId(@PathVariable String id) throws NotFoundException {
+        getAssertAuthorization(Rights.ResultsImport, id);
+        return resultService.getUploadId(id);
     }
 
     @GetMapping("/competition")
@@ -45,17 +57,17 @@ public class ResultController {
         return resultService.findEvents(competitionId);
     }
 
-    @GetMapping("/competition/{competitionId}/event/{eventId}/entry")
+    @GetMapping("/event/{eventId}/entry")
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found or event not found in competition"),
-                   @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
+            @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
     @Transactional
-    public EntryDto[] findEntriesByEvent(@PathVariable String competitionId, @PathVariable String eventId) throws NotFoundException {
+    public EntryDto[] findEntriesByEvent(@PathVariable String eventId) throws NotFoundException {
         return resultService.findEntries(eventId);
     }
 
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"),
-                   @ApiResponse(responseCode = "400", description = "The provided data could not be parsed"),
-                   @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)})
+            @ApiResponse(responseCode = "400", description = "The provided data could not be parsed"),
+            @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)})
     @PutMapping("/import/jauswertung/{uploadId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
@@ -65,13 +77,17 @@ public class ResultController {
     }
 
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"),
-                   @ApiResponse(responseCode = "400", description = "The provided data could not be parsed"),
-                   @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)})
+            @ApiResponse(responseCode = "400", description = "The provided data could not be parsed"),
+            @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)})
     @PutMapping("/import/core/{uploadId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void importCompetition(@PathVariable String uploadId, @RequestBody String competition)
             throws NotFoundException, FileFormatException, InvalidDataException {
         importService.importCompetition(uploadId, competition);
+    }
+
+    private void getAssertAuthorization(Rights right, String competitionId) {
+        authorizationService.assertAuthorization(right, competitionId);
     }
 }

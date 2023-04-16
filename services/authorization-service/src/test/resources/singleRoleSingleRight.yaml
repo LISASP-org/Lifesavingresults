@@ -1,0 +1,5 @@
+---
+- name: Single Role
+  rights:
+    - module: module
+      name: Single Right

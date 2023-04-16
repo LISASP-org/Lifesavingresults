@@ -17,7 +17,7 @@
         <p>Bis: [[${competition.till}]]</p>
     </div>
 
-    <form method="POST" enctype="multipart/form-data" action="#" th:action="@{'/web/results/upload/' + ${competition.uploadId}}">
+    <form method="POST" enctype="multipart/form-data" right="#" th:right="@{'/web/results/upload/' + ${competition.uploadId}}">
         <table>
             <tr><td>Datei</td><td><input type="file" name="file" /></td></tr>
             <tr><td></td><td><input type="submit" value="Importieren" /></td></tr>

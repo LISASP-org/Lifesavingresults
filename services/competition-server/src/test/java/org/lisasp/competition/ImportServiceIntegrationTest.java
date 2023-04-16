@@ -65,7 +65,7 @@ public class ImportServiceIntegrationTest {
     void importSimpleCompetition() throws Exception {
         String competitionId = "2";
         resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", date1, date2));
-        String uploadId = resultService.findCompetition(competitionId).uploadId();
+        String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("individual-no-event");
 
         service.importFromJAuswertung(uploadId, content);
@@ -82,7 +82,7 @@ public class ImportServiceIntegrationTest {
     void importCompleteTeamCompetition() throws Exception {
         String competitionId = "2";
         resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", date1, date2));
-        String uploadId = resultService.findCompetition(competitionId).uploadId();
+        String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("team");
 
         service.importFromJAuswertung(uploadId, content);
