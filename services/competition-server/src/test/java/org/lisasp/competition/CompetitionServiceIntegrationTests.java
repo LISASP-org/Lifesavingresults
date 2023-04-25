@@ -4,10 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.lisasp.competition.base.api.type.EventType;
-import org.lisasp.competition.base.api.type.Gender;
-import org.lisasp.competition.base.api.type.InputValueType;
-import org.lisasp.competition.base.api.type.RoundType;
+import org.lisasp.competition.base.api.type.*;
 import org.lisasp.competition.results.api.CompetitionDto;
 import org.lisasp.competition.results.api.EntryDto;
 import org.lisasp.competition.results.api.EventDto;
@@ -111,6 +108,8 @@ class CompetitionServiceIntegrationTests {
                                                                         "D1",
                                                                         new Round((byte) 0, RoundType.Final),
                                                                         InputValueType.Time,
+                                                                        CourseType.Long,
+                                                                        null,
                                                                         new Entry[]{new Entry("123",
                                                                                               "A",
                                                                                               "B",

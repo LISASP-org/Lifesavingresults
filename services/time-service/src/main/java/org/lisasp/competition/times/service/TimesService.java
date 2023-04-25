@@ -13,6 +13,7 @@ import org.lisasp.competition.times.api.TimeChangedEvent;
 import org.lisasp.competition.times.api.TimeDto;
 import org.lisasp.competition.times.api.TimesQuery;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -37,18 +38,21 @@ public class TimesService {
         if (discipline == null || discipline.trim().length() == 0) {
             changeType = ChangeType.Deleted;
         }
+        LocalDate date = timeChangedEvent.date();
         update(new TimeChangedEvent(timeChangedEvent.id(),
-                                    changeType,
-                                    timeChangedEvent.competition(),
-                                    timeChangedEvent.acronym(),
-                                    timeChangedEvent.eventType(),
-                                    timeChangedEvent.name(),
-                                    timeChangedEvent.club(),
-                                    timeChangedEvent.nationality(),
-                                    agegroup,
-                                    timeChangedEvent.gender(),
-                                    discipline,
-                                    timeChangedEvent.timeInMillis()));
+                changeType,
+                timeChangedEvent.competition(),
+                timeChangedEvent.acronym(),
+                timeChangedEvent.eventType(),
+                timeChangedEvent.name(),
+                timeChangedEvent.club(),
+                timeChangedEvent.nationality(),
+                agegroup,
+                timeChangedEvent.gender(),
+                discipline,
+                timeChangedEvent.timeInMillis(),
+                timeChangedEvent.courseType(),
+                timeChangedEvent.date()));
     }
 
     @NotNull
@@ -71,17 +75,19 @@ public class TimesService {
             changeType = ChangeType.Deleted;
         }
         return new TimeChangedEvent(entry.id(),
-                                    changeType,
-                                    competition.name(),
-                                    competition.acronym(),
-                                    event.eventType(),
-                                    entry.name(),
-                                    entry.club(),
-                                    entry.nationality(),
-                                    event.agegroup(),
-                                    event.gender(),
-                                    event.discipline(),
-                                    entry.timeInMillis());
+                changeType,
+                competition.name(),
+                competition.acronym(),
+                event.eventType(),
+                entry.name(),
+                entry.club(),
+                entry.nationality(),
+                event.agegroup(),
+                event.gender(),
+                event.discipline(),
+                entry.timeInMillis(),
+                event.courseType(),
+                event.date());
     }
 
     private void update(TimeChangedEvent time) {
@@ -106,13 +112,13 @@ public class TimesService {
         TimeEntity[] entities;
         if (query.getDiscipline().length() == 0) {
             entities = repository.findAllByEventTypeAndAgegroupAndGender(query.getEventType(),
-                                                                         query.getAgegroup(),
-                                                                         query.getGender());
+                    query.getAgegroup(),
+                    query.getGender());
         } else {
             entities = repository.findAllByEventTypeAndAgegroupAndGenderAndDiscipline(query.getEventType(),
-                                                                                      query.getAgegroup(),
-                                                                                      query.getGender(),
-                                                                                      query.getDiscipline());
+                    query.getAgegroup(),
+                    query.getGender(),
+                    query.getDiscipline());
         }
         return Arrays.stream(entities).map(TimeEntity::toDto).sorted(Comparator.comparingInt(TimeDto::timeInMillis)).toArray(TimeDto[]::new);
     }

@@ -20,6 +20,9 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
+        <module>authorization-api</module>
+        <module>authorization-service</module>
+
         <module>base-api</module>
         <module>competition-api</module>
         <module>competition-service</module>
@@ -30,18 +33,17 @@
         <module>competition-server</module>
         <module>results-distribution</module>
 
-        <module>results-import-rescue2022</module>
-        <module>authorization-api</module>
-        <module>authorization-service</module>
+        <module>imports</module>
+        <module>imports/results-import-orangecup2022</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
 
-        <basics.version>1.0.2-SNAPSHOT</basics.version>
+        <basics.version>1.0.2</basics.version>
         <opencsv.version>5.7.1</opencsv.version>
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <mapstruct.version>1.5.4.Final</mapstruct.version>
         <springdoc.version>2.1.0</springdoc.version>
 
         <webjars-locator.version>0.46</webjars-locator.version>
@@ -54,7 +56,7 @@
         <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <mockito.version>5.2.0</mockito.version>
+        <mockito.version>5.3.0</mockito.version>
         <testcontainers.version>1.18.0</testcontainers.version>
         <testcontainers-keycloak.version>2.5.0</testcontainers-keycloak.version>
 

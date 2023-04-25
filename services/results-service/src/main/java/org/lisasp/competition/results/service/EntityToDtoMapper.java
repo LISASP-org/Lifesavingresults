@@ -22,7 +22,9 @@ class EntityToDtoMapper {
                             entity.getGender(),
                             entity.getDiscipline(),
                             entity.getRound(),
-                            entity.getInputValueType());
+                            entity.getInputValueType(),
+                entity.getCourseType(),
+                entity.getDate());
     }
 
     EntryDto entityToDto(EntryResultEntity entity) {

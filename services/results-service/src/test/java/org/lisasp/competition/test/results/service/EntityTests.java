@@ -34,9 +34,11 @@ class EntityTests {
         entity.setEventType(EventType.Individual);
         entity.setInputValueType(InputValueType.Time);
         entity.setRound(new Round((byte) 1, RoundType.Final));
+        entity.setCourseType(CourseType.Short);
+        entity.setDate(LocalDate.of(2023, Month.APRIL, 20));
 
         assertEquals("EventResultEntity(id=Id-E, version=0, agegroup=AK 12, eventType=Individual, gender=Male, discipline=100m Hindernis, " +
-                     "round=Round[round=1, type=Final], inputValueType=Time)", entity.toString());
+                     "round=Round[round=1, type=Final], inputValueType=Time, courseType=Short, date=2023-04-20)", entity.toString());
     }
 
     @Test

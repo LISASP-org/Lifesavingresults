@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.lisasp.basics.spring.jpa.BaseEntity;
+import org.lisasp.competition.base.api.type.CourseType;
 import org.lisasp.competition.base.api.type.EventType;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.base.api.type.InputValueType;
 import org.lisasp.competition.results.api.value.Round;
 import org.lisasp.competition.results.service.converter.RoundConverter;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,24 +57,26 @@ public class EventResultEntity extends BaseEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     private InputValueType inputValueType;
+    @Column(nullable = false, length = 10)
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private CourseType courseType;
+    @Column(nullable = false, length = 10)
+    @NotNull
+    private LocalDate date;
+
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<EntryResultEntity> entries;
 
-    public boolean matches(EventType eventType, String agegroup, Gender gender, String discipline, Round round, InputValueType inputValueType) {
-        return this.eventType == eventType && Objects.equals(this.agegroup, agegroup) && this.gender == gender && Objects.equals(this.discipline, discipline) &&
-               Objects.equals(this.round, round) && this.inputValueType == inputValueType;
+    public boolean matches(EventType eventType, String agegroup, Gender gender, String discipline, Round round,
+                           InputValueType inputValueType) {
+        return this.eventType == eventType && Objects.equals(this.agegroup, agegroup) && this.gender == gender && Objects.equals(this.discipline, discipline) && Objects.equals(this.round, round) && this.inputValueType == inputValueType;
     }
 
     @Override
     public String toString() {
-        return String.format("EventResultEntity(id=%s, version=%d, agegroup=%s, eventType=%s, gender=%s, discipline=%s, round=%s, inputValueType=%s)",
-                             getId(),
-                             getVersion(),
-                             agegroup,
-                             eventType,
-                             gender,
-                             discipline,
-                             round,
-                             inputValueType);
+        return String.format("EventResultEntity(id=%s, version=%d, agegroup=%s, eventType=%s, gender=%s, " +
+                "discipline=%s, round=%s, inputValueType=%s, courseType=%s, date=%s)", getId(), getVersion(), agegroup,
+                eventType, gender, discipline, round, inputValueType, courseType, date);
     }
 }

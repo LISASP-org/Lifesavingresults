@@ -5,15 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.lisasp.competition</groupId>
-        <artifactId>results-parent</artifactId>
+        <artifactId>imports</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>results-import-rescue2022</artifactId>
-
-    <properties>
-        <pitest.skip>true</pitest.skip>
-    </properties>
 
     <dependencies>
         <dependency>

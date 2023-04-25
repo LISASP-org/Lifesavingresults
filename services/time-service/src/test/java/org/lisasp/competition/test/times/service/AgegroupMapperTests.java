@@ -3,10 +3,14 @@ package org.lisasp.competition.test.times.service;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.lisasp.competition.base.api.ChangeType;
+import org.lisasp.competition.base.api.type.CourseType;
 import org.lisasp.competition.base.api.type.EventType;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.times.api.TimeChangedEvent;
 import org.lisasp.competition.times.service.AgegroupMapper;
+
+import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,7 +18,7 @@ public class AgegroupMapperTests {
     private final AgegroupMapper mapper = new AgegroupMapper();
 
     private TimeChangedEvent createEvent(EventType eventType, String agegroup, Gender gender) {
-        return new TimeChangedEvent("1", ChangeType.Created, "Wettkampf", "WK", eventType, "Name", "OG", "GER", agegroup, gender, "200m Obstacle Swim", 12345);
+        return new TimeChangedEvent("1", ChangeType.Created, "Wettkampf", "WK", eventType, "Name", "OG", "GER", agegroup, gender, "200m Obstacle Swim", 12345, CourseType.Short, LocalDate.of(2023, Month.JULY, 23));
     }
 
     @ParameterizedTest()
