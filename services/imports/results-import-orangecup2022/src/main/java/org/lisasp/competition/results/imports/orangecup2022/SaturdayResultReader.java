@@ -16,7 +16,10 @@ import java.util.regex.Pattern;
 
 class SaturdayResultReader {
 
-    private static final Pattern EventPattern = Pattern.compile("^Event (\\d+)\\s+(\\w+), ([a-zA-Z0-9 ]*?)\\s+(\\w+)\\n(\\d{2}-\\d{2}-\\d{4})\\s+Results$");
+    private static final Pattern
+            EventPattern = Pattern.compile("^Event (\\d+)$");
+    private static final Pattern
+            EventGenderDisciplineAgegroupAndDatePattern = Pattern.compile("^Event (\\d+)\\s+(\\w+), ([a-zA-Z0-9 ]*?)\\s+(\\w+)\\n(\\d{2}-\\d{2}-\\d{4})\\s+Results$");
     private static final Pattern EventGenderDisciplineAndAgegroupPattern = Pattern.compile("^Event (\\d+)\\s+(\\w+), ([a-zA-Z0-9 ]*?)\\s+(\\w+)$");
     private static final Pattern EventGenderAndDisciplinePattern = Pattern.compile("^Event (\\d+),\\s+(\\w+), ([a-zA-Z0-9 ]*?)$");
     private static final Pattern Event2Pattern = Pattern.compile("^Event (\\d+), (\\w+), (.*?), (\\w+)$");
@@ -33,7 +36,7 @@ class SaturdayResultReader {
     private static final Pattern RankHeaderWithRank = Pattern.compile("^Rank\\n(\\d+)\\.$");
     private static final Pattern NameClubAndTime =
             Pattern.compile("^([\\w\\s-äöüßÄÖÜŚ\\.]+\\w)\\s{5,}" + "([\\w\\s" + "-äöüßÄÖÜŚ\\.]+[\\w\\.])\\s{5,}" + "(\\d:\\d{2}\\.\\d{2})$");
-    private static final Pattern NameAndYB = Pattern.compile("^([\\w,\\s-]*?)\\s{5,}(\\d+)$");
+    private static final Pattern NameAndYB = Pattern.compile("^([\\w',\\.\\s-]*?)\\s{5,}(\\d+)$");
     private static final Pattern RankNameAndMembers = Pattern.compile("^(\\d+)\\.\\s+([\\w\\d\\s]+)\\n(.*)$");
 
     private OrangeCupResult fixEntry(OrangeCupResult l) {
@@ -47,6 +50,7 @@ class SaturdayResultReader {
         fixYearOfBirthHoldsGenderAndDiscipline(l);
         fixYearOfBirthHoldsClub(l);
         fixTimeHoldsAgegroupAndResultsHeader(l);
+        fixTimeHoldsAgegroup(l);
         fixResultRow(l);
         fixDiscipline(l);
         fixRank(l);
@@ -57,6 +61,10 @@ class SaturdayResultReader {
         fixNameLinebreak(l);
         fixRankHoldsRankNameAndMembers(l);
         fixRankHoldsEventGenderDisciplineAndAgegroup(l);
+        fixClub2HoldsYearOfBirth(l);
+        fixClub2HoldsGenderAndDiscipline(l);
+        fixClubHoldsAgegroup(l);
+        fixRankHoldsEvent(l);
         fixName(l);
         fixTime(l);
         fixMembers(l);
@@ -64,6 +72,72 @@ class SaturdayResultReader {
         fixYearOfBirth(l);
         fixGender(l);
         return l;
+    }
+
+    private void fixRankHoldsEvent(OrangeCupResult l) {
+        Matcher matcher = EventPattern.matcher(l.getRank());
+        if (matcher.matches()) {
+            l.setRank("");
+            l.setEvent(matcher.group(1));
+        }
+    }
+
+    private void fixTimeHoldsAgegroup(OrangeCupResult l) {
+        if (l.getTime().endsWith("and older")) {
+            l.setAgegroup(l.getTime());
+            l.setTime("");
+        }
+        if (l.getTime2().endsWith("and older")) {
+            l.setAgegroup(l.getTime2());
+            l.setTime2("");
+        }
+        if (l.getTime3().endsWith("and older")) {
+            l.setAgegroup(l.getTime3());
+            l.setTime3("");
+        }
+    }
+
+    private void fixClubHoldsAgegroup(OrangeCupResult l) {
+        if (l.getClub().startsWith("Masters ")) {
+            l.setAgegroup(l.getClub());
+            l.setClub("");
+        }
+        if (l.getClub2().startsWith("Masters ")) {
+            l.setAgegroup(l.getClub2());
+            l.setClub2("");
+        }
+        if (l.getClub3().startsWith("Masters ")) {
+            l.setAgegroup(l.getClub3());
+            l.setClub3("");
+        }
+    }
+
+    private void fixClub2HoldsGenderAndDiscipline(OrangeCupResult l) {
+        Matcher matcher = GenderAndDiscipline.matcher(l.getClub());
+        if (matcher.matches()) {
+            l.setClub("");
+            l.setGender(matcher.group(1));
+            l.setDiscipline(matcher.group(2));
+        }
+        matcher = GenderAndDiscipline.matcher(l.getClub2());
+        if (matcher.matches()) {
+            l.setClub2("");
+            l.setGender(matcher.group(1));
+            l.setDiscipline(matcher.group(2));
+        }
+        matcher = GenderAndDiscipline.matcher(l.getClub3());
+        if (matcher.matches()) {
+            l.setClub3("");
+            l.setGender(matcher.group(1));
+            l.setDiscipline(matcher.group(2));
+        }
+    }
+
+    private void fixClub2HoldsYearOfBirth(OrangeCupResult l) {
+        if (l.getYearOfBirth().isBlank() && l.getClub2().length() == 2) {
+            l.setYearOfBirth(l.getClub2());
+            l.setClub2("");
+        }
     }
 
     private void fixGender(OrangeCupResult l) {
@@ -180,10 +254,11 @@ class SaturdayResultReader {
         if (l.getRank().equalsIgnoreCase("Rank")) {
             l.setRank("");
         }
+        l.setRank(l.getRank().trim());
     }
 
     private void fixName(OrangeCupResult l) {
-        if (l.getName().startsWith("Event ") || l.getName().startsWith("World Record ")) {
+        if (l.getName().startsWith("Event ") || l.getName().startsWith("World Record ") || l.getName().equalsIgnoreCase("YB")) {
             l.setName("");
         }
     }
@@ -209,6 +284,13 @@ class SaturdayResultReader {
             l.setClub(l.getName2());
             l.setName2("");
         }
+        if (l.getClub().isBlank() && !l.getClub3().isBlank()) {
+            l.setClub(l.getClub3());
+            l.setClub3("");
+        }
+        if (l.getClub().equalsIgnoreCase("Time")) {
+            l.setClub("");
+        }
     }
 
     private void fixTime(OrangeCupResult l) {
@@ -219,7 +301,14 @@ class SaturdayResultReader {
             l.setTime(l.getTime2());
             l.setTime2("");
         }
+        if (l.getTime().isBlank() && !l.getTime3().isBlank() && !l.getTime3().startsWith("Open")) {
+            l.setTime(l.getTime3());
+            l.setTime3("");
+        }
         if (l.getTime().equalsIgnoreCase("Time")) {
+            l.setTime("");
+        }
+        if (l.getTime().equalsIgnoreCase("Results")) {
             l.setTime("");
         }
         l.setTime(l.getTime().replace('.', ','));
@@ -262,7 +351,7 @@ class SaturdayResultReader {
 
     private void fixEvent1Row(OrangeCupResult l) {
         l.setRank(l.getRank().replace("\r\n", "\n").replace("\r", "\n"));
-        Matcher matcher = EventPattern.matcher(l.getRank());
+        Matcher matcher = EventGenderDisciplineAgegroupAndDatePattern.matcher(l.getRank());
         if (matcher.matches()) {
             l.setRank("");
             l.setEvent(matcher.group(1));
@@ -355,11 +444,11 @@ class SaturdayResultReader {
                         System.out.println(" X-> " + row);
                     }
                 }
-                if (row.getRank().isBlank() && row.getName().matches(".*?,.*?,.*") && previous.getMembers().isBlank()) {
+                if (row.getRank().isBlank() && row.getName().matches(".*?,.*?,.*") && previous.getMembers().isBlank() && previous.getYearOfBirth().isBlank()) {
                     previous.setMembers(row.getName());
                     row.setName("");
                 }
-                if (row.getRank().isBlank() && row.getName2().matches(".*?,.*?,.*") && previous.getMembers().isBlank()) {
+                if (row.getRank().isBlank() && row.getName2().matches(".*?,.*?,.*") && previous.getMembers().isBlank() && previous.getYearOfBirth().isBlank()) {
                     previous.setMembers(row.getName2());
                     row.setName2("");
                 }

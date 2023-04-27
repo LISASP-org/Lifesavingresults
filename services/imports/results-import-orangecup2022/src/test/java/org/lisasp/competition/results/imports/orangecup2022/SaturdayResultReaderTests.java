@@ -1,5 +1,6 @@
 package org.lisasp.competition.results.imports.orangecup2022;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -103,7 +104,7 @@ class SaturdayResultReaderTests {
 
         assertEquals("Team Example", actual.getClub());
         assertEquals("LASTNAME, Firstname", actual.getName());
-        assertEquals("2:34.56", actual.getTime());
+        assertEquals("2:34,56", actual.getTime());
         assertEquals("05", actual.getYearOfBirth());
     }
 
@@ -123,7 +124,7 @@ class SaturdayResultReaderTests {
 
         assertEquals("Team Example", actual.getClub());
         assertEquals("LASTNAME, Firstname", actual.getName());
-        assertEquals("2:34.56", actual.getTime());
+        assertEquals("2:34,56", actual.getTime());
         assertEquals("05", actual.getYearOfBirth());
     }
 
@@ -143,7 +144,7 @@ class SaturdayResultReaderTests {
 
         assertEquals("Team Example", actual.getClub());
         assertEquals("LASTNAME, Firstname", actual.getName());
-        assertEquals("2:34.56", actual.getTime());
+        assertEquals("2:34,56", actual.getTime());
         assertEquals("05", actual.getYearOfBirth());
     }
 
@@ -258,7 +259,7 @@ class SaturdayResultReaderTests {
 
         assertEquals("Team Example", actual.getClub());
         assertEquals("Team Example 1", actual.getName());
-        assertEquals("1:56.57", actual.getTime());
+        assertEquals("1:56,57", actual.getTime());
         assertEquals("", actual.getYearOfBirth());
     }
 }

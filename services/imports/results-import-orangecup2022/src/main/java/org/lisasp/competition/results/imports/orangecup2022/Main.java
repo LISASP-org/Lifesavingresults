@@ -12,16 +12,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
 
-
-        Path path = Path.of("data", "Results-Saturday.csv");
-        List<OrangeCupResult> data = new SaturdayResultReader().read(path);
-        new ResultWriter().write(data.stream(), Path.of("data", "Valid-Results-Saturday.csv"));
-        new ResultWriter().writeInvalid(data.stream(), Path.of("data", "Invalid-Results-Saturday.csv"));
-        new ResultWriter().writeOther(data.stream(), Path.of("data", "Other-Results-Saturday.csv"));
-
-
-        // Path path = Path.of("data", "Results-Sunday.csv");
-        // new SundayResultReader().read(path).stream().filter(e -> !e.isEmpty()).forEach(l -> System.out.println(l));
+        // new ResultConverter().convertSaturday();
+        new ResultConverter().convertSunday();
     }
 
 }

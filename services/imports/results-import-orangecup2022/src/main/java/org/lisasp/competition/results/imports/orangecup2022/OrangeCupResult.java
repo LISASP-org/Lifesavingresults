@@ -24,10 +24,14 @@ public class OrangeCupResult {
     private String club2;
     @CsvBindByPosition(position = 6)
     private String club;
+    @CsvBindByPosition(position = 7)
+    private String club3;
     @CsvBindByPosition(position = 9)
     private String time2;
     @CsvBindByPosition(position = 10)
     private String time;
+    @CsvBindByPosition(position = 11)
+    private String time3;
     private String agegroup;
     private String gender;
     private String discipline;
@@ -39,9 +43,15 @@ public class OrangeCupResult {
         event = fixNullAndTrim(event);
         rank = fixNullAndTrim(rank);
         name = fixNullAndTrim(name);
+        name2 = fixNullAndTrim(name2);
         yearOfBirth = fixNullAndTrim(yearOfBirth);
+        yearOfBirth2 = fixNullAndTrim(yearOfBirth2);
         club = fixNullAndTrim(club);
+        club2 = fixNullAndTrim(club2);
+        club3 = fixNullAndTrim(club3);
         time = fixNullAndTrim(time);
+        time2 = fixNullAndTrim(time2);
+        time3 = fixNullAndTrim(time3);
         agegroup = fixNullAndTrim(agegroup);
         gender = fixNullAndTrim(gender);
         discipline = fixNullAndTrim(discipline);
