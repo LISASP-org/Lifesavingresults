@@ -19,8 +19,8 @@ public class WebSecurityConfig {
     @Value("${app.development.test-ui-enabled:false}")
     private boolean testUIEnabled;
 
-    public static final String ADMIN = "ROLE_ADMIN";
-    public static final String USER = "ROLE_USER";
+    public static final String ADMIN = "ADMIN";
+    public static final String USER = "USER";
 
     private final JwtAuthConverter jwtAuthConverter;
 
