@@ -30,12 +30,14 @@
         <module>results-service</module>
         <module>time-api</module>
         <module>time-service</module>
-        <module>competition-server</module>
+        <module>competition-backend-server</module>
+
+        <module>competition-ui</module>
+        <module>competition-frontend-server</module>
+
         <module>results-distribution</module>
 
         <module>imports</module>
-        <module>imports/results-import-orangecup2022</module>
-        <module>competition-ui</module>
     </modules>
 
     <properties>
@@ -147,12 +149,17 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.competition</groupId>
-                <artifactId>competition-server-ui</artifactId>
+                <artifactId>competition-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lisasp.competition</groupId>
-                <artifactId>competition-server</artifactId>
+                <artifactId>competition-backend-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>competition-frontend-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -392,7 +399,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>3.4.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

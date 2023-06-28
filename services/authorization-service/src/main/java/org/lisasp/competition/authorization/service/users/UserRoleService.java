@@ -1,6 +1,7 @@
 package org.lisasp.competition.authorization.service.users;
 
 import lombok.RequiredArgsConstructor;
+import org.lisasp.competition.api.authorization.UserRole;
 
 @RequiredArgsConstructor
 public class UserRoleService {

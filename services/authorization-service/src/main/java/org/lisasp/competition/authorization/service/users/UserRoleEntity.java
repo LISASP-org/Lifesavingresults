@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.lisasp.basics.spring.jpa.BaseEntity;
+import org.lisasp.competition.api.authorization.UserRole;
 
 @Entity
 @Getter

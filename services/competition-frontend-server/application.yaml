@@ -1,0 +1,7 @@
+app:
+  development:
+    test-ui-enabled: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG

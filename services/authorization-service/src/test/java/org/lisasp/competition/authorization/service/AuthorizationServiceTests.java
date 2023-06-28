@@ -7,7 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.lisasp.competition.api.authorization.Right;
 import org.lisasp.competition.api.authorization.AuthorizationRequest;
-import org.lisasp.competition.authorization.service.users.UserRole;
+import org.lisasp.competition.api.authorization.UserRole;
 import org.lisasp.competition.authorization.service.users.UserRoleService;
 import org.lisasp.competition.base.api.exception.CouldNotInitializeException;
 import org.springframework.beans.factory.annotation.Autowired;

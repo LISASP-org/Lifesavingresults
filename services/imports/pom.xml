@@ -18,6 +18,7 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
+        <module>results-import-orangecup2022</module>
         <module>results-import-rescue2022</module>
     </modules>
 

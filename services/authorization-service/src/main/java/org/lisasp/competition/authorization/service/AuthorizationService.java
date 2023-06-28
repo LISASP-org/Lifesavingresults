@@ -2,7 +2,7 @@ package org.lisasp.competition.authorization.service;
 
 import lombok.RequiredArgsConstructor;
 import org.lisasp.competition.api.authorization.AuthorizationRequest;
-import org.lisasp.competition.authorization.service.users.UserRole;
+import org.lisasp.competition.api.authorization.UserRole;
 import org.lisasp.competition.authorization.service.users.UserRoleService;
 
 import java.util.Arrays;
