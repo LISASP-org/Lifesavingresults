@@ -1,15 +1,22 @@
 package org.lisasp.competition.security;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.lisasp.competition.api.authorization.UserRole;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CompetitionServerAuthorizationService {
+
     // private final AuthorizationService authorizationService;
+
+    public void firstUserRole(Roles role, String resourceId) {
+        //authorizationService.addUserRole(getUsername(), role.getName(), resourceId);
+    }
 
     public void addUserRole(Roles role, String resourceId) {
         assertAuthorization(Rights.AuthorizationCompetition, resourceId);
@@ -28,7 +35,8 @@ public class CompetitionServerAuthorizationService {
 
     public void assertAuthorization(Rights right, String resourceId) {
         //if (!authorizationService.hasAuthorization(new AuthorizationRequest(getUsername(), right.toAction(), resourceId))) {
-        //    throw new AccessDeniedException(String.format("User '%s' is not authorized for right '%s' on resourceId with id '%s'.", getUsername(), right, resourceId));
+            log.info(String.format("User '%s' is not authorized for right '%s' on resourceId with id '%s'.", getUsername(), right, resourceId));
+            throw new AccessDeniedException(String.format("User '%s' is not authorized for right '%s' on resourceId with id '%s'.", getUsername(), right, resourceId));
         //}
     }
 
@@ -38,8 +46,8 @@ public class CompetitionServerAuthorizationService {
 
     public UserRole[] findRoles(String username) {
         assertSelf(username);
-        // return authorizationService.findRoles(username);
-        return null;
+        //return authorizationService.findRoles(username);
+        return new UserRole[0];
     }
 
     private String getUsername() {

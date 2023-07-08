@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
         <relativePath/>
     </parent>
 
@@ -63,10 +63,10 @@
         <testcontainers.version>1.18.3</testcontainers.version>
         <testcontainers-keycloak.version>2.5.0</testcontainers-keycloak.version>
 
-        <keycloak.version>21.1.1</keycloak.version>
+        <keycloak.version>21.1.2</keycloak.version>
         <artemismq.version>2.29.0</artemismq.version>
         <mariadb.version>3.1.4</mariadb.version>
-        <h2.version>2.1.214</h2.version>
+        <h2.version>2.2.220</h2.version>
 
         <pitest-junit5-plugin.version>1.2.0</pitest-junit5-plugin.version>
 
@@ -379,7 +379,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.14.1</version>
+                    <version>1.14.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.projectlombok</groupId>

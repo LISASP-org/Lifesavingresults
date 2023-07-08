@@ -14,15 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.competition</groupId>
-            <artifactId>competition-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.lisasp.competition</groupId>
-            <artifactId>results-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.lisasp.competition</groupId>
-            <artifactId>time-service</artifactId>
+            <artifactId>competition-api</artifactId>
         </dependency>
 
         <dependency>

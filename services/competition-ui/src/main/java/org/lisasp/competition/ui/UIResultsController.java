@@ -2,14 +2,6 @@ package org.lisasp.competition.ui;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.competition.base.api.exception.FileFormatException;
-import org.lisasp.competition.base.api.exception.InvalidDataException;
-import org.lisasp.competition.base.api.exception.NotFoundException;
-import org.lisasp.competition.results.api.CompetitionDto;
-import org.lisasp.competition.results.api.EntryDto;
-import org.lisasp.competition.results.api.EventDto;
-import org.lisasp.competition.results.service.ResultService;
-import org.lisasp.competition.results.service.imports.ImportService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import static org.lisasp.competition.SwaggerConfig.BEARER_KEY_SECURITY_SCHEME;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("competition")
-@RequiredArgsConstructor
 public class CompetitionController {
 
     private final CompetitionService competitionService;
