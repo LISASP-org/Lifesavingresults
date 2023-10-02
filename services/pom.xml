@@ -32,9 +32,6 @@
         <module>time-service</module>
         <module>competition-backend-server</module>
 
-        <module>competition-ui</module>
-        <module>competition-frontend-server</module>
-
         <module>results-distribution</module>
 
         <module>imports</module>
@@ -44,29 +41,24 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
 
-        <basics.version>1.0.2</basics.version>
-        <opencsv.version>5.7.1</opencsv.version>
+        <basics.version>1.0.3</basics.version>
+        <opencsv.version>5.8</opencsv.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <springdoc.version>2.1.0</springdoc.version>
+        <springdoc.version>2.2.0</springdoc.version>
 
-        <webjars-locator.version>0.47</webjars-locator.version>
-        <bootstrap.version>5.3.0</bootstrap.version>
-        <jquery.version>3.6.4</jquery.version>
-        <fontawesome.version>6.4.0</fontawesome.version>
-
-        <lombok.version>1.18.28</lombok.version>
-        <slf4j.version>2.0.7</slf4j.version>
+        <lombok.version>1.18.30</lombok.version>
+        <slf4j.version>2.0.9</slf4j.version>
         <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
-        <junit-jupiter.version>5.9.3</junit-jupiter.version>
-        <mockito.version>5.4.0</mockito.version>
-        <testcontainers.version>1.18.3</testcontainers.version>
-        <testcontainers-keycloak.version>2.5.0</testcontainers-keycloak.version>
+        <junit-jupiter.version>5.10.0</junit-jupiter.version>
+        <mockito.version>5.5.0</mockito.version>
+        <testcontainers.version>1.19.0</testcontainers.version>
+        <testcontainers-keycloak.version>3.0.0</testcontainers-keycloak.version>
 
-        <keycloak.version>21.1.2</keycloak.version>
-        <artemismq.version>2.29.0</artemismq.version>
-        <mariadb.version>3.1.4</mariadb.version>
-        <h2.version>2.2.220</h2.version>
+        <keycloak.version>22.0.3</keycloak.version>
+        <artemismq.version>2.31.0</artemismq.version>
+        <mariadb.version>3.2.0</mariadb.version>
+        <h2.version>2.2.224</h2.version>
 
         <pitest-junit5-plugin.version>1.2.0</pitest-junit5-plugin.version>
 
@@ -187,27 +179,6 @@
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>artemis-jms-server</artifactId>
                 <version>${artemismq.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>webjars-locator</artifactId>
-                <version>${webjars-locator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>bootstrap</artifactId>
-                <version>${bootstrap.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>font-awesome</artifactId>
-                <version>${fontawesome.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>jquery</artifactId>
-                <version>${jquery.version}</version>
             </dependency>
 
             <dependency>
@@ -379,7 +350,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.14.2</version>
+                    <version>1.15.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.projectlombok</groupId>
@@ -404,12 +375,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.4.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.16.0</version>
+                    <version>2.16.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>

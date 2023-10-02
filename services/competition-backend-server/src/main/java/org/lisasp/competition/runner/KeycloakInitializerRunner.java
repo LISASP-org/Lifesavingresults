@@ -1,5 +1,6 @@
 package org.lisasp.competition.runner;
 
+import javax.ws.rs.ProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
@@ -12,7 +13,6 @@ import org.lisasp.competition.security.WebSecurityConfig;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.ProcessingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
