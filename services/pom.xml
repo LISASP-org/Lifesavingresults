@@ -51,7 +51,7 @@
         <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.10.0</junit-jupiter.version>
-        <mockito.version>5.5.0</mockito.version>
+        <mockito.version>5.6.0</mockito.version>
         <testcontainers.version>1.19.0</testcontainers.version>
         <testcontainers-keycloak.version>3.0.0</testcontainers-keycloak.version>
 
