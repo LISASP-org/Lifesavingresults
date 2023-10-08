@@ -62,6 +62,8 @@ class EventResultUpdater {
         event.setDiscipline(importedEvent.discipline());
         event.setRound(importedEvent.round());
         event.setInputValueType(importedEvent.inputValueType());
+        event.setCourseType(importedEvent.courseType());
+        event.setDate(importedEvent.date() != null ? importedEvent.date() : event.getCompetition().getFrom());
     }
 
     private boolean mustBeSaved(String before) {

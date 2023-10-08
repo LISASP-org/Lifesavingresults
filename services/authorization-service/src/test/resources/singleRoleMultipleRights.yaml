@@ -1,0 +1,9 @@
+---
+- name: Single Role
+  rights:
+    - module: module
+      name: First Right
+    - module: module
+      name: Second Right
+    - module: module
+      name: Third Right

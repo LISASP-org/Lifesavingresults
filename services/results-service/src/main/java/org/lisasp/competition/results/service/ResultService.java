@@ -63,9 +63,7 @@ public class ResultService {
     }
 
     public CompetitionDto[] findCompetitions() {
-        return StreamSupport.stream(competitionResultRepository.findAll().spliterator(), false)
-                            .map(e -> mapper.entityToDto(e).withoutUploadId())
-                            .toArray(CompetitionDto[]::new);
+        return StreamSupport.stream(competitionResultRepository.findAll().spliterator(), false).map(e -> mapper.entityToDto(e)).toArray(CompetitionDto[]::new);
     }
 
     public EventDto findEvent(String id) throws NotFoundException {
@@ -102,11 +100,13 @@ public class ResultService {
         if (competition == null) {
             throw new InvalidDataException("Competition must not be null");
         }
-        CompetitionResultUpdater competitionResultUpdater =
-                new CompetitionResultUpdater(competitionResultRepository, eventResultRepository, entryResultRepository).initialize(id,
-                                                                                                                                   listeners.toArray(
-                                                                                                                                           EntryChangeListener[]::new));
+        CompetitionResultUpdater competitionResultUpdater = new CompetitionResultUpdater(competitionResultRepository, eventResultRepository, entryResultRepository).initialize(id, listeners.toArray(EntryChangeListener[]::new));
         competitionResultUpdater.updateCompetition(competition);
         competitionResultUpdater.checkChanges();
+    }
+
+    public String getUploadId(String competitionId) throws CompetitionNotFoundException {
+        CompetitionResultEntity entity = competitionResultRepository.findById(competitionId).orElseThrow(() -> new CompetitionNotFoundException(competitionId));
+        return entity.getUploadId();
     }
 }

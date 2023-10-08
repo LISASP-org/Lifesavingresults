@@ -1,0 +1,16 @@
+- name: user
+  rights:
+    - module: module1
+      name: create
+- name: guest
+  rights:
+    - module: module2
+      name: read
+- name: editor
+  rights:
+    - module: module3
+      name: update
+- name: cleaner
+  rights:
+    - module: module4
+      name: delete

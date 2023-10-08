@@ -8,7 +8,6 @@ class EntityToDtoMapper {
     CompetitionDto entityToDto(CompetitionResultEntity entity) {
         return new CompetitionDto(entity.getId(),
                                   entity.getVersion(),
-                                  entity.getUploadId(),
                                   entity.getName(),
                                   entity.getAcronym(),
                                   entity.getFrom(),
@@ -23,7 +22,9 @@ class EntityToDtoMapper {
                             entity.getGender(),
                             entity.getDiscipline(),
                             entity.getRound(),
-                            entity.getInputValueType());
+                            entity.getInputValueType(),
+                entity.getCourseType(),
+                entity.getDate());
     }
 
     EntryDto entityToDto(EntryResultEntity entity) {

@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.competition</groupId>
-            <artifactId>competition-server</artifactId>
+            <artifactId>competition-backend-server</artifactId>
         </dependency>
     </dependencies>
 

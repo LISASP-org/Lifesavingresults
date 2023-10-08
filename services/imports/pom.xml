@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.lisasp.competition</groupId>
+        <artifactId>results-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>imports</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>results imports parent</name>
+    <description>Results in Lifesaving sports - Imports</description>
+    <url>https://github.com/LISASP-org/Lifesavingresults</url>
+
+    <modules>
+        <module>results-import-orangecup2022</module>
+        <module>results-import-rescue2022</module>
+    </modules>
+
+    <properties>
+        <spring-boot.skip>true</spring-boot.skip>
+        <pitest.skip>true</pitest.skip>
+    </properties>
+
+    <scm>
+        <connection>https://github.com/LISASP-org/Lifesavingresults.git</connection>
+        <url>https://github.com/LISASP-org/Lifesavingresults</url>
+    </scm>
+</project>

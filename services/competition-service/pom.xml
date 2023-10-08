@@ -11,7 +11,6 @@
 
     <artifactId>competition-service</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>org.lisasp.competition</groupId>

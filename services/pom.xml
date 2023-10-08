@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.5</version>
+        <version>3.1.1</version>
         <relativePath/>
     </parent>
 
@@ -20,6 +20,9 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
+        <module>authorization-api</module>
+        <module>authorization-service</module>
+
         <module>base-api</module>
         <module>competition-api</module>
         <module>competition-service</module>
@@ -27,39 +30,37 @@
         <module>results-service</module>
         <module>time-api</module>
         <module>time-service</module>
-        <module>competition-server</module>
+        <module>competition-backend-server</module>
+
         <module>results-distribution</module>
 
-        <module>results-import-rescue2022</module>
+        <module>imports</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
 
-        <basics.version>1.0.1</basics.version>
-        <opencsv.version>5.7.1</opencsv.version>
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
-        <springdoc.version>2.1.0</springdoc.version>
+        <basics.version>1.0.3</basics.version>
+        <opencsv.version>5.8</opencsv.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <springdoc.version>2.2.0</springdoc.version>
 
-        <webjars-locator.version>0.46</webjars-locator.version>
-        <bootstrap.version>5.2.3</bootstrap.version>
-        <jquery.version>3.6.4</jquery.version>
-        <fontawesome.version>6.4.0</fontawesome.version>
-
-        <lombok.version>1.18.26</lombok.version>
-        <slf4j.version>2.0.7</slf4j.version>
+        <lombok.version>1.18.30</lombok.version>
+        <slf4j.version>2.0.9</slf4j.version>
         <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
-        <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <mockito.version>5.2.0</mockito.version>
-        <testcontainers.version>1.18.0</testcontainers.version>
-        <testcontainers-keycloak.version>2.5.0</testcontainers-keycloak.version>
+        <junit-jupiter.version>5.10.0</junit-jupiter.version>
+        <mockito.version>5.5.0</mockito.version>
+        <testcontainers.version>1.19.0</testcontainers.version>
+        <testcontainers-keycloak.version>3.0.0</testcontainers-keycloak.version>
 
-        <keycloak.version>21.0.2</keycloak.version>
-        <artemismq.version>2.28.0</artemismq.version>
-        <mariadb.version>3.1.3</mariadb.version>
-        <h2.version>2.1.214</h2.version>
+        <keycloak.version>22.0.3</keycloak.version>
+        <artemismq.version>2.31.0</artemismq.version>
+        <mariadb.version>3.2.0</mariadb.version>
+        <h2.version>2.2.224</h2.version>
+
+        <pitest-junit5-plugin.version>1.2.0</pitest-junit5-plugin.version>
 
         <spring-boot.skip>true</spring-boot.skip>
         <pitest.skip>false</pitest.skip>
@@ -93,6 +94,16 @@
                 <version>${basics.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>authorization-api</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>authorization-service</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
             <dependency>
                 <groupId>org.lisasp.competition</groupId>
                 <artifactId>competition-api</artifactId>
@@ -130,7 +141,17 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.competition</groupId>
-                <artifactId>competition-server</artifactId>
+                <artifactId>competition-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>competition-backend-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.competition</groupId>
+                <artifactId>competition-frontend-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -158,27 +179,6 @@
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>artemis-jms-server</artifactId>
                 <version>${artemismq.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>webjars-locator</artifactId>
-                <version>${webjars-locator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>bootstrap</artifactId>
-                <version>${bootstrap.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>font-awesome</artifactId>
-                <version>${fontawesome.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>jquery</artifactId>
-                <version>${jquery.version}</version>
             </dependency>
 
             <dependency>
@@ -310,27 +310,27 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>3.6.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.10.1</version>
+                    <version>3.11.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.3.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -345,12 +345,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.3.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.11.1</version>
+                    <version>1.15.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.projectlombok</groupId>
@@ -359,28 +359,28 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M9</version>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.0.0-M9</version>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.4.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.2.1</version>
+                    <version>3.4.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.15.0</version>
+                    <version>2.16.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -436,6 +436,10 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <release>${java.version}</release>
+                    <compilerArgs>
+                        <!-- Disable @Generated annotation for jpa metamodel -->
+                        <arg>-AaddGeneratedAnnotation=false</arg>
+                    </compilerArgs>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -446,6 +450,11 @@
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.hibernate.orm</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>6.2.0.Final</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -472,6 +481,36 @@
                         <phase>test-compile</phase>
                         <goals>
                             <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-annotation-generated-sources</id>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/annotations</source>
+                            </sources>
+                        </configuration>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>add-annotation-generated-test-sources</id>
+                        <phase>process-test-sources</phase>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-test-sources/annotations</source>
+                            </sources>
+                        </configuration>
+                        <goals>
+                            <goal>add-test-source</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -504,7 +543,7 @@
                     <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>1.1.0</version>
+                        <version>${pitest-junit5-plugin.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

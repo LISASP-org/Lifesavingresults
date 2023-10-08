@@ -12,6 +12,7 @@ import org.lisasp.competition.results.api.value.*;
 import org.lisasp.competition.results.service.imports.jauswertung.model.CompetitorType;
 import org.lisasp.competition.results.service.imports.jauswertung.model.ValueTypes;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,58 +20,42 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class JAuswertungConverter {
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final CourseTypeConverter courseTypeConverter = new CourseTypeConverter();
 
     public Competition importJson(String json) throws FileFormatException {
         return importCompetition(deserialize(json));
     }
 
     private Competition importCompetition(org.lisasp.competition.results.service.imports.jauswertung.model.Competition competition) {
-        Event[] events = importEvents(competition.getEvents());
+        DateRange dates = DateRange.fromString(competition.getDate());
+        LocalDate from = dates.first();
+        LocalDate till = dates.last();
+        Event[] events = importEvents(competition.getEvents(), courseTypeConverter.fromString(competition.getLengthOfCourse()), from);
 
-        return new Competition(competition.getName(), "", null, null, events);
+        return new Competition(competition.getName(), "", from, till, events);
     }
 
-    private Event[] importEvents(org.lisasp.competition.results.service.imports.jauswertung.model.Event[] importedEvents) {
-        return Arrays.stream(importedEvents).map(this::toEvent).toArray(Event[]::new);
+    private Event[] importEvents(org.lisasp.competition.results.service.imports.jauswertung.model.Event[] importedEvents, CourseType courseType, LocalDate date) {
+        return Arrays.stream(importedEvents).map(e -> toEvent(e, courseType, date)).toArray(Event[]::new);
     }
 
-    private Event toEvent(org.lisasp.competition.results.service.imports.jauswertung.model.Event importetEvent) {
+    private Event toEvent(org.lisasp.competition.results.service.imports.jauswertung.model.Event importetEvent,
+                          CourseType courseType, LocalDate date) {
         var inputValueType = toEntryValueType(importetEvent.getValueType());
-        return Event.builder()
-                    .eventType(toEventType(importetEvent.getCompetitorType()))
-                    .discipline(importetEvent.getDiscipline())
-                    .round(new Round(importetEvent.getRound(), importetEvent.isFinal() ? RoundType.Final : RoundType.Heat))
-                    .agegroup(importetEvent.getAgegroup())
-                    .gender(toGender(importetEvent.getSex()))
-                    .inputValueType(inputValueType)
-                    .entries(importEntries(inputValueType, importetEvent.getTimes()))
-                    .build();
+        return Event.builder().eventType(toEventType(importetEvent.getCompetitorType())).discipline(importetEvent.getDiscipline()).round(new Round(importetEvent.getRound(), importetEvent.isFinal() ? RoundType.Final : RoundType.Heat)).agegroup(importetEvent.getAgegroup()).gender(toGender(importetEvent.getSex())).inputValueType(inputValueType).courseType(courseType).date(date).entries(importEntries(inputValueType, importetEvent.getTimes())).build();
     }
 
-    private Entry[] importEntries(InputValueType inputValueType, org.lisasp.competition.results.service.imports.jauswertung.model.Entry[] importedEntries) {
-        return Arrays.stream(importedEntries)
-                     .map(importedEntry -> Entry.builder()
-                                                .number(importedEntry.getStartnumber())
-                                                .name(importedEntry.getName())
-                                                .club(importedEntry.getOrganization())
-                                                .nationality("")
-                                                .placeInHeat(toPlace(inputValueType, importedEntry))
-                                                .timeInMillis(toTime(inputValueType, importedEntry))
-                                                .swimmer(toSwimmers(importedEntry.getSwimmer()))
-                                                .splitTimes(new SplitTime[0])
-                                                .start(toStart(importedEntry))
-                                                .penalties(toPenalties(importedEntry.getPenalties()))
-                                                .build())
-                     .toArray(Entry[]::new);
+    private Entry[] importEntries(InputValueType inputValueType,
+                                  org.lisasp.competition.results.service.imports.jauswertung.model.Entry[] importedEntries) {
+        return Arrays.stream(importedEntries).map(importedEntry -> Entry.builder().number(importedEntry.getStartnumber()).name(importedEntry.getName()).club(importedEntry.getOrganization()).nationality("").placeInHeat(toPlace(inputValueType, importedEntry)).timeInMillis(toTime(inputValueType, importedEntry)).swimmer(toSwimmers(importedEntry.getSwimmer())).splitTimes(new SplitTime[0]).start(toStart(importedEntry)).penalties(toPenalties(importedEntry.getPenalties())).build()).toArray(Entry[]::new);
     }
 
     private Swimmer[] toSwimmers(org.lisasp.competition.results.service.imports.jauswertung.model.Swimmer[] swimmer) {
         if (swimmer == null) {
             return new Swimmer[0];
         }
-        return Arrays.stream(swimmer)
-                     .map(s -> new Swimmer(s.getStartnumber(), s.getFirstName(), s.getLastName(), toSex(s.getSex()), s.getYearOfBirth()))
-                     .toArray(Swimmer[]::new);
+        return Arrays.stream(swimmer).map(s -> new Swimmer(s.getStartnumber(), s.getFirstName(), s.getLastName(),
+                toSex(s.getSex()), s.getYearOfBirth())).toArray(Swimmer[]::new);
     }
 
     private Penalty[] toPenalties(org.lisasp.competition.results.service.imports.jauswertung.model.Penalty[] penalties) {
@@ -98,14 +83,16 @@ public class JAuswertungConverter {
         return new Start(importedEntry.getStart().getHeat(), importedEntry.getStart().getLane());
     }
 
-    private byte toPlace(InputValueType inputValueType, org.lisasp.competition.results.service.imports.jauswertung.model.Entry importedEntry) {
+    private byte toPlace(InputValueType inputValueType,
+                         org.lisasp.competition.results.service.imports.jauswertung.model.Entry importedEntry) {
         if (inputValueType != InputValueType.Rank) {
             return (byte) 0;
         }
         return (byte) importedEntry.getValue();
     }
 
-    private int toTime(InputValueType inputValueType, org.lisasp.competition.results.service.imports.jauswertung.model.Entry importedEntry) {
+    private int toTime(InputValueType inputValueType,
+                       org.lisasp.competition.results.service.imports.jauswertung.model.Entry importedEntry) {
         if (inputValueType != InputValueType.Time) {
             return 0;
         }
@@ -149,7 +136,8 @@ public class JAuswertungConverter {
 
     private org.lisasp.competition.results.service.imports.jauswertung.model.Competition deserialize(String json) throws FileFormatException {
         try {
-            return objectMapper.readValue(json, org.lisasp.competition.results.service.imports.jauswertung.model.Competition.class);
+            return objectMapper.readValue(json,
+                    org.lisasp.competition.results.service.imports.jauswertung.model.Competition.class);
         } catch (JsonProcessingException ex) {
             throw new FileFormatException(ex);
         }

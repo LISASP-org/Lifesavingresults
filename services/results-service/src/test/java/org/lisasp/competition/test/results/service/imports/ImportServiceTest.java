@@ -63,7 +63,7 @@ public class ImportServiceTest {
     void importInvalidJson(String content) throws Exception {
         final String competitionId = "1";
         resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", null, null));
-        String uploadId = resultService.findCompetition(competitionId).uploadId();
+        String uploadId = resultService.getUploadId(competitionId);
 
         assertThrows(InvalidDataException.class, () -> service.importCompetition(uploadId, content));
     }
@@ -72,7 +72,7 @@ public class ImportServiceTest {
     void importSimpleCompetition() throws Exception {
         final String competitionId = "1";
         resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", null, null));
-        String uploadId = resultService.findCompetition(competitionId).uploadId();
+        String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("individual-no-event");
 
         service.importCompetition(uploadId, content);
@@ -88,7 +88,7 @@ public class ImportServiceTest {
     void importSimpleCompetitionTwice() throws Exception {
         final String competitionId = "1";
         resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", null, null));
-        String uploadId = resultService.findCompetition(competitionId).uploadId();
+        String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("individual-no-event");
 
         service.importCompetition(uploadId, content);
@@ -105,7 +105,7 @@ public class ImportServiceTest {
     void importCompleteTeamCompetition() throws Exception {
         final String competitionId = "1";
         resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", null, null));
-        String uploadId = resultService.findCompetition(competitionId).uploadId();
+        String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("team");
 
         service.importCompetition(uploadId, content);

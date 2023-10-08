@@ -7,9 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.lisasp.basics.spring.jpa.BaseEntity;
+import org.lisasp.competition.base.api.type.CourseType;
 import org.lisasp.competition.base.api.type.EventType;
 import org.lisasp.competition.base.api.type.Gender;
 import org.lisasp.competition.times.api.TimeDto;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -32,20 +35,25 @@ public class TimeEntity extends BaseEntity {
     private String name;
     private String club;
     private String nationality;
+    @Enumerated(EnumType.STRING)
+    private CourseType courseType;
+    private LocalDate date;
     private int timeInMillis;
 
     public TimeDto toDto() {
         return new TimeDto(getId(),
-                           getCompetition(),
-                           getAcronym(),
-                           getEventType(),
-                           getName(),
-                           getClub(),
-                           getNationality(),
-                           getAgegroup(),
-                           getGender(),
-                           getDiscipline(),
-                           getTimeInMillis());
+                getCompetition(),
+                getAcronym(),
+                getEventType(),
+                getName(),
+                getClub(),
+                getNationality(),
+                getAgegroup(),
+                getGender(),
+                getDiscipline(),
+                getTimeInMillis(),
+                getCourseType(),
+                getDate());
     }
 
     public void updateFrom(TimeDto time) {
@@ -58,6 +66,8 @@ public class TimeEntity extends BaseEntity {
         setAgegroup(time.agegroup());
         setGender(time.gender());
         setDiscipline(time.discipline());
+        setCourseType(time.courseType());
+        setDate(time.date());
         setTimeInMillis(time.timeInMillis());
     }
 }
