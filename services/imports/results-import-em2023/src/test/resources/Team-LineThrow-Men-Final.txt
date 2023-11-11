@@ -1,0 +1,14 @@
+Event 14;Men, Line Throw;OPEN
+23-9-2023 - 16:15;Results Finals
+Rank;Time
+Final A
+1.;Club A;Club A;10.27
+2.;Club B;Club B;12.56
+3.;Club C;Club C;13.35
+4.;Club D;Club D;13.49
+5.;Club E;Club E;14.87
+6.;Club F;Club F;15.58
+7.;Club G;Club G;28.03
+OTL;Club H;Club H
+Final B
+9.;Club I;Club I;23.66

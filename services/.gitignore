@@ -44,3 +44,4 @@ target/
 /data
 /distribution
 .env
+/imports/results-import-em2023/data/
