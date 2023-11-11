@@ -31,7 +31,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(r -> r
                 .requestMatchers("/h2-console/**").access((authentication, object) -> new AuthorizationDecision(testUIEnabled))
                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "", "/**").permitAll()
+                .requestMatchers(HttpMethod.GET).permitAll()
                 .requestMatchers(HttpMethod.PUT, "/result/import/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .anyRequest().authenticated());

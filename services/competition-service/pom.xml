@@ -22,7 +22,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.lisasp</groupId>
+            <groupId>org.lisasp.competition</groupId>
             <artifactId>basics-spring-jpa</artifactId>
         </dependency>
         <dependency>

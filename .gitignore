@@ -25,3 +25,5 @@ hs_err_pid*
 services/.jpb/
 
 services/competition-server/db/
+
+*.versionsBackup

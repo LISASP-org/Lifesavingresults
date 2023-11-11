@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.4</version>
         <relativePath/>
     </parent>
 
@@ -20,6 +20,11 @@
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
+        <module>basics-jre</module>
+        <module>basics-notification</module>
+        <module>basics-spring-jms</module>
+        <module>basics-spring-jpa</module>
+
         <module>authorization-api</module>
         <module>authorization-service</module>
 
@@ -35,16 +40,17 @@
         <module>results-distribution</module>
 
         <module>imports</module>
+        <module>imports/results-import-em2023</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
 
-        <basics.version>1.0.3</basics.version>
         <opencsv.version>5.8</opencsv.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <springdoc.version>2.2.0</springdoc.version>
+        <pdfbox.version>3.0.0</pdfbox.version>
 
         <lombok.version>1.18.30</lombok.version>
         <slf4j.version>2.0.9</slf4j.version>
@@ -74,24 +80,24 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.lisasp</groupId>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>basics-spring-jpa</artifactId>
-                <version>${basics.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp</groupId>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>basics-spring-jms</artifactId>
-                <version>${basics.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp</groupId>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>basics-jre</artifactId>
-                <version>${basics.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp</groupId>
+                <groupId>org.lisasp.competition</groupId>
                 <artifactId>basics-notification</artifactId>
-                <version>${basics.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
@@ -164,6 +170,16 @@
                 <groupId>com.opencsv</groupId>
                 <artifactId>opencsv</artifactId>
                 <version>${opencsv.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${pdfbox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox-io</artifactId>
+                <version>${pdfbox.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -350,7 +366,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.15.0</version>
+                    <version>1.15.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.projectlombok</groupId>

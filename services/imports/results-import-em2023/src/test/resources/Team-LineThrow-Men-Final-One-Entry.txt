@@ -1,0 +1,5 @@
+Event 14;Men, Line Throw;OPEN
+23-9-2023 - 16:15;Results Finals
+Rank;Time
+Final A
+1.;Name;Club;10.27
