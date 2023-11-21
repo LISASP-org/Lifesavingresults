@@ -5,7 +5,7 @@ server:
 
 app:
   keycloak:
-    server-url: http://localhost:48080
+    server-url: http://localhost:48080/
     realm: lifesaving
     client-id: lifesaving-results-webapp
     valid-redirect-urls: http://localhost:5173/*
@@ -32,7 +32,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${app.keycloak.server-url}/realms/${app.keycloak.realm}
+          #issuer-uri: ${app.keycloak.server-url}/realms/${app.keycloak.realm}
+          issuer-uri: ${app.keycloak.server-url}/oauth/v2/${app.keycloak.realm}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
   h2:
     console:

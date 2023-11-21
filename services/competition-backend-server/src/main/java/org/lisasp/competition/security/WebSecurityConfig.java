@@ -35,7 +35,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/result/import/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .anyRequest().authenticated());
-        http.oauth2ResourceServer(s -> s.jwt(j -> j.jwtAuthenticationConverter(jwtAuthConverter)));
+        // http.oauth2ResourceServer(s -> s.jwt(j -> j.jwtAuthenticationConverter(jwtAuthConverter)));
         http.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.cors(AbstractHttpConfigurer::disable);
         http.csrf(AbstractHttpConfigurer::disable);
