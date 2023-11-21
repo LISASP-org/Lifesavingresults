@@ -2,6 +2,7 @@ package org.lisasp.competition.runner;
 
 
 import lombok.Getter;
+import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,15 +32,15 @@ public class KeycloakAdminConfig {
         return usernames.stream().map(name -> new UserPass(name, name)).toList();
     }
 
-
     @Bean
     public Keycloak keycloakAdmin(@Value("${app.keycloak.server-url}") String keycloakServerUrl) {
         return KeycloakBuilder.builder()
-                              .serverUrl(keycloakServerUrl)
-                              .realm("master")
-                              .username("keycloak")
-                              .password("keycloak")
-                              .clientId("admin-cli")
-                              .build();
+                .serverUrl(keycloakServerUrl)
+                .realm("master")
+                .grantType(OAuth2Constants.PASSWORD)
+                .username("keycloak")
+                .password("keycloak")
+                .clientId("admin-cli")
+                .build();
     }
 }

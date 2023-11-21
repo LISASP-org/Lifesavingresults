@@ -32,10 +32,10 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
             log.info("Initializing '{}' realm in Keycloak ...", config.getRealmName());
 
             Optional<RealmRepresentation> representationOptional = keycloakAdmin.realms()
-                                                                                .findAll()
-                                                                                .stream()
-                                                                                .filter(r -> r.getRealm().equals(config.getRealmName()))
-                                                                                .findAny();
+                    .findAll()
+                    .stream()
+                    .filter(r -> r.getRealm().equals(config.getRealmName()))
+                    .findAny();
             if (representationOptional.isPresent()) {
                 log.info("Realm already initialized...");
                 return;
@@ -59,22 +59,22 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
 
             // Users
             List<UserRepresentation> userRepresentations = config.getUsers().stream()
-                                                                 .map(userPass -> {
-                                                                     // User Credentials
-                                                                     CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
-                                                                     credentialRepresentation.setType(CredentialRepresentation.PASSWORD);
-                                                                     credentialRepresentation.setValue(userPass.password());
+                    .map(userPass -> {
+                        // User Credentials
+                        CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
+                        credentialRepresentation.setType(CredentialRepresentation.PASSWORD);
+                        credentialRepresentation.setValue(userPass.password());
 
-                                                                     // User
-                                                                     UserRepresentation userRepresentation = new UserRepresentation();
-                                                                     userRepresentation.setUsername(userPass.username());
-                                                                     userRepresentation.setEnabled(true);
-                                                                     userRepresentation.setCredentials(List.of(credentialRepresentation));
-                                                                     userRepresentation.setClientRoles(getClientRoles(userPass));
+                        // User
+                        UserRepresentation userRepresentation = new UserRepresentation();
+                        userRepresentation.setUsername(userPass.username());
+                        userRepresentation.setEnabled(true);
+                        userRepresentation.setCredentials(List.of(credentialRepresentation));
+                        userRepresentation.setClientRoles(getClientRoles(userPass));
 
-                                                                     return userRepresentation;
-                                                                 })
-                                                                 .toList();
+                        return userRepresentation;
+                    })
+                    .toList();
             realmRepresentation.setUsers(userRepresentations);
 
             // Create Realm
@@ -84,11 +84,11 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
             UserPass admin = config.getUsers().get(0);
             log.info("Testing getting token for '{}' ...", admin.username());
 
-            try (Keycloak keycloakMovieApp = KeycloakBuilder.builder().serverUrl(config.getServerUrl())
-                                                            .realm(config.getRealmName()).username(admin.username()).password(admin.password())
-                                                            .clientId(config.getClientId()).build()) {
+            try (Keycloak keycloakRealmAccess = KeycloakBuilder.builder().serverUrl(config.getServerUrl())
+                    .realm(config.getRealmName()).username(admin.username()).password(admin.password())
+                    .clientId(config.getClientId()).build()) {
 
-                log.info("'{}' token: {}", admin.username(), keycloakMovieApp.tokenManager().grantToken().getToken());
+                log.info("'{}' token: {}", admin.username(), keycloakRealmAccess.tokenManager().grantToken().getToken());
                 log.info("'{}' initialization completed successfully!", config.getRealmName());
             }
         } catch (ProcessingException pe) {
