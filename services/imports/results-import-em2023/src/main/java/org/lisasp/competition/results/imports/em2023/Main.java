@@ -1,5 +1,7 @@
 package org.lisasp.competition.results.imports.em2023;
 
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -8,23 +10,27 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.util.Arrays.stream;
+
 public class Main {
 
     private static final Pattern ResultPattern = Pattern.compile(".*<a href=\"(.*pdf)\" target=\"_blank\">Results</a>.*");
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         importNationals();
-        // importInterclubs();
-        // importMasters();
+        importInterclubs();
+        importMasters();
     }
 
-    public static void importNationals() throws IOException {
+    public static void importNationals() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         String[] names = {"day2nmresults.pdf", "day2vmresults.pdf", "day3nmresults.pdf", "day3vmresults.pdf"};
         for (String name : names) {
             Path filename = Path.of("data", "downloads", "Nationals", name);
@@ -37,11 +43,11 @@ public class Main {
 
             ResultParser parser = new ResultParser();
             parser.push(Files.readAllLines(textFile));
-            Arrays.stream(parser.read()).forEach(System.out::println);
+            new ResultWriter().write(stream(parser.read()), Path.of("data","nationals.csv"));
         }
     }
 
-    public static void importMasters() throws IOException {
+    public static void importMasters() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         String[] names = {"day1nmresults.pdf", "day1vmresults.pdf", "day2nmresults.pdf", "day2vmresults.pdf"};
         for (String name : names) {
             Path filename = Path.of("data", "downloads", "Masters", name);
@@ -54,11 +60,11 @@ public class Main {
 
             ResultParser parser = new ResultParser();
             parser.push(Files.readAllLines(textFile));
-            Arrays.stream(parser.read()).forEach(System.out::println);
+            new ResultWriter().write(stream(parser.read()), Path.of("data","masters.csv"));
         }
     }
 
-    public static void importInterclubs() throws IOException {
+    public static void importInterclubs() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         Downloader downloader = new HttpDownloader("https://www.toptime.be/oresults/");
 
         Path indexPath = Path.of("data", "downloads", "Interclubs", "index.html");
@@ -69,7 +75,7 @@ public class Main {
         String index = Files.readString(indexPath).replace("</th>", "</th>\r\n").replace("</td>", "</td>\r\n").replace("</tr>", "</tr>\r\n");
 
 
-        String[] names = Arrays.stream(index.split("\r\n")).map(r -> r.replace("\t", " ").trim()).filter(r -> !r.isBlank())
+        String[] names = stream(index.split("\r\n")).map(r -> r.replace("\t", " ").trim()).filter(r -> !r.isBlank())
                 .map(row2 -> {
                     Matcher resultMatcher = ResultPattern.matcher(row2);
                     return resultMatcher.matches() ? resultMatcher.group(1) : "";
@@ -89,7 +95,7 @@ public class Main {
 
             ResultParser parser = new ResultParser();
             parser.push(Files.readAllLines(textFile));
-            Arrays.stream(parser.read()).forEach(System.out::println);
+            new ResultWriter().write(stream(parser.read()), Path.of("data","interclubs.csv"));
         }
     }
 
@@ -116,7 +122,7 @@ public class Main {
             pdfStripper.setWordSeparator(";");
 
             //Retrieving text from PDF document
-            return Arrays.stream(pdfStripper.getText(pdf)
+            return stream(pdfStripper.getText(pdf)
                             .replace("\r", "")
                             .split("\n"))
                     .filter(line -> !isInfoLine(line))

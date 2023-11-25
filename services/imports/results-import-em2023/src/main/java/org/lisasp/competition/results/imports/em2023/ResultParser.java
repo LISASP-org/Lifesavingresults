@@ -1,5 +1,8 @@
 package org.lisasp.competition.results.imports.em2023;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -8,7 +11,7 @@ import java.util.regex.Pattern;
 public class ResultParser {
 
     private static final Pattern EventPattern = Pattern.compile("^Event \\d*;([a-zA-Z]*), ([a-zA-Z0-9\\s]*);([a-zA-Z\\s-\\d]*)$");
-    private static final Pattern RoundPattern = Pattern.compile("^\\d{2}-\\d{1,2}-2023 - \\d{2}:\\d{2};Results\\w?(.*)$");
+    private static final Pattern RoundPattern = Pattern.compile("^(\\d{2})-(\\d{1,2})-2023 - \\d{2}:\\d{2};Results\\w?(.*)$");
     private static final Pattern TeamEntryPattern = Pattern.compile("^([a-zA-Z0-9]+)\\.;([a-zA-Z0-9/\\-\\s]+);([a-zA-Z0-9/\\-\\s]+);([:\\d\\.]*)");
     private static final Pattern TeamPenaltyPattern = Pattern.compile("^([a-zA-Z0-9]+);([a-zA-Z0-9/\\-\\s]+);([a-zA-Z0-9/\\-\\s]+)$");
     private static final Pattern IndividualEntryPattern = Pattern.compile("^([a-zA-Z0-9]+)\\.;([a-zA-Z0-9,/\\-\\s,]+);([0-9]*);([a-zA-Z0-9/\\-\\s]+);([\\d\\.:]*)(;\\w)?(;\\d+)?(;\\w+)?([;\\d\\.]+)");
@@ -16,11 +19,15 @@ public class ResultParser {
     private static final Pattern FinalPattern = Pattern.compile("^Final ([a-zA-Z]+)$");
     private static final Pattern HeaderPattern = Pattern.compile("^Rank(;YB)?;Time(;Pts)?(.*)$");
 
+    private LocalDate date;
+    private String event;
     private String agegroup;
     private String gender;
     private String discipline;
     private String round;
     private String finalType;
+
+    private String yearOfBirth;
     private int intermediateTimes;
 
     public ResultParser() {
@@ -34,11 +41,13 @@ public class ResultParser {
     }
 
     private void clear() {
+        date = LocalDate.of(2023, Month.SEPTEMBER, 1);
         agegroup = "";
         gender = "";
         discipline = "";
         round = "";
         finalType = "";
+        event = "";
         intermediateTimes = 0;
     }
 
@@ -103,7 +112,7 @@ public class ResultParser {
             default -> 0;
         };
 
-        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round));
+        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round, date.format(DateTimeFormatter.BASIC_ISO_DATE), event, yearOfBirth));
 
         return true;
     }
@@ -124,7 +133,7 @@ public class ResultParser {
             default -> 0;
         };
 
-        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round));
+        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round, date.format(DateTimeFormatter.BASIC_ISO_DATE), event, yearOfBirth));
 
         return true;
     }
@@ -143,7 +152,7 @@ public class ResultParser {
         int rank = Integer.parseInt(rankString);
         int timeInMillis = convertTimeString(time);
 
-        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round));
+        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round, date.format(DateTimeFormatter.BASIC_ISO_DATE), event, yearOfBirth));
 
         return true;
     }
@@ -155,7 +164,7 @@ public class ResultParser {
         }
         String rankString = matcher.group(1);
         String name = matcher.group(2);
-        String yearOfBirth = matcher.group(3);
+        yearOfBirth = matcher.group(3);
         String club = matcher.group(4);
         String time = matcher.group(5);
         String penalty = "";
@@ -163,7 +172,7 @@ public class ResultParser {
         int rank = Integer.parseInt(rankString);
         int timeInMillis = convertTimeString(time);
 
-        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round));
+        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round, date.format(DateTimeFormatter.BASIC_ISO_DATE), event, yearOfBirth));
 
         return true;
     }
@@ -183,7 +192,9 @@ public class ResultParser {
         if (!matcher.find()) {
             return false;
         }
-        round = matcher.group(1).trim();
+        int day = Integer.parseInt(matcher.group(1).trim());
+        date = LocalDate.of(2023, Month.SEPTEMBER, day);
+        round = matcher.group(3).trim();
         return true;
     }
 
