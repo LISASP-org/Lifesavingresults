@@ -1,14 +1,14 @@
-package org.lisasp.competition.results.imports.em2023;
+package org.lisasp.competition.results.imports.rescue2022;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.Builder;
 import lombok.Data;
-import org.lisasp.competition.results.imports.em2023.csv.CsvBindByNameOrder;
+import org.lisasp.competition.results.imports.rescue2022.csv.CsvBindByNameOrder;
 
 @Data
 @Builder
 @CsvBindByNameOrder({"rank", "name", "yearOfBirth", "club", "members", "time", "agegroup", "gender", "discipline", "date", "event" })
-public class EMEntity {
+public class RescueEntity {
     @CsvBindByName
     private String rank;
     @CsvBindByName

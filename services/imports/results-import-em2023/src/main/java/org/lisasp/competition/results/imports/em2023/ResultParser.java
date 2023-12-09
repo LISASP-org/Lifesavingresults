@@ -8,16 +8,26 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.String.format;
+
 public class ResultParser {
 
-    private static final Pattern EventPattern = Pattern.compile("^Event \\d*;([a-zA-Z]*), ([a-zA-Z0-9\\s]*);([a-zA-Z\\s-\\d]*)$");
-    private static final Pattern RoundPattern = Pattern.compile("^(\\d{2})-(\\d{1,2})-2023 - \\d{2}:\\d{2};Results\\w?(.*)$");
-    private static final Pattern TeamEntryPattern = Pattern.compile("^([a-zA-Z0-9]+)\\.;([a-zA-Z0-9/\\-\\s]+);([a-zA-Z0-9/\\-\\s]+);([:\\d\\.]*)");
-    private static final Pattern TeamPenaltyPattern = Pattern.compile("^([a-zA-Z0-9]+);([a-zA-Z0-9/\\-\\s]+);([a-zA-Z0-9/\\-\\s]+)$");
-    private static final Pattern IndividualEntryPattern = Pattern.compile("^([a-zA-Z0-9]+)\\.;([a-zA-Z0-9,/\\-\\s,]+);([0-9]*);([a-zA-Z0-9/\\-\\s]+);([\\d\\.:]*)(;\\w)?(;\\d+)?(;\\w+)?([;\\d\\.]+)");
-    private static final Pattern IndividualPenaltyPattern = Pattern.compile("^([a-zA-Z0-9]+);([a-zA-Z0-9/\\-\\s]+);([a-zA-Z0-9/\\-\\s]+)$");
+    private static final Pattern EventPattern =
+            Pattern.compile("^Event (\\d+);([a-zA-Z]*), ([a-zA-Z0-9\\s]*);([a-zA-Z\\s-\\d]*)$");
+    private static final Pattern RoundPattern =
+            Pattern.compile("^(\\d{2})-(\\d{1,2})-2023 - \\d{2}:\\d{2};Results\\w?(.*)$");
+    private static final Pattern TeamEntryPattern =
+            Pattern.compile("^([a-zA-Z0-9]+)\\.;([a-zA-Z0-9/\\-\\s]+);([a-zA-Z0-9/\\-\\s]+);([:\\d\\.]*)");
+    private static final Pattern TeamPenaltyPattern =
+            Pattern.compile("^([a-zA-Z0-9]+);([a-zA-Z0-9/\\-\\s]+);([a-zA-Z0-9/\\-\\s]+)$");
+    private static final Pattern IndividualEntryPattern = Pattern.compile(
+            "^([a-zA-Z0-9]+)\\.;([a-zA-Z0-9,/\\-\\s,]+);([0-9]*);([a-zA-Z0-9/\\-\\s]+);([\\d\\.:]*)(;\\w)?(;\\d+)?(;\\w+)?([;\\d\\.]+)");
+    private static final Pattern IndividualPenaltyPattern =
+            Pattern.compile("^([a-zA-Z0-9]+);([a-zA-Z0-9/\\-\\s]+);([a-zA-Z0-9/\\-\\s]+)$");
     private static final Pattern FinalPattern = Pattern.compile("^Final ([a-zA-Z]+)$");
     private static final Pattern HeaderPattern = Pattern.compile("^Rank(;YB)?;Time(;Pts)?(.*)$");
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     private LocalDate date;
     private String event;
@@ -30,14 +40,21 @@ public class ResultParser {
     private String yearOfBirth;
     private int intermediateTimes;
 
+    private final List<Entry> entries = new ArrayList<>();
+
     public ResultParser() {
         clear();
     }
-    private final List<Entry> entries = new ArrayList<>();
 
     void push(List<String> lines) {
+        int count = entries.size();
         clear();
         lines.forEach(this::push);
+        if (count == entries.size()) {
+            System.out.println("  No new entries added.");
+        } else {
+            System.out.printf("  %d new entries added.%n", entries.size() - count);
+        }
     }
 
     private void clear() {
@@ -49,6 +66,7 @@ public class ResultParser {
         finalType = "";
         event = "";
         intermediateTimes = 0;
+        yearOfBirth = "";
     }
 
     private void push(String line) {
@@ -112,7 +130,19 @@ public class ResultParser {
             default -> 0;
         };
 
-        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round, date.format(DateTimeFormatter.BASIC_ISO_DATE), event, yearOfBirth));
+
+        entries.add(new Entry(agegroup,
+                              gender,
+                              name,
+                              club,
+                              timeInMillis,
+                              discipline,
+                              rank,
+                              penalty,
+                              round,
+                              date.format(formatter),
+                              event,
+                              yearOfBirth));
 
         return true;
     }
@@ -133,7 +163,18 @@ public class ResultParser {
             default -> 0;
         };
 
-        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round, date.format(DateTimeFormatter.BASIC_ISO_DATE), event, yearOfBirth));
+        entries.add(new Entry(agegroup,
+                              gender,
+                              name,
+                              club,
+                              timeInMillis,
+                              discipline,
+                              rank,
+                              penalty,
+                              round,
+                              date.format(formatter),
+                              event,
+                              yearOfBirth));
 
         return true;
     }
@@ -152,7 +193,18 @@ public class ResultParser {
         int rank = Integer.parseInt(rankString);
         int timeInMillis = convertTimeString(time);
 
-        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round, date.format(DateTimeFormatter.BASIC_ISO_DATE), event, yearOfBirth));
+        entries.add(new Entry(agegroup,
+                              gender,
+                              name,
+                              club,
+                              timeInMillis,
+                              discipline,
+                              rank,
+                              penalty,
+                              round,
+                              date.format(formatter),
+                              event,
+                              yearOfBirth));
 
         return true;
     }
@@ -172,7 +224,18 @@ public class ResultParser {
         int rank = Integer.parseInt(rankString);
         int timeInMillis = convertTimeString(time);
 
-        entries.add(new Entry(agegroup, gender, name, club, timeInMillis, discipline, rank, penalty, round, date.format(DateTimeFormatter.BASIC_ISO_DATE), event, yearOfBirth));
+        entries.add(new Entry(agegroup,
+                              gender,
+                              name,
+                              club,
+                              timeInMillis,
+                              discipline,
+                              rank,
+                              penalty,
+                              round,
+                              date.format(formatter),
+                              event,
+                              yearOfBirth));
 
         return true;
     }
@@ -204,9 +267,10 @@ public class ResultParser {
             return false;
         }
         clear();
-        gender = matcher.group(1);
-        discipline = matcher.group(2);
-        agegroup = matcher.group(3);
+        event = matcher.group(1);
+        gender = matcher.group(2);
+        discipline = matcher.group(3);
+        agegroup = matcher.group(4);
         return true;
     }
 

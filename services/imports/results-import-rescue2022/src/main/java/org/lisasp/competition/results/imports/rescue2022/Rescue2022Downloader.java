@@ -1,5 +1,7 @@
 package org.lisasp.competition.results.imports.rescue2022;
 
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.basics.jre.io.ActualFile;
 
@@ -11,14 +13,14 @@ public class Rescue2022Downloader {
 
     public static final Path DIRECTORY = Path.of(".");
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         process("Rescue 2022", "Open");
         process("Rescue 2022", "Youth");
         process("Rescue 2022", "Master");
         process("RescueCup 2022", "RescueCup");
     }
 
-    private static void process(String competition, String type) throws IOException {
+    private static void process(String competition, String type) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         log.info("Processing {} {}", competition, type);
         HttpDownloader downloader = new HttpDownloader("https://lifesavingwc2022.microplustimingservices.com/export/LWC2022_%s/NU/%s");
         new ResultsDownloader(downloader, new ActualFile(), DIRECTORY).download(competition, type);

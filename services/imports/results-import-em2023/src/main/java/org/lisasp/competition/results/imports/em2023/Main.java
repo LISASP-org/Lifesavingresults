@@ -22,7 +22,8 @@ import static java.util.Arrays.stream;
 
 public class Main {
 
-    private static final Pattern ResultPattern = Pattern.compile(".*<a href=\"(.*pdf)\" target=\"_blank\">Results</a>.*");
+    private static final Pattern ResultPattern =
+            Pattern.compile(".*<a href=\"(.*pdf)\" target=\"_blank\">Results</a>.*");
 
     public static void main(String[] args) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         importNationals();
@@ -32,6 +33,8 @@ public class Main {
 
     public static void importNationals() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         String[] names = {"day2nmresults.pdf", "day2vmresults.pdf", "day3nmresults.pdf", "day3vmresults.pdf"};
+
+        ResultParser parser = new ResultParser();
         for (String name : names) {
             Path filename = Path.of("data", "downloads", "Nationals", name);
             Path textFile = changeExtension(filename, "txt");
@@ -41,14 +44,15 @@ public class Main {
 
             System.out.println(textFile);
 
-            ResultParser parser = new ResultParser();
             parser.push(Files.readAllLines(textFile));
-            new ResultWriter().write(stream(parser.read()), Path.of("data","nationals.csv"));
         }
+        new ResultWriter().write(stream(parser.read()), Path.of("data", "nationals.csv"));
     }
 
     public static void importMasters() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         String[] names = {"day1nmresults.pdf", "day1vmresults.pdf", "day2nmresults.pdf", "day2vmresults.pdf"};
+
+        ResultParser parser = new ResultParser();
         for (String name : names) {
             Path filename = Path.of("data", "downloads", "Masters", name);
             Path textFile = changeExtension(filename, "txt");
@@ -58,10 +62,9 @@ public class Main {
 
             System.out.println(textFile);
 
-            ResultParser parser = new ResultParser();
             parser.push(Files.readAllLines(textFile));
-            new ResultWriter().write(stream(parser.read()), Path.of("data","masters.csv"));
         }
+        new ResultWriter().write(stream(parser.read()), Path.of("data", "masters.csv"));
     }
 
     public static void importInterclubs() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
@@ -72,14 +75,19 @@ public class Main {
             Files.write(indexPath, downloader.download("index_us.html"), StandardOpenOption.CREATE);
         }
 
-        String index = Files.readString(indexPath).replace("</th>", "</th>\r\n").replace("</td>", "</td>\r\n").replace("</tr>", "</tr>\r\n");
+        String index = Files.readString(indexPath)
+                            .replace("</th>", "</th>\r\n")
+                            .replace("</td>", "</td>\r\n")
+                            .replace("</tr>", "</tr>\r\n");
 
 
         String[] names = stream(index.split("\r\n")).map(r -> r.replace("\t", " ").trim()).filter(r -> !r.isBlank())
-                .map(row2 -> {
-                    Matcher resultMatcher = ResultPattern.matcher(row2);
-                    return resultMatcher.matches() ? resultMatcher.group(1) : "";
-                }).filter(r -> !r.isBlank()).sorted().toArray(String[]::new);
+                                                    .map(row2 -> {
+                                                        Matcher resultMatcher = ResultPattern.matcher(row2);
+                                                        return resultMatcher.matches() ? resultMatcher.group(1) : "";
+                                                    }).filter(r -> !r.isBlank()).sorted().toArray(String[]::new);
+
+        ResultParser parser = new ResultParser();
         for (String name : names) {
             Path filename = Path.of("data", "downloads", "Interclubs", name);
             if (!Files.exists(filename)) {
@@ -93,10 +101,9 @@ public class Main {
 
             System.out.println(textFile);
 
-            ResultParser parser = new ResultParser();
             parser.push(Files.readAllLines(textFile));
-            new ResultWriter().write(stream(parser.read()), Path.of("data","interclubs.csv"));
         }
+        new ResultWriter().write(stream(parser.read()), Path.of("data", "interclubs.csv"));
     }
 
     public static Path changeExtension(Path source, String extension) {
@@ -123,14 +130,19 @@ public class Main {
 
             //Retrieving text from PDF document
             return stream(pdfStripper.getText(pdf)
-                            .replace("\r", "")
-                            .split("\n"))
+                                     .replace("\r", "")
+                                     .split("\n"))
                     .filter(line -> !isInfoLine(line))
                     .toList();
         }
     }
 
-    private static final Set<String> InfoLineStarts = Set.of("European Record", "World Record", "Splash Meet Manager", "European Championships Lifesaving Interclub", "Brugge/Blankenberge", "Points: ILS 2016");
+    private static final Set<String> InfoLineStarts = Set.of("European Record",
+                                                             "World Record",
+                                                             "Splash Meet Manager",
+                                                             "European Championships Lifesaving Interclub",
+                                                             "Brugge/Blankenberge",
+                                                             "Points: ILS 2016");
 
     private static boolean isInfoLine(String line) {
         for (String start : InfoLineStarts) {
