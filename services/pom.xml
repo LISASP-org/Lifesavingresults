@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
         <relativePath/>
     </parent>
 
@@ -40,7 +40,6 @@
         <module>results-distribution</module>
 
         <module>imports</module>
-        <module>imports/results-import-em2023</module>
     </modules>
 
     <properties>
@@ -49,21 +48,21 @@
 
         <opencsv.version>5.9</opencsv.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <springdoc.version>2.2.0</springdoc.version>
-        <pdfbox.version>3.0.0</pdfbox.version>
+        <springdoc.version>2.3.0</springdoc.version>
+        <pdfbox.version>3.0.1</pdfbox.version>
 
         <lombok.version>1.18.30</lombok.version>
-        <slf4j.version>2.0.9</slf4j.version>
+        <slf4j.version>2.0.10</slf4j.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.10.1</junit-jupiter.version>
-        <mockito.version>5.7.0</mockito.version>
+        <mockito.version>5.8.0</mockito.version>
         <testcontainers.version>1.19.3</testcontainers.version>
         <testcontainers-keycloak.version>3.2.0</testcontainers-keycloak.version>
 
-        <keycloak.version>23.0.1</keycloak.version>
+        <keycloak.version>23.0.3</keycloak.version>
         <artemismq.version>2.31.2</artemismq.version>
-        <mariadb.version>3.3.0</mariadb.version>
+        <mariadb.version>3.3.2</mariadb.version>
         <h2.version>2.2.224</h2.version>
 
         <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
@@ -331,7 +330,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.11.0</version>
+                    <version>3.12.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -376,12 +375,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.2.2</version>
+                    <version>3.2.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.2.2</version>
+                    <version>3.2.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
