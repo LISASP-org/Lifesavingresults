@@ -1,4 +1,4 @@
-package org.lisasp.basics.notification;
+package org.lisasp.basics.jre.function;
 
 import lombok.Synchronized;
 

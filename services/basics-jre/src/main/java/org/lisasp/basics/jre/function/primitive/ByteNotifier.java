@@ -1,6 +1,7 @@
-package org.lisasp.basics.notification.primitive;
+package org.lisasp.basics.jre.function.primitive;
 
 import lombok.Synchronized;
+import org.lisasp.basics.jre.function.primitive.ByteConsumer;
 
 import java.util.ArrayList;
 import java.util.List;

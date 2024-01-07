@@ -1,10 +1,7 @@
 package org.lisasp.basics.spring.jpa;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Persistable;
 
@@ -18,6 +15,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @SuperBuilder
+@AllArgsConstructor
 @MappedSuperclass
 public abstract class BaseEntity implements Persistable<String> {
 

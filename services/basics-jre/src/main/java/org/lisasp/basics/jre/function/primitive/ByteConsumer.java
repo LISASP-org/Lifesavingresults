@@ -1,4 +1,4 @@
-package org.lisasp.basics.notification.primitive;
+package org.lisasp.basics.jre.function.primitive;
 
 /**
  * Listener implementation for byte.

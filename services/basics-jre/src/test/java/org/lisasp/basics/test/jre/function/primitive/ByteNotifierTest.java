@@ -1,11 +1,10 @@
-package org.lisasp.basics.test.notification.primitive;
+package org.lisasp.basics.test.jre.function.primitive;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lisasp.basics.notification.primitive.ByteConsumer;
-import org.lisasp.basics.notification.primitive.ByteNotifier;
-import org.mockito.Mockito;
+import org.lisasp.basics.jre.function.primitive.ByteConsumer;
+import org.lisasp.basics.jre.function.primitive.ByteNotifier;
 
 import static org.mockito.Mockito.*;
 
@@ -23,7 +22,7 @@ class ByteNotifierTest {
             data[x + 128] = (byte) x;
         }
 
-        listener = Mockito.mock(ByteConsumer.class);
+        listener = mock(ByteConsumer.class);
 
         notifier = new ByteNotifier();
         notifier.register(listener);

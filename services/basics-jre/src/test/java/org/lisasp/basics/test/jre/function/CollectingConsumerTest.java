@@ -1,9 +1,9 @@
-package org.lisasp.basics.test.notification;
+package org.lisasp.basics.test.jre.function;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lisasp.basics.notification.CollectingConsumer;
+import org.lisasp.basics.jre.function.CollectingConsumer;
 import org.mockito.Mockito;
 
 import java.util.function.Consumer;
