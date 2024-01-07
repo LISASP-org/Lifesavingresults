@@ -20,6 +20,8 @@
     <modules>
         <module>results-import-orangecup2022</module>
         <module>results-import-rescue2022</module>
+        <module>results-import-em2023</module>
+        <module>results-import-elyc2023</module>
     </modules>
 
     <properties>

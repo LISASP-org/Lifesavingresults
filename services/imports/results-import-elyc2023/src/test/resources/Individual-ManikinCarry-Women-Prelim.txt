@@ -1,0 +1,4 @@
+Event 25;Women, 50m Manikin Carry;OPEN
+10-9-2023 - 10:25;Results Prelim
+Rank;YB;Time
+1.;Second, First;03;NO/W;35.19;A
