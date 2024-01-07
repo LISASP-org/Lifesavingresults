@@ -3,6 +3,7 @@ package org.lisasp.basics.test.spring.jpa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.lisasp.basics.spring.jpa.TimestampedEntity;
 
 import java.lang.reflect.Field;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 public class TestTimestampedEntity extends TimestampedEntity {
 
     @Column(nullable = false)

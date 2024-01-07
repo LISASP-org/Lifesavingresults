@@ -1,9 +1,11 @@
 module org.lisasp.basics.test.jpa {
     requires org.lisasp.basics.spring.jpa;
 
-    opens org.lisasp.basics.test.spring.jpa to spring.core, org.hibernate.orm.core, org.junit.platform.commons;
+    opens org.lisasp.basics.test.spring.jpa to spring.core, spring.beans, spring.context, org.hibernate.orm.core, org.junit.platform.commons;
 
     requires jakarta.persistence;
+    requires jakarta.transaction;
+    requires jakarta.cdi;
 
     requires spring.data.jpa;
     requires spring.beans;

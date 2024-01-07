@@ -28,9 +28,8 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Tag("IntegrationTest")
 @SpringBootTest
-public class ImportServiceIntegrationTest {
+public class ImportServiceIntegrationIT {
 
     private static final LocalDate date1 = LocalDate.of(2023, Month.JUNE, 17);
     private static final LocalDate date2 = LocalDate.of(2023, Month.JUNE, 19);

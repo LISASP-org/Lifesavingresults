@@ -19,7 +19,6 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@Tag("FastTest")
 @ExtendWith(MockitoExtension.class)
 class CompetitionServiceTests {
 

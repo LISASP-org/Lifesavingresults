@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Setter
 public class TestDoubleEntryResultRepository extends TestDoubleCrudRepository<EntryResultEntity> implements EntryResultRepository {
 
-    @Setter
     private TestDoubleEventResultRepository eventRepository;
 
     @Override

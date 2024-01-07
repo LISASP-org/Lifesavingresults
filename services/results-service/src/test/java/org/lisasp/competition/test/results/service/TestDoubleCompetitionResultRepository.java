@@ -8,9 +8,9 @@ import org.lisasp.competition.results.service.CompetitionResultRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 
+@Setter
 public class TestDoubleCompetitionResultRepository extends TestDoubleCrudRepository<CompetitionResultEntity> implements CompetitionResultRepository {
 
-    @Setter
     private TestDoubleEventResultRepository eventRepository;
 
     @Override

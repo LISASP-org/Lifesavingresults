@@ -28,7 +28,6 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@Tag("FastTest")
 class ResultServiceTests {
 
     private static final LocalDate date1 = LocalDate.of(2023, Month.AUGUST, 3);

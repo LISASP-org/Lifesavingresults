@@ -2,8 +2,11 @@ package org.lisasp.basics.spring.jpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -12,9 +15,12 @@ import java.util.Objects;
 /**
  * BaseEntity extension with modification timestamp handling
  */
-@MappedSuperclass
-@NoArgsConstructor
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+@MappedSuperclass
 public abstract class TimestampedEntity extends BaseEntity {
 
     /**

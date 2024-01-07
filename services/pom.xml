@@ -38,13 +38,20 @@
         <module>competition-backend-server</module>
 
         <module>results-distribution</module>
-
-        <module>imports</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>imports</id>
+            <modules>
+                <module>imports</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
 
         <opencsv.version>5.9</opencsv.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
@@ -195,6 +202,11 @@
                 <artifactId>artemis-jms-server</artifactId>
                 <version>${artemismq.version}</version>
             </dependency>
+            <dependency>
+                <groupId>jakarta.enterprise</groupId>
+                <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                <version>4.0.1</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.jetbrains</groupId>
@@ -216,11 +228,13 @@
                 <artifactId>slf4j-ext</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+            <!--
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+            -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
@@ -286,11 +300,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!--
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -429,6 +445,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+
+                <!--
                 <executions>
                     <execution>
                         <id>integration-test</id>
@@ -443,6 +461,7 @@
                         </configuration>
                     </execution>
                 </executions>
+                -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

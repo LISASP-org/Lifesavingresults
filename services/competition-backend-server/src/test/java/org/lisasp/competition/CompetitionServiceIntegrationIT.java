@@ -28,9 +28,8 @@ import java.time.Month;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@Tag("IntegrationTest")
 @SpringBootTest
-class CompetitionServiceIntegrationTests {
+class CompetitionServiceIntegrationIT {
 
     private static final LocalDate date1 = LocalDate.of(2023, Month.JUNE, 17);
     private static final LocalDate date2 = LocalDate.of(2023, Month.JUNE, 19);

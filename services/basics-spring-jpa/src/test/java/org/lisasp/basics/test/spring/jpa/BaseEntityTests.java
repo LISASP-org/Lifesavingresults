@@ -6,8 +6,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class BaseEntityTests {
 
     @Test
@@ -64,7 +62,7 @@ class BaseEntityTests {
     void equalsSelf() {
         TestBaseEntity entity = new TestBaseEntity();
 
-        assertEquals(entity, entity);
+        assertTrue(entity.equals(entity));
     }
 
     @Test
