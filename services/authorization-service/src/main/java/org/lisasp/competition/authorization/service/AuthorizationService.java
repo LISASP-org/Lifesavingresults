@@ -16,6 +16,7 @@ public class AuthorizationService {
     public boolean hasAuthorization(AuthorizationRequest request) {
         String[] roles = userRoleService.findRoles(request.username(), request.resourceId());
         return roleService.hasAuthorization(Arrays.stream(roles).toArray(String[]::new), request.right());
+        // return true;
     }
 
     public void addUserRole(String username, String role, String resourceId) {

@@ -50,6 +50,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
             // Client
             ClientRepresentation clientRepresentation = new ClientRepresentation();
             clientRepresentation.setClientId(config.getClientId());
+            clientRepresentation.setSecret(config.getClientId());
             clientRepresentation.setDirectAccessGrantsEnabled(true);
             clientRepresentation.setPublicClient(true);
             clientRepresentation.setRedirectUris(config.getValidRedirectUrls());

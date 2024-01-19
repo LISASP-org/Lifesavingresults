@@ -58,15 +58,15 @@
         <pdfbox.version>3.0.1</pdfbox.version>
 
         <lombok.version>1.18.30</lombok.version>
-        <slf4j.version>2.0.10</slf4j.version>
+        <slf4j.version>2.0.11</slf4j.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.10.1</junit-jupiter.version>
-        <mockito.version>5.8.0</mockito.version>
+        <mockito.version>5.9.0</mockito.version>
         <testcontainers.version>1.19.3</testcontainers.version>
         <testcontainers-keycloak.version>3.2.0</testcontainers-keycloak.version>
 
-        <keycloak.version>23.0.3</keycloak.version>
+        <keycloak.version>22.0.5</keycloak.version>
         <artemismq.version>2.31.2</artemismq.version>
         <mariadb.version>3.3.2</mariadb.version>
         <h2.version>2.2.224</h2.version>
@@ -368,7 +368,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.15.3</version>
+                    <version>1.15.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.projectlombok</groupId>
@@ -378,17 +378,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.2.3</version>
+                    <version>3.2.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.2.3</version>
+                    <version>3.2.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.4.0</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
