@@ -9,7 +9,6 @@ module org.lisasp.basics.test.jre {
 
     requires org.mockito;
 
-    requires transitive org.junit.jupiter.engine;
     requires transitive org.junit.jupiter.api;
     requires transitive org.junit.jupiter.params;
 }

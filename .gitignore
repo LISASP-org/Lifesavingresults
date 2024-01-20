@@ -27,3 +27,7 @@ services/.jpb/
 services/competition-server/db/
 
 *.versionsBackup
+
+services/.profiler/
+
+services/.mvn/

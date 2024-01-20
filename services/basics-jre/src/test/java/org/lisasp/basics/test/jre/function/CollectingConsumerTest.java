@@ -1,57 +1,46 @@
 package org.lisasp.basics.test.jre.function;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lisasp.basics.jre.function.CollectingConsumer;
-import org.mockito.Mockito;
 
-import java.util.function.Consumer;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CollectingConsumerTest {
 
     private CollectingConsumer<String> consumer;
-    private Consumer<String> listener;
+    private TestConsumer<String> listener;
 
     @BeforeEach
-    @SuppressWarnings("unchecked")
     void prepare() {
         consumer = new CollectingConsumer<>();
-        listener = (Consumer<String>) Mockito.mock(Consumer.class);
-    }
-
-    @AfterEach
-    void cleanup() {
-        consumer = null;
-        listener = null;
+        listener = new TestConsumer<>();
     }
 
     @Test
     void accept() {
         consumer.accept("Test");
+
         assertFalse(consumer.isEmpty());
+        listener.assertAllValuesWereConsumed();
     }
 
     @Test
     void forEach() {
+        listener.setTestValues("Test 1", "Test 2", "Test 3");
+
         consumer.accept("Test 1");
         consumer.accept("Test 2");
         consumer.accept("Test 3");
 
         consumer.forEach(listener);
 
-        verify(listener, times(1)).accept("Test 1");
-        verify(listener, times(1)).accept("Test 2");
-        verify(listener, times(1)).accept("Test 3");
-        verifyNoMoreInteractions(listener);
+        listener.assertAllValuesWereConsumed();
     }
 
     @Test
     void isEmpty() {
         assertTrue(consumer.isEmpty());
     }
+
 }

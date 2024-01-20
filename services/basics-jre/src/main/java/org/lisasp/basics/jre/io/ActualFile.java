@@ -8,6 +8,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
 import java.util.function.BiPredicate;
 import java.util.stream.Stream;
 
@@ -57,6 +58,8 @@ public class ActualFile implements FileFacade {
     }
 
     public Stream<Path> find(Path basePath, int maxDepth, @NonNull BiPredicate<Path, BasicFileAttributes> matcher) throws IOException {
-        return Files.find(basePath, maxDepth, matcher);
+        try (Stream<Path> paths = Files.find(basePath, maxDepth, matcher)) {
+            return Arrays.stream(paths.toArray(Path[]::new));
+        }
     }
 }

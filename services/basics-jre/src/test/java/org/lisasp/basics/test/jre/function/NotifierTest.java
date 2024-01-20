@@ -13,43 +13,37 @@ import static org.mockito.Mockito.*;
 class NotifierTest {
 
     private Notifier<String> notifier;
-    private Consumer<String> listener;
+    private TestConsumer<String> listener;
 
     @BeforeEach
-    @SuppressWarnings("unchecked")
     void prepare() {
-        listener = Mockito.mock(Consumer.class);
+        listener = new TestConsumer<>();
 
         notifier = new Notifier<>();
         notifier.register(listener);
     }
 
-    @AfterEach
-    void cleanup() {
-        notifier = null;
-        listener = null;
-    }
-
     @Test
     void acceptEmpty() {
-        verifyNoMoreInteractions(listener);
+        listener.assertAllValuesWereConsumed();
     }
 
     @Test
     void acceptOne() {
+        listener.setTestValues("Test");
+
         notifier.accept("Test");
 
-        verify(listener, times(1)).accept("Test");
-        verifyNoMoreInteractions(listener);
+        listener.assertAllValuesWereConsumed();
     }
 
     @Test
     void acceptTwo() {
+        listener.setTestValues("Test 1", "Test 2");
+
         notifier.accept("Test 1");
         notifier.accept("Test 2");
 
-        verify(listener, times(1)).accept("Test 1");
-        verify(listener, times(1)).accept("Test 2");
-        verifyNoMoreInteractions(listener);
+        listener.assertAllValuesWereConsumed();
     }
 }

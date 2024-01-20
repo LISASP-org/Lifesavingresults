@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Transactional
 @SpringBootTest
-class AuthorizationServiceTests {
+class AuthorizationServiceIT {
 
     private final AuthorizationRequest readResource15Request = new AuthorizationRequest("me", Right.builder().module("module1").name("id-15").build(), "read");
 
@@ -34,7 +34,7 @@ class AuthorizationServiceTests {
 
     @BeforeEach
     void prepare() throws CouldNotInitializeException {
-        roleService = new RoleService().loadRoles(AuthorizationServiceTests.class.getResourceAsStream("/authorizationServiceTestsRoles.yaml"));
+        roleService = new RoleService().loadRoles(AuthorizationServiceIT.class.getResourceAsStream("/authorizationServiceTestsRoles.yaml"));
         service = new AuthorizationService(roleService, userRoleService);
         testDatabaseHelper.prepare();
     }
@@ -78,7 +78,7 @@ class AuthorizationServiceTests {
     @ParameterizedTest
     @CsvSource({"me,user,id-1,module1,create", "another,guest,id-13,module2,read", "we,editor,id-95,module3,update", "different,cleaner,id-1234567890,module4,delete"})
     void addAuthorizationWithoutPredefinedRole(String username, String role, String resourceId, String module, String action) throws CouldNotInitializeException {
-        roleService.loadRoles(AuthorizationServiceTests.class.getResourceAsStream("/emptyRoles.yaml"));
+        roleService.loadRoles(AuthorizationServiceIT.class.getResourceAsStream("/emptyRoles.yaml"));
 
         userRoleService.add(new UserRole(username, role, resourceId));
         testDatabaseHelper.commit();

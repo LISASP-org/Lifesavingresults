@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -110,9 +111,9 @@ class ActualFileTest {
         @Test
         void read() throws IOException {
             Files.write(filename,
-                    new byte[]{0x02, 0x03, 0x05, 0x06},
-                    StandardOpenOption.CREATE_NEW,
-                    StandardOpenOption.WRITE);
+                        new byte[]{0x02, 0x03, 0x05, 0x06},
+                        StandardOpenOption.CREATE_NEW,
+                        StandardOpenOption.WRITE);
 
             byte[] actual = actualFile.get(filename);
 
@@ -195,7 +196,9 @@ class ActualFileTest {
         @ParameterizedTest
         @ValueSource(ints = {0, 1, 2})
         void findDirectoriesTest(int maxDepth) throws IOException {
-            List<Path> files = actualFile.find(dirname, maxDepth, (path, basicFileAttributes) -> basicFileAttributes.isDirectory()).toList();
+            List<Path> files =
+                    actualFile.find(dirname, maxDepth, (path, basicFileAttributes) -> basicFileAttributes.isDirectory())
+                              .toList();
 
             assertTrue(files.contains(dirname));
             assertEquals(1, files.size());
@@ -204,7 +207,10 @@ class ActualFileTest {
         @ParameterizedTest
         @ValueSource(ints = {1, 2, 3})
         void findFilesTest(int maxDepth) throws IOException {
-            List<Path> files = actualFile.find(dirname, maxDepth, (path, basicFileAttributes) -> basicFileAttributes.isRegularFile()).toList();
+            List<Path> files = actualFile.find(dirname,
+                                               maxDepth,
+                                               (path, basicFileAttributes) -> basicFileAttributes.isRegularFile())
+                                         .toList();
 
             assertTrue(files.contains(fileInDirectory1));
             assertTrue(files.contains(fileInDirectory2));
@@ -214,7 +220,9 @@ class ActualFileTest {
 
         @Test
         void findFilesWithDepth0Test() throws IOException {
-            List<Path> files = actualFile.find(dirname, 0, (path, basicFileAttributes) -> basicFileAttributes.isRegularFile()).toList();
+            List<Path> files =
+                    actualFile.find(dirname, 0, (path, basicFileAttributes) -> basicFileAttributes.isRegularFile())
+                              .toList();
 
             assertEquals(0, files.size());
         }
@@ -242,21 +250,22 @@ class ActualFileTest {
         @Test
         void pathNullTest() {
             assertThrows(NullPointerException.class,
-                    () -> actualFile.find(null, 0, (path, basicFileAttributes) -> true));
+                         () -> actualFile.find(null, 0, (path, basicFileAttributes) -> true));
         }
 
         @Test
         void matcherNullTest() {
             assertThrows(NullPointerException.class,
-                    () -> actualFile.find(dirname, 0, null));
+                         () -> actualFile.find(dirname, 0, null));
         }
     }
 
     private void deleteDirectory(Path pathToBeDeleted) throws IOException {
-        Files.walk(pathToBeDeleted)
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(File::delete);
+        try (Stream<Path> paths = Files.walk(pathToBeDeleted)) {
+            paths.sorted(Comparator.reverseOrder())
+                 .map(Path::toFile)
+                 .forEach(File::delete);
+        }
     }
 
     private long getFileSize() throws IOException {

@@ -2,7 +2,6 @@ package org.lisasp.competition.test.results.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.lisasp.competition.base.api.exception.CompetitionNotFoundException;
 import org.lisasp.competition.base.api.exception.InvalidDataException;
@@ -28,7 +27,7 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class ResultServiceTests {
+class ResultServiceIT {
 
     private static final LocalDate date1 = LocalDate.of(2023, Month.AUGUST, 3);
     private static final LocalDate date2 = LocalDate.of(2023, Month.AUGUST, 5);

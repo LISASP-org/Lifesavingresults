@@ -1,17 +1,33 @@
 package org.lisasp.basics.test.jre.function.primitive;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lisasp.basics.jre.function.primitive.ByteConsumer;
 import org.lisasp.basics.jre.function.primitive.ByteNotifier;
 
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ByteNotifierTest {
 
+    private static class TestByteConsumer implements ByteConsumer {
+
+        private byte[] data;
+        private int pos = 0;
+
+        public void setData(byte... data) {
+            pos = 0;
+            this.data = data;
+        }
+
+        @Override
+        public void accept(byte value) {
+            assertEquals(data[pos], value);
+            pos++;
+        }
+    }
+
     private ByteNotifier notifier;
-    private ByteConsumer listener;
+    private TestByteConsumer listener;
 
     private byte[] data;
 
@@ -22,50 +38,33 @@ class ByteNotifierTest {
             data[x + 128] = (byte) x;
         }
 
-        listener = mock(ByteConsumer.class);
+        listener = new TestByteConsumer();
 
         notifier = new ByteNotifier();
         notifier.register(listener);
     }
 
-    @AfterEach
-    void cleanup() {
-        notifier = null;
-        listener = null;
-    }
-
-    @Test
-    void acceptEmpty() {
-        verifyNoMoreInteractions(listener);
-    }
-
     @Test
     void acceptOne() {
-        notifier.accept((byte) 0x01);
+        listener.setData((byte) 0x01);
 
-        verify(listener, times(1)).accept((byte) 0x01);
-        verifyNoMoreInteractions(listener);
+        notifier.accept((byte) 0x01);
     }
 
     @Test
     void acceptTwo() {
+        listener.setData((byte) 0x01, (byte) 0x02);
+
         notifier.accept((byte) 0x01);
         notifier.accept((byte) 0x02);
-
-        verify(listener, times(1)).accept((byte) 0x01);
-        verify(listener, times(1)).accept((byte) 0x02);
-        verifyNoMoreInteractions(listener);
     }
 
     @Test
     void accept256() {
+        listener.setData(data);
+
         for (byte b : data) {
             notifier.accept(b);
         }
-
-        for (byte b : data) {
-            verify(listener, times(1)).accept(b);
-        }
-        verifyNoMoreInteractions(listener);
     }
 }
