@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --background-rgb: 255, 255, 255;
+  --site-color1: #e30613;
+  --site-color2: #ddcb00;
+  --site-color1-darker: #71030a;
+
+  --background-even: #e6e6e6;
+  --background-odd: #f6f6f6;
+}
+
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    --background-rgb: 0, 0, 0;
+  }
+}
+ */
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  /*
+      background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+   */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: normal;
+  }
+}
+
+h1 {
+  margin-top: 1em;
+  color: var(--site-color1);
+  font-size: 2em;
+}
+
+h2 {
+  margin-top: 1em;
+  color: var(--site-color1);
+  font-size: 1.5em;
+}
+
+h3 {
+  margin-top: 0.75em;
+  color: var(--site-color1);
+  font-size: 1.2em;
+}
+
+main {
+  width: 120em;
+  align-self: center;
+}
+
+header > nav {
+  font-size: 1.2em;
+}
+
+header {
+  background: var(--site-color1);
+  color: var(--site-color2);
+}
+
+footer {
+  background: var(--site-color1);
+  color: var(--site-color2);
+  margin-top: 1em;
+}
+
+table {
+  margin-top: 1em;
+}
+
+thead {
+  background-color: var(--site-color1);
+  color: var(--site-color2);
+}
+
+tr.table-odd {
+  background-color: var(--background-odd);
+}
+
+tr.table-even {
+  background-color: var(--background-even);
+}
+
+td, th {
+  padding: 0.75em;
+}
+
+/*
+tr td:nth-child(1) {
+  text-align: right;
+}
+*/
+
+ul.dot {
+  list-style-type: disc;
+}
+
+ul.dot li {
+  margin-left: 1em;
+}
+
+a {
+  color: var(--site-color1);
+}
+
+a:visited {
+  color: var(--site-color1-darker);
+}
+
+/* mouse over link */
+a:hover {
+  color: var(--site-color1-darker);
+  text-decoration: underline var(--site-color1-darker);
+}
+
+a:active {
+  color: var(--site-color1-darker);
+}
+
+header a {
+  color: var(--site-color2);
+}
+
+header a:hover {
+  color: var(--site-color2);
+  text-decoration: underline var(--site-color2);
+}
+
+header a:visited {
+  color: var(--site-color2);
+}
+
+header a:active {
+  color: var(--site-color2);
+  text-decoration: underline var(--site-color2);
+}
+
+footer a {
+  color: var(--site-color2);
+}
+
+footer a:hover {
+  color: var(--site-color2);
+  text-decoration: underline var(--site-color2);
+}
+
+footer a:visited {
+  color: var(--site-color2);
+}
+
+footer a:active {
+  color: var(--site-color2);
+  text-decoration: underline var(--site-color2);
+}
+

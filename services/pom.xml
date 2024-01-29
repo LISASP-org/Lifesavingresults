@@ -263,6 +263,8 @@
                 <artifactId>testcontainers-keycloak</artifactId>
                 <version>${testcontainers-keycloak.version}</version>
             </dependency>
+
+            <!-- Manage vulnerabilities -->
         </dependencies>
     </dependencyManagement>
 
