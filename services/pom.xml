@@ -55,7 +55,7 @@
         <pdfbox.version>3.0.1</pdfbox.version>
 
         <lombok.version>1.18.30</lombok.version>
-        <slf4j.version>2.0.11</slf4j.version>
+        <slf4j.version>2.0.12</slf4j.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
