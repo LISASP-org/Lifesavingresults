@@ -43,12 +43,6 @@
                 <module>imports</module>
             </modules>
         </profile>
-        <profile>
-            <id>distribution</id>
-            <modules>
-                <module>results-distribution</module>
-            </modules>
-        </profile>
     </profiles>
 
     <properties>
@@ -64,13 +58,13 @@
         <slf4j.version>2.0.11</slf4j.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
 
-        <junit-jupiter.version>5.10.1</junit-jupiter.version>
-        <mockito.version>5.9.0</mockito.version>
-        <testcontainers.version>1.19.3</testcontainers.version>
+        <junit-jupiter.version>5.10.2</junit-jupiter.version>
+        <mockito.version>5.10.0</mockito.version>
+        <testcontainers.version>1.19.4</testcontainers.version>
         <testcontainers-keycloak.version>3.2.0</testcontainers-keycloak.version>
 
-        <keycloak.version>23.0.4</keycloak.version>
-        <artemismq.version>2.31.2</artemismq.version>
+        <keycloak.version>23.0.6</keycloak.version>
+        <artemismq.version>2.32.0</artemismq.version>
         <mariadb.version>3.3.2</mariadb.version>
         <h2.version>2.2.224</h2.version>
 
@@ -316,6 +310,11 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.43.4</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>3.6.1</version>
@@ -358,7 +357,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.15.4</version>
+                    <version>1.15.7</version>
                 </plugin>
                 <plugin>
                     <groupId>org.projectlombok</groupId>
@@ -398,6 +397,13 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok-maven-plugin</artifactId>

@@ -115,4 +115,39 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                    <!-- <pushRegistry>localhost:5000</pushRegistry> -->
+                    <!-- <containerNamePattern>lsr-backend</containerNamePattern>-->
+                    <images>
+                        <image>
+                            <alias>lifesavingresults-backend</alias>
+                            <name>lisasp/lifesavingresults-backend:${project.version}</name>
+                            <build>
+                                <from>eclipse-temurin:21-alpine</from>
+                                <assemblies>
+                                    <assembly>
+                                        <mode>dir</mode>
+                                        <descriptorRef>artifact</descriptorRef>
+                                    </assembly>
+                                </assemblies>
+                                <entryPoint>java -jar maven/${project.artifactId}-${project.version}.jar</entryPoint>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>8080:8080</port>
+                                </ports>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
