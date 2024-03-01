@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <version>3.2.3</version>
         <relativePath/>
     </parent>
 
@@ -55,17 +55,17 @@
         <pdfbox.version>3.0.1</pdfbox.version>
 
         <lombok.version>1.18.30</lombok.version>
-        <slf4j.version>2.0.11</slf4j.version>
+        <slf4j.version>2.0.12</slf4j.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
-        <mockito.version>5.10.0</mockito.version>
-        <testcontainers.version>1.19.4</testcontainers.version>
+        <mockito.version>5.11.0</mockito.version>
+        <testcontainers.version>1.19.6</testcontainers.version>
         <testcontainers-keycloak.version>3.2.0</testcontainers-keycloak.version>
 
-        <keycloak.version>23.0.6</keycloak.version>
+        <keycloak.version>23.0.7</keycloak.version>
         <artemismq.version>2.32.0</artemismq.version>
-        <mariadb.version>3.3.2</mariadb.version>
+        <mariadb.version>3.3.3</mariadb.version>
         <h2.version>2.2.224</h2.version>
 
         <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
@@ -312,7 +312,7 @@
                 <plugin>
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.43.4</version>
+                    <version>0.44.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -357,7 +357,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.15.7</version>
+                    <version>1.15.8</version>
                 </plugin>
                 <plugin>
                     <groupId>org.projectlombok</groupId>
@@ -392,7 +392,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
