@@ -61,7 +61,7 @@
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
         <mockito.version>5.11.0</mockito.version>
         <testcontainers.version>1.19.6</testcontainers.version>
-        <testcontainers-keycloak.version>3.2.0</testcontainers-keycloak.version>
+        <testcontainers-keycloak.version>3.3.0</testcontainers-keycloak.version>
 
         <keycloak.version>23.0.7</keycloak.version>
         <artemismq.version>2.32.0</artemismq.version>
