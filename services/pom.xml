@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.3</version>
+        <version>3.2.4</version>
         <relativePath/>
     </parent>
 
@@ -51,17 +51,17 @@
 
         <opencsv.version>5.9</opencsv.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <springdoc.version>2.3.0</springdoc.version>
+        <springdoc.version>2.4.0</springdoc.version>
         <pdfbox.version>3.0.1</pdfbox.version>
 
-        <lombok.version>1.18.30</lombok.version>
+        <lombok.version>1.18.32</lombok.version>
         <slf4j.version>2.0.12</slf4j.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
         <mockito.version>5.11.0</mockito.version>
-        <testcontainers.version>1.19.6</testcontainers.version>
-        <testcontainers-keycloak.version>3.2.0</testcontainers-keycloak.version>
+        <testcontainers.version>1.19.7</testcontainers.version>
+        <testcontainers-keycloak.version>3.3.0</testcontainers-keycloak.version>
 
         <keycloak.version>23.0.7</keycloak.version>
         <artemismq.version>2.32.0</artemismq.version>
@@ -322,7 +322,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.12.1</version>
+                    <version>3.13.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

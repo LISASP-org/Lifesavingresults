@@ -31,3 +31,6 @@ services/competition-server/db/
 services/.profiler/
 
 services/.mvn/
+
+# JetBrains
+.idea
