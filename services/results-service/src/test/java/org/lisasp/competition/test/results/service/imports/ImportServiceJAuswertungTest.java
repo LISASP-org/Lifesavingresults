@@ -63,7 +63,7 @@ public class ImportServiceJAuswertungTest {
         String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("jauswertung/individual-no-event");
 
-        service.importFromJAuswertung(uploadId, content);
+        service.importFromJAuswertung(uploadId, 0, content);
 
         CompetitionDto competition = resultService.findCompetition(competitionId);
         assertNotNull(competition);
@@ -79,7 +79,7 @@ public class ImportServiceJAuswertungTest {
         String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("jauswertung/team");
 
-        service.importFromJAuswertung(uploadId, content);
+        service.importFromJAuswertung(uploadId, 0, content);
 
         CompetitionDto competition = resultService.findCompetition(competitionId);
         assertNotNull(competition);

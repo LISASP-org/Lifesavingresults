@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.lisasp.competition.base.api.exception.FileFormatException;
 import org.lisasp.competition.base.api.exception.InvalidDataException;
 import org.lisasp.competition.base.api.exception.NotFoundException;
+import org.lisasp.competition.base.api.exception.StorageException;
 import org.lisasp.competition.results.api.CompetitionDto;
 import org.lisasp.competition.results.api.EntryDto;
 import org.lisasp.competition.results.api.EventDto;
@@ -29,14 +30,21 @@ public class ResultController {
 
     private final CompetitionServerAuthorizationService authorizationService;
 
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"), @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Competition not found"),
+            @ApiResponse(responseCode = "200", useReturnTypeSchema = true)
+    })
     @GetMapping("/competition/{id}")
     @Transactional
     public CompetitionDto getCompetitionById(@PathVariable String id) throws NotFoundException {
         return resultService.findCompetition(id);
     }
 
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"), @ApiResponse(responseCode = "403", description = "user is not authorized"), @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Competition not found"),
+            @ApiResponse(responseCode = "403", description = "user is not authorized"),
+            @ApiResponse(responseCode = "200", useReturnTypeSchema = true)
+    })
     @GetMapping("/competition/{id}/uploadId")
     @Transactional
     public String getUploadId(@PathVariable String id) throws NotFoundException {
@@ -50,7 +58,10 @@ public class ResultController {
         return resultService.findCompetitions();
     }
 
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"), @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Competition not found"),
+            @ApiResponse(responseCode = "200", useReturnTypeSchema = true)
+    })
     @GetMapping("/competition/{competitionId}/event")
     @Transactional
     public EventDto[] findEventsByCompetitionId(@PathVariable String competitionId) throws NotFoundException {
@@ -58,33 +69,39 @@ public class ResultController {
     }
 
     @GetMapping("/event/{eventId}/entry")
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found or event not found in competition"),
-            @ApiResponse(responseCode = "200", useReturnTypeSchema = true)})
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Competition not found or event not found in competition"),
+            @ApiResponse(responseCode = "200", useReturnTypeSchema = true)
+    })
     @Transactional
     public EntryDto[] findEntriesByEvent(@PathVariable String eventId) throws NotFoundException {
         return resultService.findEntries(eventId);
     }
 
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"),
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Competition not found"),
             @ApiResponse(responseCode = "400", description = "The provided data could not be parsed"),
-            @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)})
-    @PutMapping("/import/jauswertung/{uploadId}")
+            @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)
+    })
+    @PutMapping("/import/jauswertung/{uploadId}/{index}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public void importFromJAuswertung(@PathVariable String uploadId, @RequestBody String competition)
-            throws NotFoundException, FileFormatException, InvalidDataException {
-        importService.importFromJAuswertung(uploadId, competition);
+    public void importFromJAuswertung(@PathVariable String uploadId, @PathVariable int index, @RequestBody String competition)
+            throws NotFoundException, FileFormatException, InvalidDataException, StorageException {
+        importService.importFromJAuswertung(uploadId, index, competition);
     }
 
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Competition not found"),
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Competition not found"),
             @ApiResponse(responseCode = "400", description = "The provided data could not be parsed"),
-            @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)})
-    @PutMapping("/import/core/{uploadId}")
+            @ApiResponse(responseCode = "204", description = "Import successful", useReturnTypeSchema = true)
+    })
+    @PutMapping("/import/core/{uploadId}/{index}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public void importCompetition(@PathVariable String uploadId, @RequestBody String competition)
-            throws NotFoundException, FileFormatException, InvalidDataException {
-        importService.importCompetition(uploadId, competition);
+    public void importCompetition(@PathVariable String uploadId, @PathVariable int index, @RequestBody String competition)
+            throws NotFoundException, FileFormatException, InvalidDataException, StorageException {
+        importService.importCompetition(uploadId, index, competition);
     }
 
     private void getAssertAuthorization(Rights right, String competitionId) {

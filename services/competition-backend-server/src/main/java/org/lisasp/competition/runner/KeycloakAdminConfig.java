@@ -21,6 +21,8 @@ public class KeycloakAdminConfig {
     private String realmName;
     @Value("${app.keycloak.client-id}")
     private String clientId;
+    @Value("${app.keycloak.secret}")
+    private String secret;
     @Value("${app.keycloak.valid-redirect-urls}")
     private List<String> validRedirectUrls;
     @Value("${app.keycloak.web-origins}")

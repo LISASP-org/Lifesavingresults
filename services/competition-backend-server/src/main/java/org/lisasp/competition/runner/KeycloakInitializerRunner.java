@@ -50,7 +50,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
             // Client
             ClientRepresentation clientRepresentation = new ClientRepresentation();
             clientRepresentation.setClientId(config.getClientId());
-            clientRepresentation.setSecret(config.getClientId());
+            clientRepresentation.setSecret(config.getSecret());
             clientRepresentation.setDirectAccessGrantsEnabled(true);
             clientRepresentation.setPublicClient(true);
             clientRepresentation.setRedirectUris(config.getValidRedirectUrls());
@@ -87,7 +87,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
 
             try (Keycloak keycloakRealmAccess = KeycloakBuilder.builder().serverUrl(config.getServerUrl())
                     .realm(config.getRealmName()).username(admin.username()).password(admin.password())
-                    .clientId(config.getClientId()).build()) {
+                    .clientId(config.getClientId()).clientSecret(config.getSecret()).build()) {
 
                 log.info("'{}' token: {}", admin.username(), keycloakRealmAccess.tokenManager().grantToken().getToken());
                 log.info("'{}' initialization completed successfully!", config.getRealmName());

@@ -65,7 +65,7 @@ public class ImportServiceTest {
         resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", null, null));
         String uploadId = resultService.getUploadId(competitionId);
 
-        assertThrows(InvalidDataException.class, () -> service.importCompetition(uploadId, content));
+        assertThrows(InvalidDataException.class, () -> service.importCompetition(uploadId, 0, content));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ImportServiceTest {
         String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("individual-no-event");
 
-        service.importCompetition(uploadId, content);
+        service.importCompetition(uploadId, 0, content);
 
         CompetitionDto competition = resultService.findCompetition(competitionId);
         assertNotNull(competition);
@@ -91,8 +91,25 @@ public class ImportServiceTest {
         String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("individual-no-event");
 
-        service.importCompetition(uploadId, content);
-        service.importCompetition(uploadId, content);
+        service.importCompetition(uploadId, 0, content);
+        service.importCompetition(uploadId, 0, content);
+
+        CompetitionDto competition = resultService.findCompetition(competitionId);
+        assertNotNull(competition);
+        assertEquals(competitionId, competition.id());
+
+        assertEquals(0, resultService.findEvents(competitionId).length);
+    }
+
+    @Test
+    void importSimpleCompetitionWithTwoIndices() throws Exception {
+        final String competitionId = "1";
+        resultService.addOrUpdate(new org.lisasp.competition.api.CompetitionDto(competitionId, 1, "Competition to import", "CTI", null, null));
+        String uploadId = resultService.getUploadId(competitionId);
+        String content = readFile("individual-no-event");
+
+        service.importCompetition(uploadId, 0, content);
+        service.importCompetition(uploadId, 1, content);
 
         CompetitionDto competition = resultService.findCompetition(competitionId);
         assertNotNull(competition);
@@ -108,7 +125,7 @@ public class ImportServiceTest {
         String uploadId = resultService.getUploadId(competitionId);
         String content = readFile("team");
 
-        service.importCompetition(uploadId, content);
+        service.importCompetition(uploadId, 0, content);
 
         CompetitionDto competition = resultService.findCompetition(competitionId);
         assertNotNull(competition);
