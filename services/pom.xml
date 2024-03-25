@@ -64,7 +64,7 @@
         <testcontainers-keycloak.version>3.3.0</testcontainers-keycloak.version>
 
         <keycloak.version>23.0.7</keycloak.version>
-        <artemismq.version>2.32.0</artemismq.version>
+        <artemismq.version>2.33.0</artemismq.version>
         <mariadb.version>3.3.3</mariadb.version>
         <h2.version>2.2.224</h2.version>
 
