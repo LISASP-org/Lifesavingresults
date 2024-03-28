@@ -117,7 +117,7 @@
                     <!-- <containerNamePattern>lsr-backend</containerNamePattern>-->
                     <images>
                         <image>
-                            <alias>lifesavingresults-backend</alias>
+                            <alias>lifesavingsports-organizer-backend</alias>
                             <name>lisasp/lifesavingsports-organizer-backend:${project.version}</name>
                             <build>
                                 <from>eclipse-temurin:21-alpine</from>
