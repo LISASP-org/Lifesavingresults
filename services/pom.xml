@@ -10,12 +10,12 @@
     </parent>
 
     <groupId>org.lisasp.competition</groupId>
-    <artifactId>results-parent</artifactId>
+    <artifactId>organizer-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>results parent</name>
-    <description>Results in Lifesaving sports</description>
+    <name>Lifesaving-Sports Organizer</name>
+    <description>Lifesaving-Sports Organizer</description>
     <url>https://github.com/LISASP-org/Lifesavingresults</url>
 
     <modules>
@@ -33,7 +33,7 @@
         <module>results-service</module>
         <module>time-api</module>
         <module>time-service</module>
-        <module>competition-backend-server</module>
+        <module>lifesavingsports-backend</module>
     </modules>
 
     <profiles>
@@ -52,7 +52,7 @@
         <opencsv.version>5.9</opencsv.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <springdoc.version>2.4.0</springdoc.version>
-        <pdfbox.version>3.0.1</pdfbox.version>
+        <pdfbox.version>3.0.2</pdfbox.version>
 
         <lombok.version>1.18.32</lombok.version>
         <slf4j.version>2.0.12</slf4j.version>
@@ -64,7 +64,7 @@
         <testcontainers-keycloak.version>3.3.0</testcontainers-keycloak.version>
 
         <keycloak.version>23.0.7</keycloak.version>
-        <artemismq.version>2.32.0</artemismq.version>
+        <artemismq.version>2.33.0</artemismq.version>
         <mariadb.version>3.3.3</mariadb.version>
         <h2.version>2.2.224</h2.version>
 
@@ -149,7 +149,7 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.competition</groupId>
-                <artifactId>competition-backend-server</artifactId>
+                <artifactId>lifesavingsports-backend</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

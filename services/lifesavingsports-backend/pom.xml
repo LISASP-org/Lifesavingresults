@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.lisasp.competition</groupId>
-        <artifactId>results-parent</artifactId>
+        <artifactId>organizer-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>competition-backend-server</artifactId>
-    <name>Results-Server</name>
+    <artifactId>lifesavingsports-backend</artifactId>
+    <name>Lifesaving-Sports Organizer Backend-Service</name>
 
     <properties>
         <spring-boot.skip>false</spring-boot.skip>
@@ -51,16 +51,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        -->
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-admin-client</artifactId>
@@ -128,7 +118,7 @@
                     <images>
                         <image>
                             <alias>lifesavingresults-backend</alias>
-                            <name>lisasp/lifesavingresults-backend:${project.version}</name>
+                            <name>lisasp/lifesavingsports-organizer-backend:${project.version}</name>
                             <build>
                                 <from>eclipse-temurin:21-alpine</from>
                                 <assemblies>

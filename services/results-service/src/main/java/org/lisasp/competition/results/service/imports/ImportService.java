@@ -44,7 +44,6 @@ public class ImportService {
         if (result == StorageResult.Unchanged) {
             return;
         }
-
         resultService.update(id, storage.get(id));
     }
 }
